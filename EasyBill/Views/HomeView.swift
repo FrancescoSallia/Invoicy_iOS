@@ -13,44 +13,62 @@ struct HomeView: View {
             Divider()
                 .padding(.top, 4)
             Spacer()
-            VStack(alignment: .center) {
-                Spacer()
-                Image("bill_icon")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 250)
-                
-                Text("Erstellen Sie ihre erste Rechnung")
-                    .font(.title2)
-                    .bold()
-                
-                Text("Beginnen Sie, Zahlungen zu verfolgen und ihr Geschäftseinkommen zu verwalten")
-                    .padding(.horizontal)
-                    .font(.subheadline)
-                    .italic()
-                    .multilineTextAlignment(.center)
-                Spacer()
-                
-                
-                
-                
-                
-            }
-            .navigationTitle("Invoices")
-            .navigationBarTitleDisplayMode(.inline)
             
-            
-            .toolbar {
-                HStack {
-                    Image(systemName: "gift.fill")
-                    Button("Upgrade") {
-                        //TODO: Logic
-                    }
+            ZStack(alignment: .bottomTrailing) {
+                VStack(alignment: .center) {
+                    Spacer()
+                    Image("bill_icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 200)
+                    
+                    Text("Erstellen Sie ihre erste Rechnung")
+                        .font(.title2)
+                        .padding(.bottom, 4)
+                        .bold()
+                    
+                    Text("Beginnen Sie, Zahlungen zu verfolgen und ihr Geschäftseinkommen zu verwalten")
+                        .padding(.horizontal)
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
+                        .multilineTextAlignment(.center)
+                    Spacer()
+                    Spacer()
                 }
-                .foregroundStyle(.white)
-                .padding(5)
-                .background(Color.yellow)
-                .clipShape(.buttonBorder)
+                .navigationTitle("Invoices")
+                .navigationBarTitleDisplayMode(.inline)
+                
+                
+                .toolbar {
+                    HStack {
+                        Image(systemName: "gift.fill")
+                        Button("Upgrade") {
+                            //TODO: Logic
+                        }
+                    }
+                    .foregroundStyle(.white)
+                    .padding(5)
+                    .background(Color.yellow)
+                    .clipShape(.buttonBorder)
+                }
+                
+                Button {
+                    //TODO: Logic
+                } label: {
+                    HStack {
+                        Image(systemName: "plus")
+                            .bold()
+                        Text("Add Invoice")
+                            .bold()
+                    }
+                    .padding(4)
+                }
+                .buttonStyle(.borderedProminent)
+                .clipShape(RoundedRectangle(cornerRadius: 40))
+                .padding()
+                .padding(.bottom)
+                .shadow(radius: 16)
+                
             }
         }
     }

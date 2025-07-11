@@ -13,30 +13,62 @@ struct CustomerView: View {
             Divider()
                 .padding(.top, 4)
             Spacer()
-            VStack {
-                Spacer()
-                Image("customer_icon")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 200)
-                Spacer()
-                
-            }
-            .navigationTitle("Invoices")
-            .navigationBarTitleDisplayMode(.inline)
             
-            
-            .toolbar {
-                HStack {
-                    Image(systemName: "gift.fill")
-                    Button("Upgrade") {
-                        //TODO: Logic
-                    }
+            ZStack(alignment: .bottomTrailing) {
+                VStack(alignment: .center) {
+                    Spacer()
+                    Image("customer_icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 180)
+                    
+                    Text("Fügen Sie ihren ersten Kunden hinzu")
+                        .font(.title2)
+                        .padding(.bottom, 4)
+                        .bold()
+                    
+                    Text("Beginnen Sie, Ihre Kundenbasis aufzubauen und erstellen Sie in wenigen Minuten professionelle Rechnungen.")
+                        .padding(.horizontal)
+                        .font(.subheadline)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.gray)
+                    Spacer()
+                    Spacer()
                 }
-                .foregroundStyle(.white)
-                .padding(5)
-                .background(Color.yellow)
-                .clipShape(.buttonBorder)
+                .navigationTitle("Clients")
+                .navigationBarTitleDisplayMode(.inline)
+                
+                
+                .toolbar {
+                    HStack {
+                        Image(systemName: "gift.fill")
+                        Button("Upgrade") {
+                            //TODO: Logic
+                        }
+                    }
+                    .foregroundStyle(.white)
+                    .padding(5)
+                    .background(Color.yellow)
+                    .clipShape(.buttonBorder)
+                }
+                
+                Button {
+                    //TODO: Logic
+                } label: {
+                    HStack {
+                        Image(systemName: "plus")
+                            .bold()
+                        Text("Add Client")
+                            .bold()
+                    }
+                    .padding(4)
+                }
+                .buttonStyle(.borderedProminent)
+                .clipShape(RoundedRectangle(cornerRadius: 40))
+                .padding()
+                .padding(.bottom)
+                .shadow(radius: 16)
+                
             }
         }
 
