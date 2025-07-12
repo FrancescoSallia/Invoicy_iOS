@@ -65,9 +65,10 @@ struct CustomerView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .clipShape(RoundedRectangle(cornerRadius: 40))
+                .tint(.tabViewBackground)
                 .padding()
                 .padding(.bottom)
-                .shadow(radius: 16)
+                .shadow(radius: 8)
                 
             }
         }

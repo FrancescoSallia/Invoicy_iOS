@@ -1,13 +1,13 @@
 //
-//  HomeView.swift
+//  BusinessView.swift
 //  EasyBill
 //
-//  Created by Francesco Sallia on 07.07.25.
+//  Created by Francesco Sallia on 12.07.25.
 //
 
 import SwiftUI
 
-struct HomeView: View {
+struct BusinessView: View {
     var body: some View {
         NavigationStack {
             Divider()
@@ -17,25 +17,25 @@ struct HomeView: View {
             ZStack(alignment: .bottomTrailing) {
                 VStack(alignment: .center) {
                     Spacer()
-                    Image("bill_icon")
+                    Image("business_icon")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 200)
+                        .frame(height: 150)
                     
-                    Text("Erstellen Sie ihre erste Rechnung")
+                    Text("Starten Sie Ihre Unternehmsreise")
                         .font(.title2)
                         .padding(.bottom, 4)
                         .bold()
                     
-                    Text("Beginnen Sie, Zahlungen zu verfolgen und ihr Geschäftseinkommen zu verwalten")
+                    Text("Fügen Sie Ihr erstes Unternehmen hinzu, um Ihre Finanzen zu verwalten und Rechnungen zu erstellen.")
                         .padding(.horizontal)
                         .font(.subheadline)
-                        .foregroundStyle(.gray)
                         .multilineTextAlignment(.center)
+                        .foregroundStyle(.gray)
                     Spacer()
                     Spacer()
                 }
-                .navigationTitle("Invoices")
+                .navigationTitle("Business")
                 .navigationBarTitleDisplayMode(.inline)
                 
                 
@@ -58,23 +58,22 @@ struct HomeView: View {
                     HStack {
                         Image(systemName: "plus")
                             .bold()
-                        Text("Add Invoice")
+                        Text("Add Business")
                             .bold()
                     }
                     .padding(4)
-
                 }
                 .buttonStyle(.borderedProminent)
                 .clipShape(RoundedRectangle(cornerRadius: 40))
-                .tint(.tabViewBackground)
                 .padding()
                 .padding(.bottom)
-                .shadow(radius: 8)
+                .shadow(radius: 10)
+                
             }
         }
     }
 }
 
 #Preview {
-    HomeView()
+    BusinessView()
 }
