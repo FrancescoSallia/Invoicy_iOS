@@ -134,20 +134,21 @@ struct BusinessFormView: View {
 
                 }
                 
-                Section(header: Text("Signatur")) {
+                Section(header: Text("Signatur")) { //TODO: Hier weiter machen
                     if let image = viewModel.signatureImage {
-                        VStack {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 100)
-                                .padding(.vertical, 4)
-
-                            Button("Signatur löschen", role: .destructive) {
-//                                viewModel.signatureImage = nil
+                        HStack {
+                            Text("Signatur:")
+                            Spacer()
+                            Button {
                                 viewModel.showSignatureView = true
-
+                            } label: {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 100)
+                                    .padding(.vertical, 4)
                             }
+                            .padding(.horizontal)
                         }
                     } else {
                         HStack {
@@ -170,19 +171,28 @@ struct BusinessFormView: View {
                             
                             
                 Section(header: Text("Logo")) {
-                    Button{
-                        viewModel.showImagePicker = true
-                    } label: {
-                        
-                        if let image = viewModel.logoImage {
-                            Image(uiImage: image)
-                                .resizable()
-                                .frame(maxWidth: 100, maxHeight: 100)
-                                .clipShape(RoundedRectangle(cornerRadius: 6))
-                        } else {
-                            Label("Logo hinzufügen", systemImage: "photo")
+                    HStack {
+                        Text("Logo:")
+                        Spacer()
+                        Button{
+                            viewModel.showImagePicker = true
+                        } label: {
+                            if let image = viewModel.logoImage {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .frame(maxWidth: 100, maxHeight: 100)
+                                    .clipShape(RoundedRectangle(cornerRadius: 6))
+                            } else {
+//                                Label("Logo hinzufügen", systemImage: "photo")
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 80, height: 80)
+                                    .tint(.primary)
+                            }
                         }
                     }
+                    .padding(.horizontal)
                 }
 
                 Section {
