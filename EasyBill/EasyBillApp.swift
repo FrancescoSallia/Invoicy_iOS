@@ -11,24 +11,25 @@ import SwiftUI
 struct EasyBillApp: App {
     var body: some Scene {
         WindowGroup {
-            TabView {
-                
-                Tab("Home", systemImage: "house.fill") {
-                        HomeView()
-                    }
-                Tab("Clients", systemImage: "person.text.rectangle.fill") {
-                        CustomerView()
-                    }
-                Tab("Business", systemImage: "suitcase") {
-                        BusinessView()
-                    }
-                Tab("Settings", systemImage: "gearshape") {
-                        SettingsView()
-                    }
-            }
-            .onAppear {
-                UITabBar.appearance().backgroundColor = UIColor.tabViewBackground
-            }
+            CustomTabView()
+//            TabView {
+//                
+//                Tab("Home", systemImage: "house.fill") {
+//                        HomeView()
+//                    }
+//                Tab("Clients", systemImage: "person.text.rectangle.fill") {
+//                        ClientsView()
+//                    }
+//                Tab("Business", systemImage: "suitcase") {
+//                        BusinessView()
+//                    }
+//                Tab("Settings", systemImage: "gearshape") {
+//                        SettingsView()
+//                    }
+//            }
+//            .onAppear {
+//                UITabBar.appearance().backgroundColor = UIColor.tabViewBackground
+//            }
 
         }
     }

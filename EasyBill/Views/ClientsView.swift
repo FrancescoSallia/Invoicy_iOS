@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct CustomerView: View {
+struct ClientsView: View {
+        
     var body: some View {
         NavigationStack {
             Divider()
@@ -35,7 +36,8 @@ struct CustomerView: View {
                     Spacer()
                     Spacer()
                 }
-                .navigationTitle("Clients")
+            
+            .navigationBarTitle("Client's")
                 .navigationBarTitleDisplayMode(.inline)
                 
                 
@@ -52,8 +54,8 @@ struct CustomerView: View {
                     .clipShape(.buttonBorder)
                 }
                 
-                Button {
-                    //TODO: Logic
+                NavigationLink {
+                    ClientFormView()
                 } label: {
                     HStack {
                         Image(systemName: "plus")
@@ -65,17 +67,35 @@ struct CustomerView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .clipShape(RoundedRectangle(cornerRadius: 40))
-                .tint(.tabViewBackground)
                 .padding()
                 .padding(.bottom)
-                .shadow(radius: 8)
-                
+                .shadow(radius: 4)
+
             }
         }
 
     }
 }
 
+
 #Preview {
-    CustomerView()
+    ClientsView()
 }
+
+
+//                Button {
+//                    //TODO: Logic
+//                } label: {
+//                    HStack {
+//                        Image(systemName: "plus")
+//                            .bold()
+//                        Text("Add Client")
+//                            .bold()
+//                    }
+//                    .padding(4)
+//                }
+//                .buttonStyle(.borderedProminent)
+//                .clipShape(RoundedRectangle(cornerRadius: 40))
+//                .padding()
+//                .padding(.bottom)
+//                .shadow(radius: 8)

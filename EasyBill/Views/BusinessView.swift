@@ -67,7 +67,7 @@ struct BusinessView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 40))
                 .padding()
                 .padding(.bottom)
-                .shadow(radius: 10)
+                .shadow(radius: 8)
                 
             }
         }

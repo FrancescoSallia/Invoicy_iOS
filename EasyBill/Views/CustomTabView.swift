@@ -19,7 +19,7 @@ struct CustomTabView: View {
                 case .home:
                     HomeView()
                 case .clients:
-                    CustomerView()
+                    ClientsView()
                 case .business:
                     BusinessView()
                 case .settings:
@@ -38,7 +38,7 @@ struct CustomTabView: View {
                             ZStack {
                                 if selectedTab == tab {
                                     Rectangle()
-                                        .fill(Color.blue)
+                                        .fill(Color.cyan)
                                         .frame(height: 3)
                                         .matchedGeometryEffect(id: "indicator", in: animationNamespace)
                                         .padding(.horizontal, 10)
@@ -59,7 +59,7 @@ struct CustomTabView: View {
                                     Text(tab.rawValue)
                                         .font(.caption2)
                                 }
-                                .foregroundColor(selectedTab == tab ? .blue : .gray)
+                                .foregroundColor(selectedTab == tab ? .cyan : .gray)
                                 .frame(maxWidth: .infinity)
                             }
                         }
@@ -67,12 +67,13 @@ struct CustomTabView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 10)
+                .background(Color.cyan.opacity(0.1))
                 .background(.ultraThinMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
                 .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 4)
                 .padding(.horizontal, 30)
                 .padding(.bottom, 20)
-                .background(selectedTab == TabItem.settings ? .gray.opacity(0.1) : Color.clear)
+                .background(selectedTab == .settings ? .gray.opacity(0.1) : Color.clear)
             }
         }
         .edgesIgnoringSafeArea(.bottom)
