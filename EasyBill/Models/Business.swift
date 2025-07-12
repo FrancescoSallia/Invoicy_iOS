@@ -1,5 +1,5 @@
 //
-//  Client.swift
+//  Business.swift
 //  EasyBill
 //
 //  Created by Francesco Sallia on 12.07.25.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Client {
+struct Business {
     
-    var clientName: String
+    var businessName: String
     var email: String
     var website: String? = nil
     
     //Kontaktinformation
-    var contactName: String
+    var contactName: String? = nil
     var phoneNumber: String
     
     //Adressedetails
@@ -27,5 +27,10 @@ struct Client {
     //tax details
     var companyRegistrationNumber : String? = nil // Co. Reg. No. = Company Registration Number
     var ustIdNr: String? = nil //  VAT Reg. No. = Umsatzsteuer-Identifikationsnummer (USt-IdNr.)
+    var vatApplicable: String? = nil // VAT Applicable“ bedeutet auf Deutsch: „Mehrwertsteuer anwendbar“ oder „Umsatzsteuerpflichtig“
     
+    //Zahlungsdetails
+    var bankPayment: BankPayment? = nil
+    var logoUrl: URL? = nil
+    var signatureUrl: URL? = nil
 }

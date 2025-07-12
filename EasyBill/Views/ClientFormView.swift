@@ -16,6 +16,7 @@ struct ClientFormView: View {
     @State private var phoneNumber = ""
 
     @State private var street = ""
+    @State private var houseNumber = ""
     @State private var postalCode = ""
     @State private var city = ""
     @State private var country = ""
@@ -143,6 +144,7 @@ struct ClientFormView: View {
                             contactName: contactName,
                             phoneNumber: phoneNumber,
                             street: street,
+                            houseNumber: houseNumber,
                             postalCode: postalCode,
                             city: city,
                             country: country,

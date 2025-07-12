@@ -52,8 +52,8 @@ struct BusinessView: View {
                     .clipShape(.buttonBorder)
                 }
                 
-                Button {
-                    //TODO: Logic
+                NavigationLink {
+                    BusinessFormView()
                 } label: {
                     HStack {
                         Image(systemName: "plus")
@@ -67,7 +67,8 @@ struct BusinessView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 40))
                 .padding()
                 .padding(.bottom)
-                .shadow(radius: 8)
+                .shadow(radius: 4)
+
                 
             }
         }
