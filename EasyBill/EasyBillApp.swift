@@ -9,11 +9,20 @@ import SwiftUI
 
 @main
 struct EasyBillApp: App {
+    
+    
     var body: some Scene {
         WindowGroup {
             CustomTabView()
+        }
+    }
+}
+
+
+
+
 //            TabView {
-//                
+//
 //                Tab("Home", systemImage: "house.fill") {
 //                        HomeView()
 //                    }
@@ -30,7 +39,3 @@ struct EasyBillApp: App {
 //            .onAppear {
 //                UITabBar.appearance().backgroundColor = UIColor.tabViewBackground
 //            }
-
-        }
-    }
-}

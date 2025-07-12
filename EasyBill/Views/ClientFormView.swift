@@ -22,23 +22,35 @@ struct ClientFormView: View {
 
     @State private var companyRegistrationNumber = ""
     @State private var ustIdNr = ""
+    
+    
+    @State private var showValidation = false
 
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Allgemein")) {
                     HStack {
-                        Text("Firmenname")
+                        Text("Firmenname:")
                         TextField("z. B. ACME GmbH", text: $clientName, prompt: Text("z. B. ACME GmbH"))
                             .multilineTextAlignment(.trailing)
+                        
+                        if showValidation && clientName.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
                     }
                     HStack {
-                        Text("E-Mail")
+                        Text("E-Mail:")
                         TextField("z. B. info@acme.de", text: $email, prompt: Text("z. B. info@acme.de"))
                             .multilineTextAlignment(.trailing)
+                        if showValidation && email.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
                     }
                     HStack {
-                        Text("Website")
+                        Text("Website:")
                         TextField("z. B. acme.de", text: $website, prompt: Text("z. B. acme.de"))
                             .multilineTextAlignment(.trailing)
                     }
@@ -46,55 +58,84 @@ struct ClientFormView: View {
 
                 Section(header: Text("Kontaktperson")) {
                     HStack {
-                        Text("Name")
+                        Text("Name:")
                         TextField("z. B. Max Mustermann", text: $contactName, prompt: Text("z. B. Max Mustermann"))
                             .multilineTextAlignment(.trailing)
+                        if showValidation && contactName.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
                     }
                     HStack {
-                        Text("Telefonnummer")
+                        Text("Telefonnummer:")
                         TextField("z. B. +49 123 456789", text: $phoneNumber, prompt: Text("z. B. +49 123 456789"))
                             .multilineTextAlignment(.trailing)
+                        if showValidation && phoneNumber.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
                     }
                 }
 
                 Section(header: Text("Adresse")) {
                     HStack {
-                        Text("Straße")
+                        Text("Straße:")
                         TextField("z. B. Musterstraße 1", text: $street, prompt: Text("z. B. Musterstraße 1"))
                             .multilineTextAlignment(.trailing)
+                        if showValidation && street.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
                     }
                     HStack {
-                        Text("Postleitzahl")
+                        Text("Postleitzahl:")
                         TextField("z. B. 12345", text: $postalCode, prompt: Text("z. B. 12345"))
                             .multilineTextAlignment(.trailing)
+                        if showValidation && postalCode.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
                     }
                     HStack {
-                        Text("Stadt")
+                        Text("Stadt:")
                         TextField("z. B. Berlin", text: $city, prompt: Text("z. B. Berlin"))
                             .multilineTextAlignment(.trailing)
+                        if showValidation && city.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
                     }
                     HStack {
-                        Text("Land")
+                        Text("Land:")
                         TextField("z. B. Deutschland", text: $country, prompt: Text("z. B. Deutschland"))
                             .multilineTextAlignment(.trailing)
+                        if showValidation && country.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
                     }
                 }
 
                 Section(header: Text("Steuerinformationen")) {
                     HStack {
-                        Text("Handelsregisternummer")
+                        Text("Handelsregisternummer:")
                         TextField("z. B. HRB 123456", text: $companyRegistrationNumber, prompt: Text("z. B. HRB 123456"))
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
-                        Text("USt-IdNr.")
+                        Text("USt-IdNr.:")
                         TextField("z. B. DE123456789", text: $ustIdNr, prompt: Text("z. B. DE123456789"))
                             .multilineTextAlignment(.trailing)
                     }
                 }
 
                 Section {
-                    Button("Kunde speichern") {
+                        Button("Kunde speichern") {
+                        
+                        withAnimation {
+                            showValidation = true
+                        }
+                        
                         let client = Client(
                             clientName: clientName,
                             email: email,
@@ -110,6 +151,7 @@ struct ClientFormView: View {
                         )
                         print("Kunde gespeichert: \(client)")
                     }
+                    .buttonStyle(.borderedProminent)
                 }
             }
         }
