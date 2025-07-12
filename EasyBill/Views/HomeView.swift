@@ -68,7 +68,6 @@ struct HomeView: View {
                 .padding()
                 .padding(.bottom)
                 .shadow(radius: 4)
-
             }
         }
     }

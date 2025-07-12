@@ -25,7 +25,7 @@ struct CustomTabView: View {
                 case .business:
                     BusinessView(viewModel: viewModel)
                 case .settings:
-                    SettingsView()
+                    SettingsView(viewModel: viewModel)
                 }
                 Spacer()
             }

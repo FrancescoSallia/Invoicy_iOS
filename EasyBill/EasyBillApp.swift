@@ -30,10 +30,10 @@ struct EasyBillApp: App {
                                 BusinessView(viewModel: viewModel)
                                 }
                             Tab("Settings", systemImage: "gearshape") {
-                                    SettingsView()
+                                SettingsView(viewModel: viewModel)
                                 }
                         }
-                         .preferredColorScheme(.light) // <- globaler Theme Switch
+                        .preferredColorScheme(viewModel.selectedTheme.colorScheme) // <- globaler Theme Switch
                          .tint(.tabViewBackground)
 
 //                        .onAppear {

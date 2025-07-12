@@ -36,6 +36,9 @@ class BillViewModel: ObservableObject {
 
     @Published var drawing = Drawing()
     
+    @Published var selectedTheme: ColorSchemeEnum = .system
+
+    
     
     func newClient() {
         guard !self.clientName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty else { return }
