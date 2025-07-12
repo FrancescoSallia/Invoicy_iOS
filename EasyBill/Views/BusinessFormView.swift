@@ -135,21 +135,36 @@ struct BusinessFormView: View {
                 }
                 
                 Section(header: Text("Signatur")) {
-                    
-                    HStack {
-                        Text("Signatur:")
-                        Spacer()
-                        Button {
-                            viewModel.showSignatureView = true
-                        } label: {
-                            Image(systemName: "signature")
+                    if let image = viewModel.signatureImage {
+                        VStack {
+                            Image(uiImage: image)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 82)
-                                .tint(.primary)
+                                .frame(height: 100)
+                                .padding(.vertical, 4)
+
+                            Button("Signatur löschen", role: .destructive) {
+//                                viewModel.signatureImage = nil
+                                viewModel.showSignatureView = true
+
+                            }
                         }
+                    } else {
+                        HStack {
+                            Text("Signatur:")
+                            Spacer()
+                            Button {
+                                viewModel.showSignatureView = true
+                            } label: {
+                                Image(systemName: "signature")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 82)
+                                    .tint(.primary)
+                            }
+                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
                             
                             
@@ -184,25 +199,12 @@ struct BusinessFormView: View {
 
             }
             .sheet(isPresented: $viewModel.showSignatureView) {
-                SignatureView(drawing: $viewModel.drawing)
+                SignatureView(drawing: $viewModel.drawing, signatureImage: $viewModel.signatureImage)
                     .presentationDetents([.medium])
                     .presentationDragIndicator(.visible)
             }
         }
     }
-
-//    @ViewBuilder
-//    private func formRow(_ label: String, text: Binding<String>, required: Bool = false) -> some View {
-//        HStack {
-//            Text(label)
-//            TextField("", text: text)
-//                .multilineTextAlignment(.trailing)
-//            if required && showValidation && text.wrappedValue.trimmingCharacters(in: .whitespaces).isEmpty {
-//                Image(systemName: "exclamationmark.triangle.fill")
-//                    .foregroundColor(.red)
-//            }
-//        }
-//    }
 }
 
 

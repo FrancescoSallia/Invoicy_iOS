@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+@MainActor
 class BillViewModel: ObservableObject {
     
     @Published var clientName = ""
@@ -37,6 +38,7 @@ class BillViewModel: ObservableObject {
     @Published var drawing = Drawing()
     
     @Published var selectedTheme: ColorSchemeEnum = .system
+    @Published var signatureImage: UIImage? = nil
 
     
     
