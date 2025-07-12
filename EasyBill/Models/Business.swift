@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Business {
     
@@ -31,6 +32,6 @@ struct Business {
     
     //Zahlungsdetails
     var bankPayment: BankPayment? = nil
-    var logoUrl: URL? = nil
-    var signatureUrl: URL? = nil
+    var logoImg: UIImage? = nil
+    var signatureImg: UIImage? = nil
 }

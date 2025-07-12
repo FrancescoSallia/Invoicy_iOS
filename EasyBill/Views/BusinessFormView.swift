@@ -9,13 +9,10 @@ import SwiftUI
 import SwiftUICore
 import PhotosUI
 
-// MARK: - BusinessFormView
-
 struct BusinessFormView: View {
     
     @ObservedObject var viewModel: BillViewModel
    
-
     var body: some View {
         NavigationView {
             Form {
@@ -167,9 +164,6 @@ struct BusinessFormView: View {
                         .padding(.horizontal)
                     }
                 }
-                            
-                            
-                            
                 Section(header: Text("Logo")) {
                     HStack {
                         Text("Logo:")
@@ -204,9 +198,8 @@ struct BusinessFormView: View {
             }
             .navigationTitle("Neues Business")
             .sheet(isPresented: $viewModel.showImagePicker) {
-                ImagePicker(image: $viewModel.logoImage)
+                ImagePicker(viewModel: viewModel)
                     .presentationDragIndicator(.visible)
-
             }
             .sheet(isPresented: $viewModel.showSignatureView) {
                 SignatureView(drawing: $viewModel.drawing, signatureImage: $viewModel.signatureImage)
@@ -216,8 +209,6 @@ struct BusinessFormView: View {
         }
     }
 }
-
-
 
 #Preview {
     @Previewable @State var viewModel: BillViewModel = BillViewModel()

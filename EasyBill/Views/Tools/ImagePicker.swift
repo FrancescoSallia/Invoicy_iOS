@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 import PhotosUI
 
+@MainActor
 struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var image: UIImage?
+    @ObservedObject var viewModel: BillViewModel
 
     func makeUIViewController(context: Context) -> some UIViewController {
         var config = PHPickerConfiguration()
@@ -39,7 +40,11 @@ struct ImagePicker: UIViewControllerRepresentable {
             }
 
             provider.loadObject(ofClass: UIImage.self) { object, _ in
-                self.parent.image = object as? UIImage
+                if let image = object as? UIImage {
+                    DispatchQueue.main.async {
+                        self.parent.viewModel.logoImage = image
+                    }
+                }
             }
         }
     }

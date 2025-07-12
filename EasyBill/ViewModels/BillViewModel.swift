@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import _PhotosUI_SwiftUI
 
 @MainActor
 class BillViewModel: ObservableObject {
@@ -31,16 +32,16 @@ class BillViewModel: ObservableObject {
     @Published var showAttentionIcon = false
     
     @Published var vatApplicable = ""
-    @Published var logoImage: UIImage? = nil
     @Published var showImagePicker = false
     @Published var showSignatureView = false
 
     @Published var drawing = Drawing()
     
     @Published var selectedTheme: ColorSchemeEnum = .system
+    @Published var logoImage: UIImage? = nil
     @Published var signatureImage: UIImage? = nil
+    @Published var selectedImageItem: PhotosPickerItem? = nil
 
-    
     
     func newClient() {
         guard !self.clientName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty else { return }
@@ -65,7 +66,7 @@ class BillViewModel: ObservableObject {
     }
     
     func newBusiness() {
-        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty else { return }
+        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else { return }
         
         
         let business = Business(
@@ -80,7 +81,9 @@ class BillViewModel: ObservableObject {
             city: self.city,
             country: self.country,
             companyRegistrationNumber: self.companyRegistrationNumber.isEmpty ? nil : self.companyRegistrationNumber,
-            ustIdNr: self.ustIdNr.isEmpty ? nil : self.ustIdNr
+            ustIdNr: self.ustIdNr.isEmpty ? nil : self.ustIdNr,
+            logoImg: self.logoImage == nil ? nil : self.logoImage,
+            signatureImg: self.signatureImage == nil ? nil : self.signatureImage
         )
         print("Unternehmer gespeichert: \(business)")
         resetInputs()
@@ -102,8 +105,11 @@ class BillViewModel: ObservableObject {
         self.ustIdNr = ""
         self.vatApplicable = ""
         self.showAttentionIcon = false
-
+        self.signatureImage = nil
+        self.logoImage = nil
     }
+    
+
 
     
 }
