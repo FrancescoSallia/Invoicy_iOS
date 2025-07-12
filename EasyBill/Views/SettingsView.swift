@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @State private var selectedTheme: ColorSchemeEnum = .system
     var body: some View {
         NavigationStack {
             Form {
@@ -16,10 +18,10 @@ struct SettingsView: View {
                     // Example setting
                     HStack {
                         Text("Theme")
-                        Picker("Theme", selection: .constant("Light")) {
-                            Text("System").tag("System")
-                            Text("Light").tag("Light")
-                            Text("Dark").tag("Dark")
+                        Picker("Theme", selection: $selectedTheme) {
+                            Text("System").tag(ColorSchemeEnum.system)
+                            Text("Light").tag(ColorSchemeEnum.light)
+                            Text("Dark").tag(ColorSchemeEnum.dark)
                         }
                         .pickerStyle(.segmented)
                     }

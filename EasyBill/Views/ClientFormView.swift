@@ -28,7 +28,7 @@ struct ClientFormView: View {
     @State private var showValidation = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section(header: Text("Allgemein")) {
                     HStack {
@@ -155,8 +155,12 @@ struct ClientFormView: View {
                     }
                     .buttonStyle(.borderedProminent)
                 }
+                .scrollContentBackground(.hidden)
             }
         }
+        .navigationTitle("add Client")
+        .navigationBarTitleDisplayMode(.inline)
+        .background(Color(.systemGroupedBackground))
     }
 }
 

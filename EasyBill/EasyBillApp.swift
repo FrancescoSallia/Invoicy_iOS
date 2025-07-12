@@ -13,7 +13,32 @@ struct EasyBillApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CustomTabView()
+//            CustomTabView()
+//                .preferredColorScheme(.light) // <- globaler Theme Switch
+            
+            
+                        TabView {
+            
+                            Tab("Home", systemImage: "house.fill") {
+                                    HomeView()
+                                }
+                            Tab("Clients", systemImage: "person.text.rectangle.fill") {
+                                    ClientsView()
+                                }
+                            Tab("Business", systemImage: "suitcase") {
+                                    BusinessView()
+                                }
+                            Tab("Settings", systemImage: "gearshape") {
+                                    SettingsView()
+                                }
+                        }
+                         .preferredColorScheme(.light) // <- globaler Theme Switch
+                         .tint(.tabViewBackground)
+
+//                        .onAppear {
+//                            UITabBar.appearance().backgroundColor = UIColor.tabViewBackground
+//                        }
+
         }
     }
 }
