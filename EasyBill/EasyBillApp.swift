@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct EasyBillApp: App {
+    @StateObject var viewModel: BillViewModel = BillViewModel()
     
     
     var body: some Scene {
@@ -23,10 +24,10 @@ struct EasyBillApp: App {
                                     HomeView()
                                 }
                             Tab("Clients", systemImage: "person.text.rectangle.fill") {
-                                    ClientsView()
+                                    ClientsView(viewModel: viewModel)
                                 }
                             Tab("Business", systemImage: "suitcase") {
-                                    BusinessView()
+                                BusinessView(viewModel: viewModel)
                                 }
                             Tab("Settings", systemImage: "gearshape") {
                                     SettingsView()

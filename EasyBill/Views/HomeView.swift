@@ -52,8 +52,8 @@ struct HomeView: View {
                     .clipShape(.buttonBorder)
                 }
                 
-                Button {
-                    //TODO: Logic
+                NavigationLink {
+//                    ClientFormView() //TODO: Hier muss noch die InvoiceFormView rein!!
                 } label: {
                     HStack {
                         Image(systemName: "plus")
@@ -62,14 +62,13 @@ struct HomeView: View {
                             .bold()
                     }
                     .padding(4)
-
                 }
                 .buttonStyle(.borderedProminent)
                 .clipShape(RoundedRectangle(cornerRadius: 40))
-                .tint(.tabViewBackground)
                 .padding()
                 .padding(.bottom)
-                .shadow(radius: 8)
+                .shadow(radius: 4)
+
             }
         }
     }

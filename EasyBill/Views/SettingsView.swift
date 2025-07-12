@@ -44,7 +44,7 @@ struct SettingsView: View {
                     NavigationLink("Nutzungsbedingungen", destination: Text("Nutzungsbedingungen Inhalt"))
                 }
             }
-            .navigationTitle("Einstellungen")
+            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
     }

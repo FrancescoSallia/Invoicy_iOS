@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct BusinessView: View {
+    
+    @ObservedObject var viewModel: BillViewModel
+
     var body: some View {
         NavigationStack {
             Divider()
@@ -53,7 +56,7 @@ struct BusinessView: View {
                 }
                 
                 NavigationLink {
-                    BusinessFormView()
+                    BusinessFormView(viewModel: viewModel)
                 } label: {
                     HStack {
                         Image(systemName: "plus")
@@ -76,5 +79,6 @@ struct BusinessView: View {
 }
 
 #Preview {
-    BusinessView()
+    @Previewable @State var viewModel: BillViewModel = BillViewModel()
+    BusinessView(viewModel: viewModel)
 }

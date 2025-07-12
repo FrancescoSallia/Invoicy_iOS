@@ -10,6 +10,8 @@ import SwiftUI
 struct CustomTabView: View {
     @State private var selectedTab: TabItem = .home
     @Namespace private var animationNamespace
+    @ObservedObject var viewModel: BillViewModel
+
     
     var body: some View {
         ZStack {
@@ -19,9 +21,9 @@ struct CustomTabView: View {
                 case .home:
                     HomeView()
                 case .clients:
-                    ClientsView()
+                    ClientsView(viewModel: viewModel)
                 case .business:
-                    BusinessView()
+                    BusinessView(viewModel: viewModel)
                 case .settings:
                     SettingsView()
                 }
@@ -80,5 +82,6 @@ struct CustomTabView: View {
     }
 }
 #Preview {
-    CustomTabView()
+    @Previewable @State var viewModel: BillViewModel = BillViewModel()
+    CustomTabView(viewModel: viewModel)
 }
