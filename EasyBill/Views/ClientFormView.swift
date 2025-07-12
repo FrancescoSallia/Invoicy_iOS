@@ -27,26 +27,70 @@ struct ClientFormView: View {
         NavigationView {
             Form {
                 Section(header: Text("Allgemein")) {
-                    TextField("Firmenname", text: $clientName)
-                    TextField("E-Mail", text: $email)
-                    TextField("Website", text: $website)
+                    HStack {
+                        Text("Firmenname")
+                        TextField("z. B. ACME GmbH", text: $clientName, prompt: Text("z. B. ACME GmbH"))
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("E-Mail")
+                        TextField("z. B. info@acme.de", text: $email, prompt: Text("z. B. info@acme.de"))
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Website")
+                        TextField("z. B. acme.de", text: $website, prompt: Text("z. B. acme.de"))
+                            .multilineTextAlignment(.trailing)
+                    }
                 }
 
                 Section(header: Text("Kontaktperson")) {
-                    TextField("Name", text: $contactName)
-                    TextField("Telefonnummer", text: $phoneNumber)
+                    HStack {
+                        Text("Name")
+                        TextField("z. B. Max Mustermann", text: $contactName, prompt: Text("z. B. Max Mustermann"))
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Telefonnummer")
+                        TextField("z. B. +49 123 456789", text: $phoneNumber, prompt: Text("z. B. +49 123 456789"))
+                            .multilineTextAlignment(.trailing)
+                    }
                 }
 
                 Section(header: Text("Adresse")) {
-                    TextField("Straße", text: $street)
-                    TextField("Postleitzahl", text: $postalCode)
-                    TextField("Stadt", text: $city)
-                    TextField("Land", text: $country)
+                    HStack {
+                        Text("Straße")
+                        TextField("z. B. Musterstraße 1", text: $street, prompt: Text("z. B. Musterstraße 1"))
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Postleitzahl")
+                        TextField("z. B. 12345", text: $postalCode, prompt: Text("z. B. 12345"))
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Stadt")
+                        TextField("z. B. Berlin", text: $city, prompt: Text("z. B. Berlin"))
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Land")
+                        TextField("z. B. Deutschland", text: $country, prompt: Text("z. B. Deutschland"))
+                            .multilineTextAlignment(.trailing)
+                    }
                 }
 
                 Section(header: Text("Steuerinformationen")) {
-                    TextField("Handelsregisternummer (Co. Reg. No.)", text: $companyRegistrationNumber)
-                    TextField("USt-IdNr. (VAT Reg. No.)", text: $ustIdNr)
+                    HStack {
+                        Text("Handelsregisternummer")
+                        TextField("z. B. HRB 123456", text: $companyRegistrationNumber, prompt: Text("z. B. HRB 123456"))
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("USt-IdNr.")
+                        TextField("z. B. DE123456789", text: $ustIdNr, prompt: Text("z. B. DE123456789"))
+                            .multilineTextAlignment(.trailing)
+                    }
                 }
 
                 Section {
