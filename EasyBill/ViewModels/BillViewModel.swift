@@ -111,6 +111,48 @@ class BillViewModel: ObservableObject {
 ////        )
 //    ]
     
+    func textFieldsAreEmpty() -> Bool {
+        let hasIBAN = !self.iban.isEmpty
+        let hasAccountNumberAndBIC = !self.accountNumber.isEmpty && !self.bic.isEmpty
+        
+        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else { return false }
+        
+        if isToggledBank {
+            guard !self.accountHolder.isEmpty,  hasIBAN || hasAccountNumberAndBIC else { return false }
+        }
+        
+        return true
+    }
+    
+    func updateBusiness(_ business: Business) {
+        business.businessName = self.businessName
+        business.email = self.email
+        business.website = self.website.isEmpty ? nil : self.website
+        business.contactName = self.contactName
+        business.phoneNumber = self.phoneNumber
+        business.street = self.street
+        business.houseNumber = self.houseNumber
+        business.postalCode = self.postalCode
+        business.city = self.city
+        business.country = self.country
+        business.companyRegistrationNumber = self.companyRegistrationNumber.isEmpty ? nil : self.companyRegistrationNumber
+        business.ustIdNr = self.ustIdNr.isEmpty ? nil : self.ustIdNr
+        business.vatApplicable = self.vatApplicable.isEmpty ? nil : self.vatApplicable
+        business.logoImgData = self.logoImage?.pngData()
+        business.signatureImgData = self.signatureImage?.pngData()
+
+        if self.isToggledBank {
+            business.bankPayment = BankPayment(
+                accountHolder: self.accountHolder,
+                bankName: self.bankName,
+                iban: self.iban,
+                accountNumber: self.accountNumber,
+                bic: self.bic
+            )
+        } else {
+            business.bankPayment = nil
+        }
+    }
     
     func getEditableBusiness(business: Business) {
         self.businessName = business.businessName

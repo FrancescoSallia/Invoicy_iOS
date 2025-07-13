@@ -15,6 +15,8 @@ struct EditBusinessView: View {
     
     @ObservedObject var viewModel: BillViewModel
     @Environment(\.modelContext) var context
+    @Environment(\.dismiss) private var dismiss
+
     
     var businessDetail: Business
 
@@ -187,9 +189,6 @@ struct EditBusinessView: View {
                         }
                     }
                 }
-                
-            
-                
                 Section(header: Text("Signatur")) {
                     if let image = viewModel.signatureImage {
                         HStack {
@@ -241,10 +240,11 @@ struct EditBusinessView: View {
 
                 Section {
                     Button("Business Aktuallisieren") {
-                        if viewModel.newBusiness() != nil {
-                            context.insert(viewModel.newBusiness()!)
+                        if viewModel.textFieldsAreEmpty() {
+                            viewModel.updateBusiness(businessDetail)
                             try? context.save()
                             viewModel.resetInputs()
+                            dismiss()
                         } else {
                             viewModel.showAttentionIcon = true
                         }
