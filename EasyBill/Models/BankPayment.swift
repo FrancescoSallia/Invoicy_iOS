@@ -6,12 +6,23 @@
 //
 
 import Foundation
+import SwiftData
 
-struct BankPayment {
+@Model
+class BankPayment {
     
     var accountHolder: String
     var bankName: String
     var iban: String
     var accountNumber: String
     var bic: String
+    
+    init(accountHolder: String, bankName: String, iban: String, accountNumber: String, bic: String) {
+        self.accountHolder = accountHolder
+        self.bankName = bankName
+        self.iban = iban
+        self.accountNumber = accountNumber
+        self.bic = bic
+    }
+    
 }

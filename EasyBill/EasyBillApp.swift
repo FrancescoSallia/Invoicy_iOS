@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct EasyBillApp: App {
@@ -25,6 +26,7 @@ struct EasyBillApp: App {
                 }
                 Tab("Business", systemImage: "suitcase") {
                     BusinessView(viewModel: viewModel)
+                        .modelContainer(for: [Business.self])
                 }
                 Tab("Settings", systemImage: "gearshape") {
                     SettingsView(viewModel: viewModel)

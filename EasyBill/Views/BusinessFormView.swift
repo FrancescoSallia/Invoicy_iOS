@@ -31,7 +31,7 @@ struct BusinessFormView: View {
                         Text("E-Mail:")
                         TextField("z. B. info@acme.de", text: $viewModel.email, prompt: Text("z. B. info@acme.de"))
                             .multilineTextAlignment(.trailing)
-                        if viewModel.showAttentionIcon && viewModel.email.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                        if viewModel.showAttentionIcon && viewModel.email.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
                         }
@@ -48,7 +48,7 @@ struct BusinessFormView: View {
                         Text("Name:")
                         TextField("z. B. Max Mustermann", text: $viewModel.contactName, prompt: Text("z. B. Max Mustermann"))
                             .multilineTextAlignment(.trailing)
-                        if viewModel.showAttentionIcon && viewModel.contactName.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                        if viewModel.showAttentionIcon && viewModel.contactName.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
                         }
@@ -57,7 +57,7 @@ struct BusinessFormView: View {
                         Text("Telefonnummer:")
                         TextField("z. B. +49 123 456789", text: $viewModel.phoneNumber, prompt: Text("z. B. +49 123 456789"))
                             .multilineTextAlignment(.trailing)
-                        if viewModel.showAttentionIcon && viewModel.phoneNumber.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                        if viewModel.showAttentionIcon && viewModel.phoneNumber.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
                         }
@@ -69,7 +69,7 @@ struct BusinessFormView: View {
                         Text("Straße:")
                         TextField("z. B. Musterstraße ", text: $viewModel.street, prompt: Text("z. B. Musterstraße "))
                             .multilineTextAlignment(.trailing)
-                        if viewModel.showAttentionIcon && viewModel.street.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                        if viewModel.showAttentionIcon && viewModel.street.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
                         }
@@ -78,7 +78,7 @@ struct BusinessFormView: View {
                         Text("HouseNumber:")
                         TextField("z. B. 12a", text: $viewModel.houseNumber, prompt: Text("z. B. 12a"))
                             .multilineTextAlignment(.trailing)
-                        if viewModel.showAttentionIcon && viewModel.houseNumber.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                        if viewModel.showAttentionIcon && viewModel.houseNumber.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
                         }
@@ -87,7 +87,7 @@ struct BusinessFormView: View {
                         Text("Postleitzahl:")
                         TextField("z. B. 12345", text: $viewModel.postalCode, prompt: Text("z. B. 12345"))
                             .multilineTextAlignment(.trailing)
-                        if viewModel.showAttentionIcon && viewModel.postalCode.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                        if viewModel.showAttentionIcon && viewModel.postalCode.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
                         }
@@ -96,7 +96,7 @@ struct BusinessFormView: View {
                         Text("Stadt:")
                         TextField("z. B. Berlin", text: $viewModel.city, prompt: Text("z. B. Berlin"))
                             .multilineTextAlignment(.trailing)
-                        if viewModel.showAttentionIcon && viewModel.city.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                        if viewModel.showAttentionIcon && viewModel.city.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
                         }
@@ -105,7 +105,7 @@ struct BusinessFormView: View {
                         Text("Land:")
                         TextField("z. B. Deutschland", text: $viewModel.country, prompt: Text("z. B. Deutschland"))
                             .multilineTextAlignment(.trailing)
-                        if viewModel.showAttentionIcon && viewModel.country.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                        if viewModel.showAttentionIcon && viewModel.country.isEmpty { 
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
                         }
@@ -168,23 +168,13 @@ struct BusinessFormView: View {
                     HStack {
                         Text("Logo:")
                         Spacer()
-                        Button{
-                            viewModel.showImagePicker = true
-                        } label: {
-                            if let image = viewModel.logoImage {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .frame(maxWidth: 100, maxHeight: 100)
-                                    .clipShape(RoundedRectangle(cornerRadius: 6))
-                            } else {
-//                                Label("Logo hinzufügen", systemImage: "photo")
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 80, height: 80)
-                                    .tint(.primary)
-                            }
-                        }
+                            PhotosPicker(selection: $viewModel.photosPickerItem, matching: .images) {
+                                Image(uiImage: (viewModel.logoImage ?? UIImage(systemName: "photo"))!)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxHeight: 80)
+                                        .clipShape(RoundedRectangle(cornerRadius: 6))
+                                }
                     }
                     .padding(.horizontal)
                 }
@@ -197,17 +187,20 @@ struct BusinessFormView: View {
                 }
             }
             .navigationTitle("Neues Business")
-            .sheet(isPresented: $viewModel.showImagePicker) {
-                ImagePicker(viewModel: viewModel)
-                    .presentationDragIndicator(.visible)
-            }
             .sheet(isPresented: $viewModel.showSignatureView) {
                 SignatureView(drawing: $viewModel.drawing, signatureImage: $viewModel.signatureImage)
                     .presentationDetents([.medium])
                     .presentationDragIndicator(.visible)
             }
+            .onChange(of: viewModel.photosPickerItem) { _, _ in
+                Task {
+                    await viewModel.loadUIImageLogo()
+                }
+            }
             .onDisappear{
                 viewModel.showAttentionIcon = false
+                viewModel.logoImage = nil
+                viewModel.photosPickerItem = nil
             }
         }
     }

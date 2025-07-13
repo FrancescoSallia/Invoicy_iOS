@@ -14,47 +14,58 @@ struct BusinessView: View {
     var body: some View {
         NavigationStack {
             Divider()
-                .padding(.top, 4)
-            Spacer()
-            
+
             ZStack(alignment: .bottomTrailing) {
-                VStack(alignment: .center) {
-                    Spacer()
-                    Image("business_icon")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 150)
-                    
-                    Text("Starten Sie Ihre Unternehmsreise")
-                        .font(.title2)
-                        .padding(.bottom, 4)
-                        .bold()
-                    
-                    Text("Fügen Sie Ihr erstes Unternehmen hinzu, um Ihre Finanzen zu verwalten und Rechnungen zu erstellen.")
-                        .padding(.horizontal)
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(.gray)
-                    Spacer()
-                    Spacer()
-                }
-                .navigationTitle("Business")
-                .navigationBarTitleDisplayMode(.inline)
-                
-                
-                .toolbar {
-                    HStack {
-                        Image(systemName: "gift.fill")
-                        Button("Upgrade") {
-                            //TODO: Logic
+                if viewModel.dummyBusinesses.isEmpty {
+                    VStack(alignment: .center) {
+                        Spacer()
+                        Image("business_icon")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 150)
+
+                        Text("Starten Sie Ihre Unternehmsreise")
+                            .font(.title2)
+                            .padding(.bottom, 4)
+                            .bold()
+
+                        Text("Fügen Sie Ihr erstes Unternehmen hinzu, um Ihre Finanzen zu verwalten und Rechnungen zu erstellen.")
+                            .padding(.horizontal)
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.gray)
+                        Spacer()
+                    }
+                    .padding()
+                } else {
+                    ScrollView {
+                        VStack {
+                            ForEach(viewModel.dummyBusinesses, id: \.email) { business in
+                                HStack {
+                                    (business.logoImg ?? UIImage(named: "test_logo"))
+                                        .map { Image(uiImage: $0) }?
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 64)
+                                        .clipShape(Circle())
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(business.businessName)
+                                            .font(.headline)
+                                        Text("Telefon: \(business.phoneNumber)")
+                                        Text("Adresse: \(business.street) \(business.houseNumber), \(business.postalCode) \(business.city), \(business.country)")
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    }
+                                    .padding(.trailing)
+                                }
+                                .padding()
+                                Divider()
+                                    .padding(.horizontal)
+                            }
                         }
                     }
-                    .foregroundStyle(.white)
-                    .padding(5)
-                    .background(Color.yellow)
-                    .clipShape(.buttonBorder)
                 }
-                
+
                 NavigationLink {
                     BusinessFormView(viewModel: viewModel)
                 } label: {
@@ -69,11 +80,22 @@ struct BusinessView: View {
                 .buttonStyle(.borderedProminent)
                 .clipShape(RoundedRectangle(cornerRadius: 40))
                 .padding()
-                .padding(.bottom)
                 .shadow(radius: 4)
-
-                
             }
+            .toolbar {
+                HStack {
+                    Image(systemName: "gift.fill")
+                    Button("Upgrade") {
+                        //TODO: Logic
+                    }
+                }
+                .foregroundStyle(.white)
+                .padding(5)
+                .background(Color.yellow)
+                .clipShape(.buttonBorder)
+            }
+            .navigationTitle("Business")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

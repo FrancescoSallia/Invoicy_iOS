@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import SwiftData
 import UIKit
 
-struct Business {
+@Model
+class Business {
     
     var businessName: String
     var email: String
@@ -32,6 +34,27 @@ struct Business {
     
     //Zahlungsdetails
     var bankPayment: BankPayment? = nil
-    var logoImg: UIImage? = nil
-    var signatureImg: UIImage? = nil
+    var logoImgData: Data? = nil
+    var signatureImgData: Data? = nil
+
+   
+    
+    init(businessName: String, email: String, website: String? = nil, contactName: String? = nil, phoneNumber: String, street: String, houseNumber: String, postalCode: String, city: String, country: String, companyRegistrationNumber: String? = nil, ustIdNr: String? = nil, vatApplicable: String? = nil, bankPayment: BankPayment? = nil, logoImgData: Data? = nil, signatureImgData: Data? = nil) {
+        self.businessName = businessName
+        self.email = email
+        self.website = website
+        self.contactName = contactName
+        self.phoneNumber = phoneNumber
+        self.street = street
+        self.houseNumber = houseNumber
+        self.postalCode = postalCode
+        self.city = city
+        self.country = country
+        self.companyRegistrationNumber = companyRegistrationNumber
+        self.ustIdNr = ustIdNr
+        self.vatApplicable = vatApplicable
+        self.bankPayment = bankPayment
+        self.logoImgData = logoImgData
+        self.signatureImgData = signatureImgData
+    }
 }

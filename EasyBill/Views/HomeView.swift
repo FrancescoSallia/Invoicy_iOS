@@ -12,7 +12,7 @@ struct HomeView: View {
         NavigationStack {
             Divider()
                 .padding(.top, 4)
-            Spacer()
+//            Spacer()
             
             ZStack(alignment: .bottomTrailing) {
                 VStack(alignment: .center) {
@@ -37,8 +37,6 @@ struct HomeView: View {
                 }
                 .navigationTitle("Invoices")
                 .navigationBarTitleDisplayMode(.inline)
-                
-                
                 .toolbar {
                     HStack {
                         Image(systemName: "gift.fill")
@@ -51,9 +49,14 @@ struct HomeView: View {
                     .background(Color.yellow)
                     .clipShape(.buttonBorder)
                 }
-                
+            }
+            
+            Text("TEST")
+            
+            HStack {
+                Spacer()
                 NavigationLink {
-//                    ClientFormView() //TODO: Hier muss noch die InvoiceFormView rein!!
+                    //                    ClientFormView() //TODO: Hier muss noch die InvoiceFormView rein!!
                 } label: {
                     HStack {
                         Image(systemName: "plus")
@@ -69,6 +72,7 @@ struct HomeView: View {
                 .padding(.bottom)
                 .shadow(radius: 4)
             }
+            .padding(.trailing)
         }
     }
 }
