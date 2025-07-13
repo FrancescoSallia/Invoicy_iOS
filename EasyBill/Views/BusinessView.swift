@@ -11,6 +11,8 @@ import SwiftData
 struct BusinessView: View {
     
     @ObservedObject var viewModel: BillViewModel
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
     @Query private var business: [Business]
 
 
@@ -19,7 +21,7 @@ struct BusinessView: View {
             Divider()
 
             ZStack(alignment: .bottomTrailing) {
-                if viewModel.dummyBusinesses.isEmpty {
+                if business.isEmpty {
                     VStack(alignment: .center) {
                         Spacer()
                         Image("business_icon")
@@ -43,7 +45,10 @@ struct BusinessView: View {
                 } else {
                     ScrollView {
                         VStack {
-                            ForEach(viewModel.dummyBusinesses, id: \.email) { business in
+                            ForEach(business, id: \.email) { business in
+                                NavigationLink {
+                                    BusinessDetailView(viewModel: viewModel, businessDetail: business)
+                                } label: {
                                 HStack {
                                     Spacer()
                                     (business.logoImg ?? UIImage(named: "test_logo"))
@@ -68,6 +73,7 @@ struct BusinessView: View {
                                 Divider()
                                     .padding(.horizontal)
                             }
+                            }
                         }
                     }
                 }
@@ -88,12 +94,6 @@ struct BusinessView: View {
                 .padding()
                 .shadow(radius: 4)
             }
-            .refreshable {
-                viewModel.dummyBusinesses = business
-            }
-            .onAppear {
-                viewModel.dummyBusinesses = business
-            }
             .toolbar {
                 HStack {
                     Image(systemName: "gift.fill")
@@ -108,10 +108,6 @@ struct BusinessView: View {
             }
             .navigationTitle("Business")
             .navigationBarTitleDisplayMode(.inline)
-            .onChange(of: viewModel.dummyBusinesses, { _, _ in
-                viewModel.dummyBusinesses = business
-            })
-            
         }
     }
 }

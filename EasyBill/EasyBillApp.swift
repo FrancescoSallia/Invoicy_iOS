@@ -19,7 +19,7 @@ struct EasyBillApp: App {
 //                .preferredColorScheme(.light) // <- globaler Theme Switch
             TabView {
                 Tab("Home", systemImage: "house.fill") {
-                    HomeView()
+                    HomeView(viewModel: viewModel)
                 }
                 Tab("Clients", systemImage: "person.text.rectangle.fill") {
                     ClientsView(viewModel: viewModel)

@@ -19,7 +19,7 @@ struct CustomTabView: View {
             VStack(spacing: 0) {
                 switch selectedTab {
                 case .home:
-                    HomeView()
+                    HomeView(viewModel: viewModel)
                 case .clients:
                     ClientsView(viewModel: viewModel)
                 case .business:

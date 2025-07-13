@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @ObservedObject var viewModel: BillViewModel
+
     var body: some View {
         NavigationStack {
             Divider()
@@ -51,7 +54,6 @@ struct HomeView: View {
                 }
             }
             
-            Text("TEST")
             
             HStack {
                 Spacer()
@@ -78,5 +80,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    @Previewable @State var viewModel: BillViewModel = BillViewModel()
+    HomeView(viewModel: viewModel)
 }

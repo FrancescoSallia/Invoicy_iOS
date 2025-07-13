@@ -54,63 +54,62 @@ class BillViewModel: ObservableObject {
     @Published var bic: String = ""
     
     
-    var dummyBusinesses: [Business] = [
-//        Business(
-//            businessName: "TechNova GmbH",
-//            email: "info@technova.de",
-//            website: "www.technova.de",
-//            contactName: "Max Mustermann",
-//            phoneNumber: "+49 123 4567890",
-//            street: "Hauptstraße",
-//            houseNumber: "12A",
-//            postalCode: "10115",
-//            city: "Berlin",
-//            country: "Deutschland",
-//            companyRegistrationNumber: "HRB 123456",
-//            ustIdNr: "DE123456789",
-//            vatApplicable: "Ja",
-//            bankPayment: nil,
-//            logoImgData: nil,
-//            signatureImgData: nil
-//        ),
-//        Business(
-//            businessName: "GreenSolutions AG",
-//            email: "kontakt@greensolutions.de",
-//            website: "https://greensolutions.de",
-//            contactName: "Erika Musterfrau",
-//            phoneNumber: "+49 987 654321",
-//            street: "Marktplatz",
-//            houseNumber: "7",
-//            postalCode: "80331",
-//            city: "München",
-//            country: "Deutschland",
-//            companyRegistrationNumber: "HRB 789101",
-//            ustIdNr: "DE987654321",
-//            vatApplicable: "Nein",
-//            bankPayment: nil,
-//            logoImgData: nil,
-//            signatureImgData: nil
-//        ),
-//        Business(
-//            businessName: "BauTech Solutions",
-//            email: "service@bautech.com",
-//            website: nil,
-//            contactName: nil,
-//            phoneNumber: "+49 222 333444",
-//            street: "Industriestraße",
-//            houseNumber: "15",
-//            postalCode: "50667",
-//            city: "Köln",
-//            country: "Deutschland",
-//            companyRegistrationNumber: nil,
-//            ustIdNr: nil,
-//            vatApplicable: nil,
-//            bankPayment: nil,
-//            logoImgData: nil,
-//            signatureImgData: nil
-//        )
-    ]
-
+//    var dummyBusinesses: [Business] = [
+////        Business(
+////            businessName: "TechNova GmbH",
+////            email: "info@technova.de",
+////            website: "www.technova.de",
+////            contactName: "Max Mustermann",
+////            phoneNumber: "+49 123 4567890",
+////            street: "Hauptstraße",
+////            houseNumber: "12A",
+////            postalCode: "10115",
+////            city: "Berlin",
+////            country: "Deutschland",
+////            companyRegistrationNumber: "HRB 123456",
+////            ustIdNr: "DE123456789",
+////            vatApplicable: "Ja",
+////            bankPayment: nil,
+////            logoImgData: nil,
+////            signatureImgData: nil
+////        ),
+////        Business(
+////            businessName: "GreenSolutions AG",
+////            email: "kontakt@greensolutions.de",
+////            website: "https://greensolutions.de",
+////            contactName: "Erika Musterfrau",
+////            phoneNumber: "+49 987 654321",
+////            street: "Marktplatz",
+////            houseNumber: "7",
+////            postalCode: "80331",
+////            city: "München",
+////            country: "Deutschland",
+////            companyRegistrationNumber: "HRB 789101",
+////            ustIdNr: "DE987654321",
+////            vatApplicable: "Nein",
+////            bankPayment: nil,
+////            logoImgData: nil,
+////            signatureImgData: nil
+////        ),
+////        Business(
+////            businessName: "BauTech Solutions",
+////            email: "service@bautech.com",
+////            website: nil,
+////            contactName: nil,
+////            phoneNumber: "+49 222 333444",
+////            street: "Industriestraße",
+////            houseNumber: "15",
+////            postalCode: "50667",
+////            city: "Köln",
+////            country: "Deutschland",
+////            companyRegistrationNumber: nil,
+////            ustIdNr: nil,
+////            vatApplicable: nil,
+////            bankPayment: nil,
+////            logoImgData: nil,
+////            signatureImgData: nil
+////        )
+//    ]
     
     func loadUIImageLogo() async {
         let photoItem = self.photosPickerItem
@@ -147,8 +146,11 @@ class BillViewModel: ObservableObject {
         let hasIBAN = !self.iban.isEmpty
         let hasAccountNumberAndBIC = !self.accountNumber.isEmpty && !self.bic.isEmpty
         
-        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil, !self.accountHolder.isEmpty,  hasIBAN || hasAccountNumberAndBIC else { return nil }
+        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else { return nil }
         
+        if isToggledBank {
+            guard !self.accountHolder.isEmpty,  hasIBAN || hasAccountNumberAndBIC else { return nil }
+        }
         let bank = BankPayment(
             accountHolder: self.accountHolder,
             bankName: self.bankName,
