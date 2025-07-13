@@ -8,10 +8,12 @@
 import SwiftUI
 import SwiftUICore
 import PhotosUI
+import SwiftData
 
 struct BusinessFormView: View {
     
     @ObservedObject var viewModel: BillViewModel
+    @Environment(\.modelContext) var context
    
     var body: some View {
         NavigationView {
@@ -181,8 +183,13 @@ struct BusinessFormView: View {
 
                 Section {
                     Button("Business erstellen") {
-                        viewModel.showAttentionIcon = true
-                        viewModel.newBusiness()
+                        if viewModel.newBusiness() != nil {
+                            context.insert(viewModel.newBusiness()!)
+                            try? context.save()
+                            viewModel.resetInputs()
+                        } else {
+                            viewModel.showAttentionIcon = true
+                        }
                     }
                 }
             }

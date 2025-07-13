@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import _PhotosUI_SwiftUI
+import SwiftUICore
 
 @MainActor
 class BillViewModel: ObservableObject {
@@ -42,6 +43,9 @@ class BillViewModel: ObservableObject {
     //PhotoPicker
     @Published var photosPickerItem: PhotosPickerItem? = nil
     @Published var logoImage: UIImage? = nil
+    
+    @Environment(\.modelContext) var context
+
     
     var dummyBusinesses: [Business] = [
         Business(
@@ -132,8 +136,8 @@ class BillViewModel: ObservableObject {
         resetInputs()
     }
     
-    func newBusiness() {
-        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else { return }
+    func newBusiness() -> Business?{
+        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else { return nil }
         
         let business = Business(
             businessName: self.businessName,
@@ -152,11 +156,11 @@ class BillViewModel: ObservableObject {
             signatureImgData: self.signatureImage?.pngData()
         )
         print("Unternehmer gespeichert: \(business)")
-        self.dummyBusinesses.append(business)
-        resetInputs()
+//        self.dummyBusinesses.append(business)
+        return business
     }
     
-   private func resetInputs() {
+     func resetInputs() {
         self.clientName = ""
         self.businessName = ""
         self.email = ""

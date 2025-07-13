@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BusinessView: View {
     
     @ObservedObject var viewModel: BillViewModel
+    @Query private var business: [Business]
+
 
     var body: some View {
         NavigationStack {
@@ -96,6 +99,10 @@ struct BusinessView: View {
             }
             .navigationTitle("Business")
             .navigationBarTitleDisplayMode(.inline)
+            
+            .onAppear {
+                viewModel.dummyBusinesses = business
+            }
         }
     }
 }
