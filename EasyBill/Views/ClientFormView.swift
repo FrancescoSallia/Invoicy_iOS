@@ -113,19 +113,18 @@ struct ClientFormView: View {
                             .multilineTextAlignment(.trailing)
                     }
                 }
-
                 Section {
                         Button("Kunde speichern") {
-                        
                         withAnimation {
                             viewModel.showAttentionIcon = true
                         }
                             viewModel.newClient()
-                 
                     }
                     .buttonStyle(.borderedProminent)
                 }
-//                .scrollContentBackground(.hidden)
+            }
+            .onDisappear{
+                viewModel.showAttentionIcon = false
             }
         }
         .navigationTitle("Add Client")

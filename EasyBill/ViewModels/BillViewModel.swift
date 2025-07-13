@@ -11,7 +11,6 @@ import _PhotosUI_SwiftUI
 
 @MainActor
 class BillViewModel: ObservableObject {
-    
     @Published var clientName = ""
     @Published var businessName = ""
     @Published var email = ""
@@ -46,7 +45,6 @@ class BillViewModel: ObservableObject {
     func newClient() {
         guard !self.clientName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty else { return }
         
-        
         let client = Client(
             clientName: self.clientName,
             email: self.email,
@@ -67,7 +65,6 @@ class BillViewModel: ObservableObject {
     
     func newBusiness() {
         guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else { return }
-        
         
         let business = Business(
             businessName: self.businessName,

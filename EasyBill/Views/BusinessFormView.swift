@@ -206,6 +206,9 @@ struct BusinessFormView: View {
                     .presentationDetents([.medium])
                     .presentationDragIndicator(.visible)
             }
+            .onDisappear{
+                viewModel.showAttentionIcon = false
+            }
         }
     }
 }
