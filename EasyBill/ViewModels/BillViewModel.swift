@@ -44,64 +44,71 @@ class BillViewModel: ObservableObject {
     @Published var photosPickerItem: PhotosPickerItem? = nil
     @Published var logoImage: UIImage? = nil
     
-    @Environment(\.modelContext) var context
+    //BANK-TextFieldInputs
+    @Published var isToggledBank: Bool = false
 
+    @Published var accountHolder: String = ""
+    @Published var bankName: String = ""
+    @Published var iban: String = ""
+    @Published var accountNumber: String = ""
+    @Published var bic: String = ""
+    
     
     var dummyBusinesses: [Business] = [
-        Business(
-            businessName: "TechNova GmbH",
-            email: "info@technova.de",
-            website: "www.technova.de",
-            contactName: "Max Mustermann",
-            phoneNumber: "+49 123 4567890",
-            street: "Hauptstraße",
-            houseNumber: "12A",
-            postalCode: "10115",
-            city: "Berlin",
-            country: "Deutschland",
-            companyRegistrationNumber: "HRB 123456",
-            ustIdNr: "DE123456789",
-            vatApplicable: "Ja",
-            bankPayment: nil,
-            logoImgData: nil,
-            signatureImgData: nil
-        ),
-        Business(
-            businessName: "GreenSolutions AG",
-            email: "kontakt@greensolutions.de",
-            website: "https://greensolutions.de",
-            contactName: "Erika Musterfrau",
-            phoneNumber: "+49 987 654321",
-            street: "Marktplatz",
-            houseNumber: "7",
-            postalCode: "80331",
-            city: "München",
-            country: "Deutschland",
-            companyRegistrationNumber: "HRB 789101",
-            ustIdNr: "DE987654321",
-            vatApplicable: "Nein",
-            bankPayment: nil,
-            logoImgData: nil,
-            signatureImgData: nil
-        ),
-        Business(
-            businessName: "BauTech Solutions",
-            email: "service@bautech.com",
-            website: nil,
-            contactName: nil,
-            phoneNumber: "+49 222 333444",
-            street: "Industriestraße",
-            houseNumber: "15",
-            postalCode: "50667",
-            city: "Köln",
-            country: "Deutschland",
-            companyRegistrationNumber: nil,
-            ustIdNr: nil,
-            vatApplicable: nil,
-            bankPayment: nil,
-            logoImgData: nil,
-            signatureImgData: nil
-        )
+//        Business(
+//            businessName: "TechNova GmbH",
+//            email: "info@technova.de",
+//            website: "www.technova.de",
+//            contactName: "Max Mustermann",
+//            phoneNumber: "+49 123 4567890",
+//            street: "Hauptstraße",
+//            houseNumber: "12A",
+//            postalCode: "10115",
+//            city: "Berlin",
+//            country: "Deutschland",
+//            companyRegistrationNumber: "HRB 123456",
+//            ustIdNr: "DE123456789",
+//            vatApplicable: "Ja",
+//            bankPayment: nil,
+//            logoImgData: nil,
+//            signatureImgData: nil
+//        ),
+//        Business(
+//            businessName: "GreenSolutions AG",
+//            email: "kontakt@greensolutions.de",
+//            website: "https://greensolutions.de",
+//            contactName: "Erika Musterfrau",
+//            phoneNumber: "+49 987 654321",
+//            street: "Marktplatz",
+//            houseNumber: "7",
+//            postalCode: "80331",
+//            city: "München",
+//            country: "Deutschland",
+//            companyRegistrationNumber: "HRB 789101",
+//            ustIdNr: "DE987654321",
+//            vatApplicable: "Nein",
+//            bankPayment: nil,
+//            logoImgData: nil,
+//            signatureImgData: nil
+//        ),
+//        Business(
+//            businessName: "BauTech Solutions",
+//            email: "service@bautech.com",
+//            website: nil,
+//            contactName: nil,
+//            phoneNumber: "+49 222 333444",
+//            street: "Industriestraße",
+//            houseNumber: "15",
+//            postalCode: "50667",
+//            city: "Köln",
+//            country: "Deutschland",
+//            companyRegistrationNumber: nil,
+//            ustIdNr: nil,
+//            vatApplicable: nil,
+//            bankPayment: nil,
+//            logoImgData: nil,
+//            signatureImgData: nil
+//        )
     ]
 
     
@@ -137,7 +144,18 @@ class BillViewModel: ObservableObject {
     }
     
     func newBusiness() -> Business?{
-        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else { return nil }
+        let hasIBAN = !self.iban.isEmpty
+        let hasAccountNumberAndBIC = !self.accountNumber.isEmpty && !self.bic.isEmpty
+        
+        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil, !self.accountHolder.isEmpty,  hasIBAN || hasAccountNumberAndBIC else { return nil }
+        
+        let bank = BankPayment(
+            accountHolder: self.accountHolder,
+            bankName: self.bankName,
+            iban: self.iban,
+            accountNumber: self.accountNumber,
+            bic: self.bic
+        )
         
         let business = Business(
             businessName: self.businessName,
@@ -152,6 +170,7 @@ class BillViewModel: ObservableObject {
             country: self.country,
             companyRegistrationNumber: self.companyRegistrationNumber.isEmpty ? nil : self.companyRegistrationNumber,
             ustIdNr: self.ustIdNr.isEmpty ? nil : self.ustIdNr,
+            bankPayment: isToggledBank ? bank : nil,
             logoImgData: self.logoImage?.pngData(),
             signatureImgData: self.signatureImage?.pngData()
         )
@@ -179,6 +198,11 @@ class BillViewModel: ObservableObject {
         self.signatureImage = nil
         self.logoImage = nil
         self.photosPickerItem = nil
+        self.accountHolder = ""
+        self.bankName = ""
+        self.iban = ""
+        self.accountNumber = ""
+        self.bic = ""
     }
     
 

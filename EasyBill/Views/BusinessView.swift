@@ -45,12 +45,15 @@ struct BusinessView: View {
                         VStack {
                             ForEach(viewModel.dummyBusinesses, id: \.email) { business in
                                 HStack {
+                                    Spacer()
                                     (business.logoImg ?? UIImage(named: "test_logo"))
                                         .map { Image(uiImage: $0) }?
                                         .resizable()
-                                        .scaledToFit()
-                                        .frame(maxWidth: 64)
+                                        .scaledToFill()
+                                        .frame(width: 60, height: 60)
                                         .clipShape(Circle())
+                                        .clipped()
+                                    Spacer()
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text(business.businessName)
                                             .font(.headline)
@@ -59,7 +62,7 @@ struct BusinessView: View {
                                             .font(.subheadline)
                                             .foregroundColor(.gray)
                                     }
-                                    .padding(.trailing)
+                                    Spacer()
                                 }
                                 .padding()
                                 Divider()
@@ -85,6 +88,12 @@ struct BusinessView: View {
                 .padding()
                 .shadow(radius: 4)
             }
+            .refreshable {
+                viewModel.dummyBusinesses = business
+            }
+            .onAppear {
+                viewModel.dummyBusinesses = business
+            }
             .toolbar {
                 HStack {
                     Image(systemName: "gift.fill")
@@ -99,10 +108,10 @@ struct BusinessView: View {
             }
             .navigationTitle("Business")
             .navigationBarTitleDisplayMode(.inline)
-            
-            .onAppear {
+            .onChange(of: viewModel.dummyBusinesses, { _, _ in
                 viewModel.dummyBusinesses = business
-            }
+            })
+            
         }
     }
 }
@@ -111,3 +120,31 @@ struct BusinessView: View {
     @Previewable @State var viewModel: BillViewModel = BillViewModel()
     BusinessView(viewModel: viewModel)
 }
+
+//#Preview {
+//    @Previewable @State var viewModel: BillViewModel = BillViewModel()
+//
+//    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+//    let container = try! ModelContainer(for: Business.self, configurations: config)
+//
+//   let business = Business(
+//        businessName: "BauTech Solutions",
+//        email: "service@bautech.com",
+//        website: nil,
+//        contactName: nil,
+//        phoneNumber: "+49 222 333444",
+//        street: "Industriestraße",
+//        houseNumber: "15",
+//        postalCode: "50667",
+//        city: "Köln",
+//        country: "Deutschland",
+//        companyRegistrationNumber: nil,
+//        ustIdNr: nil,
+//        vatApplicable: nil,
+//        bankPayment: nil,
+//        logoImgData: nil,
+//        signatureImgData: nil
+//    )
+//        BusinessView(viewModel: viewModel)
+//            .modelContainer(container)
+//}

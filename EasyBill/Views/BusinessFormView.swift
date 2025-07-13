@@ -44,7 +44,7 @@ struct BusinessFormView: View {
                             .multilineTextAlignment(.trailing)
                     }
                 }
-
+                
                 Section(header: Text("Kontakt")) {
                     HStack {
                         Text("Name:")
@@ -65,7 +65,7 @@ struct BusinessFormView: View {
                         }
                     }
                 }
-
+                
                 Section(header: Text("Adresse")) {
                     HStack {
                         Text("Straße:")
@@ -107,13 +107,13 @@ struct BusinessFormView: View {
                         Text("Land:")
                         TextField("z. B. Deutschland", text: $viewModel.country, prompt: Text("z. B. Deutschland"))
                             .multilineTextAlignment(.trailing)
-                        if viewModel.showAttentionIcon && viewModel.country.isEmpty { 
+                        if viewModel.showAttentionIcon && viewModel.country.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
                         }
                     }
                 }
-
+                
                 Section(header: Text("Steuerdetails")) {
                     HStack {
                         Text("Handelsregister-Nummer:")
@@ -130,10 +130,63 @@ struct BusinessFormView: View {
                         TextField("z. B. 0", text: $viewModel.vatApplicable, prompt: Text("z. B. 0"))
                             .multilineTextAlignment(.trailing)
                     }
-
+                    
+                }
+            
+               
+                
+                Toggle("Bank-Verbindung", isOn: $viewModel.isToggledBank)
+                if viewModel.isToggledBank {
+                    HStack {
+                        Text("Account Holder:")
+                        TextField("Account Holder", text: $viewModel.accountHolder, prompt: Text("Max Mustermann"))
+                            .multilineTextAlignment(.trailing)
+                        if viewModel.showAttentionIcon && viewModel.accountHolder.isEmpty {
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
+                    }
+                    HStack {
+                        Text("Bank-Name:")
+                        TextField("Bank-Name", text: $viewModel.bankName, prompt: Text("Sparkasse"))
+                            .multilineTextAlignment(.trailing)
+                        if viewModel.showAttentionIcon && viewModel.bankName.isEmpty {
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
+                    }
+                    HStack {
+                        Text("IBAN:")
+                        TextField("Iban", text: $viewModel.iban, prompt: Text("DE09 22 1234 1234 45"))
+                            .multilineTextAlignment(.trailing)
+                        if viewModel.showAttentionIcon && viewModel.iban.isEmpty {
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
+                    }
+                    HStack {
+                        Text("Account Number:")
+                        TextField("Account Number", text: $viewModel.accountNumber, prompt: Text("1234 1234 45"))
+                            .multilineTextAlignment(.trailing)
+                        if viewModel.showAttentionIcon && viewModel.accountNumber.isEmpty && viewModel.iban.isEmpty {
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
+                    }
+                    HStack {
+                        Text("BIC:")
+                        TextField("bic", text: $viewModel.bic, prompt: Text("BELADEBEXX"))
+                            .multilineTextAlignment(.trailing)
+                        if viewModel.showAttentionIcon && viewModel.bic.isEmpty && viewModel.iban.isEmpty {
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
+                    }
                 }
                 
-                Section(header: Text("Signatur")) { //TODO: Hier weiter machen
+            
+                
+                Section(header: Text("Signatur")) {
                     if let image = viewModel.signatureImage {
                         HStack {
                             Text("Signatur:")
