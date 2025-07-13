@@ -111,6 +111,32 @@ class BillViewModel: ObservableObject {
 ////        )
 //    ]
     
+    
+    func getEditableBusiness(business: Business) {
+        self.businessName = business.businessName
+        self.email = business.email
+        self.website = business.website ?? ""
+        self.contactName = business.contactName ?? ""
+        self.phoneNumber = business.phoneNumber
+        self.street = business.street
+        self.houseNumber = business.houseNumber
+        self.postalCode = business.postalCode
+        self.city = business.city
+        self.country = business.country
+        self.companyRegistrationNumber = business.companyRegistrationNumber ?? ""
+        self.ustIdNr = business.ustIdNr ?? ""
+        
+        self.accountHolder = business.bankPayment?.accountHolder ?? ""
+        self.bankName = business.bankPayment?.bankName ?? ""
+        self.iban = business.bankPayment?.iban ?? ""
+        self.accountNumber = business.bankPayment?.accountNumber ?? ""
+        self.bic = business.bankPayment?.bic ?? ""
+        
+        self.logoImage = business.logoImg
+        self.signatureImage = business.signatureImg
+    }
+    
+    
     func loadUIImageLogo() async {
         let photoItem = self.photosPickerItem
            if let photoItem,

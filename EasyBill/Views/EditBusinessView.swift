@@ -1,20 +1,24 @@
 //
-//  BusinessFormView.swift
+//  EditBusinessView.swift
 //  EasyBill
 //
-//  Created by Francesco Sallia on 12.07.25.
+//  Created by Francesco Sallia on 13.07.25.
 //
+
 
 import SwiftUI
 import SwiftUICore
 import PhotosUI
 import SwiftData
 
-struct BusinessFormView: View {
+struct EditBusinessView: View {
     
     @ObservedObject var viewModel: BillViewModel
     @Environment(\.modelContext) var context
-   
+    
+    var businessDetail: Business
+
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -236,7 +240,7 @@ struct BusinessFormView: View {
                 }
 
                 Section {
-                    Button("Business erstellen") {
+                    Button("Business Aktuallisieren") {
                         if viewModel.newBusiness() != nil {
                             context.insert(viewModel.newBusiness()!)
                             try? context.save()
@@ -247,7 +251,7 @@ struct BusinessFormView: View {
                     }
                 }
             }
-            .navigationTitle("Neues Business")
+            .navigationTitle("Edit Business")
             .sheet(isPresented: $viewModel.showSignatureView) {
                 SignatureView(drawing: $viewModel.drawing, signatureImage: $viewModel.signatureImage)
                     .presentationDetents([.medium])
@@ -262,6 +266,10 @@ struct BusinessFormView: View {
                 viewModel.showAttentionIcon = false
                 viewModel.logoImage = nil
                 viewModel.photosPickerItem = nil
+                viewModel.resetInputs()
+            }
+            .onAppear {
+                viewModel.getEditableBusiness(business: businessDetail)
             }
         }
     }
@@ -269,5 +277,24 @@ struct BusinessFormView: View {
 
 #Preview {
     @Previewable @State var viewModel: BillViewModel = BillViewModel()
-    BusinessFormView(viewModel: viewModel)
+
+    var business =  Business(
+                    businessName: "TechNova GmbH",
+                    email: "info@technova.de",
+                    website: "www.technova.de",
+                    contactName: "Max Mustermann",
+                    phoneNumber: "+49 123 4567890",
+                    street: "Hauptstraße",
+                    houseNumber: "12A",
+                    postalCode: "10115",
+                    city: "Berlin",
+                    country: "Deutschland",
+                    companyRegistrationNumber: "HRB 123456",
+                    ustIdNr: "DE123456789",
+                    vatApplicable: "Ja",
+                    bankPayment: nil,
+                    logoImgData: nil,
+                    signatureImgData: nil
+                )
+    EditBusinessView(viewModel: viewModel, businessDetail: business)
 }

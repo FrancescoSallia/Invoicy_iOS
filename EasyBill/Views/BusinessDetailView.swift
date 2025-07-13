@@ -114,8 +114,8 @@ struct BusinessDetailView: View {
                 
                 // Action Buttons
                 HStack(spacing: 12) {
-                    Button {
-                        
+                    NavigationLink {
+                        EditBusinessView(viewModel: viewModel, businessDetail: businessDetail)
                     } label: {
                         
                         Label("Bearbeiten", systemImage: "pencil")
