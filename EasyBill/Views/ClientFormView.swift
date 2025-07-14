@@ -132,11 +132,11 @@ struct ClientFormView: View {
                 }
                 Section {
                         Button("Kunde speichern") {
-                            
                             if viewModel.newClient() != nil {
                                 context.insert(viewModel.newClient()!)
                                 try? context.save()
                                 viewModel.resetInputs()
+                                dismiss()
                             } else {
                                 withAnimation {
                                     viewModel.showAttentionIcon = true

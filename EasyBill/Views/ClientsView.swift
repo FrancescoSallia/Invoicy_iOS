@@ -16,7 +16,6 @@ struct ClientsView: View {
     var body: some View {
         NavigationStack {
             Divider()
-
             ZStack(alignment: .bottomTrailing) {
                 if clients.isEmpty {
                     VStack(alignment: .center) {
@@ -43,18 +42,23 @@ struct ClientsView: View {
                     ScrollView {
                         VStack {
                             ForEach(clients, id: \.email) { client in
+                                let initialColor = Color.color(for: client.email) //Dank der extension generiert es zufälligen Farben für den Hintergrund
                                 NavigationLink {
 //                                    BusinessDetailView(viewModel: viewModel, businessDetail: business)
                                 } label: {
                                 HStack {
                                     Spacer()
-//                                    (client.logoImg ?? UIImage(named: "test_logo"))
-//                                        .map { Image(uiImage: $0) }?
-//                                        .resizable()
-//                                        .scaledToFill()
-//                                        .frame(width: 60, height: 60)
-//                                        .clipShape(Circle())
-//                                        .clipped()
+                                    Text(client.clientName.prefix(2).uppercased())
+                                        .frame(width: 60, height: 60)
+                                        .background(initialColor.opacity(0.2))
+                                        .foregroundStyle(initialColor)
+                                        .clipShape(Circle())
+                                        .clipped()
+                                        .overlay {
+                                            Circle()
+                                                .stroke(style: StrokeStyle(lineWidth: 1))
+                                                .foregroundStyle(initialColor)
+                                        }
                                     Spacer()
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text(client.clientName)
@@ -81,7 +85,7 @@ struct ClientsView: View {
                     HStack {
                         Image(systemName: "plus")
                             .bold()
-                        Text("Add Business")
+                        Text("Add Client")
                             .bold()
                     }
                     .padding(4)

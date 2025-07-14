@@ -14,6 +14,7 @@ struct BusinessFormView: View {
     
     @ObservedObject var viewModel: BillViewModel
     @Environment(\.modelContext) var context
+    @Environment(\.dismiss) private var dismiss
    
     var body: some View {
         NavigationStack {
@@ -247,6 +248,7 @@ struct BusinessFormView: View {
                             context.insert(viewModel.newBusiness()!)
                             try? context.save()
                             viewModel.resetInputs()
+                            dismiss()
                         } else {
                             viewModel.showAttentionIcon = true
                         }
