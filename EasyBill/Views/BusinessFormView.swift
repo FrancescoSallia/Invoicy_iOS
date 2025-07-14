@@ -195,8 +195,8 @@ struct BusinessFormView: View {
                     }
                     
                 }
-            
-               
+                
+                
                 
                 Toggle("Bank-Verbindung", isOn: $viewModel.isToggledBank)
                 if viewModel.isToggledBank {
@@ -249,7 +249,7 @@ struct BusinessFormView: View {
                         }
                     }
                 }
-            
+                
                 Section(header: Text("Signatur")) {
                     if let image = viewModel.signatureImage {
                         HStack {
@@ -283,7 +283,7 @@ struct BusinessFormView: View {
                                 Image(systemName: "exclamationmark.circle.fill")
                                     .foregroundStyle(.red)
                             }
-
+                            
                         }
                         .padding(.horizontal)
                     }
@@ -292,18 +292,18 @@ struct BusinessFormView: View {
                     HStack {
                         Text("Logo:")
                         Spacer()
-                            PhotosPicker(selection: $viewModel.photosPickerItem, matching: .images) {
-                                Image(uiImage: (viewModel.logoImage ?? UIImage(systemName: "photo"))!)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxHeight: 80)
-                                        .clipShape(RoundedRectangle(cornerRadius: 6))
-                                }
-                            .tint(.primary)
+                        PhotosPicker(selection: $viewModel.photosPickerItem, matching: .images) {
+                            Image(uiImage: (viewModel.logoImage ?? UIImage(systemName: "photo"))!)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxHeight: 80)
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                        }
+                        .tint(.primary)
                     }
                     .padding(.horizontal)
                 }
-
+                
                 Section {
                     Button("Business erstellen") {
                         if viewModel.newBusiness() != nil {
@@ -333,7 +333,20 @@ struct BusinessFormView: View {
                 viewModel.logoImage = nil
                 viewModel.photosPickerItem = nil
             }
+            .toolbar {
+                if focusedField != nil {
+                    Button {
+                        focusedField = nil
+                    } label: {
+                        HStack {
+                            Text("Hide")
+                            Image(systemName: "keyboard.chevron.compact.down.fill")
+                        }
+                    }
+                }
+            }
         }
+
     }
 }
 
