@@ -120,7 +120,6 @@ class BillViewModel: ObservableObject {
         if isToggledBank {
             guard !self.accountHolder.isEmpty,  hasIBAN || hasAccountNumberAndBIC else { return false }
         }
-        
         return true
     }
     

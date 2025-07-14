@@ -33,6 +33,8 @@ struct BusinessFormView: View {
                         Text("E-Mail:")
                         TextField("z. B. info@acme.de", text: $viewModel.email, prompt: Text("z. B. info@acme.de"))
                             .multilineTextAlignment(.trailing)
+                            .keyboardType(.emailAddress)
+                            .textCase(.lowercase)
                         if viewModel.showAttentionIcon && viewModel.email.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -42,6 +44,7 @@ struct BusinessFormView: View {
                         Text("Website:")
                         TextField("z. B. acme.de", text: $viewModel.website, prompt: Text("z. B. acme.de"))
                             .multilineTextAlignment(.trailing)
+                            .textCase(.lowercase)
                     }
                 }
                 
@@ -89,6 +92,7 @@ struct BusinessFormView: View {
                         Text("Postleitzahl:")
                         TextField("z. B. 12345", text: $viewModel.postalCode, prompt: Text("z. B. 12345"))
                             .multilineTextAlignment(.trailing)
+                            .keyboardType(.numberPad)
                         if viewModel.showAttentionIcon && viewModel.postalCode.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -168,6 +172,7 @@ struct BusinessFormView: View {
                         Text("Account Number:")
                         TextField("Account Number", text: $viewModel.accountNumber, prompt: Text("1234 1234 45"))
                             .multilineTextAlignment(.trailing)
+                            .keyboardType(.numberPad)
                         if viewModel.showAttentionIcon && viewModel.accountNumber.isEmpty && viewModel.iban.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -177,15 +182,14 @@ struct BusinessFormView: View {
                         Text("BIC:")
                         TextField("bic", text: $viewModel.bic, prompt: Text("BELADEBEXX"))
                             .multilineTextAlignment(.trailing)
+                            .textCase(.uppercase)
                         if viewModel.showAttentionIcon && viewModel.bic.isEmpty && viewModel.iban.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
                         }
                     }
                 }
-                
             
-                
                 Section(header: Text("Signatur")) {
                     if let image = viewModel.signatureImage {
                         HStack {
