@@ -15,6 +15,16 @@ struct BusinessFormView: View {
     @ObservedObject var viewModel: BillViewModel
     @Environment(\.modelContext) var context
     @Environment(\.dismiss) private var dismiss
+    @FocusState private var focusedField: Field?
+
+    enum Field: Hashable { //TODO: Enum auslagern, erst bei ClientFormView die onSubmit funktion einfügen wie auf dieser View
+        case businessName, email, website,
+             contactName, phoneNumber,
+             street, houseNumber, postalCode, city, country,
+             companyRegistrationNumber, ustIdNr, vatApplicable,
+             accountHolder, bankName, iban, accountNumber, bic
+    }
+    
    
     var body: some View {
         NavigationStack {
@@ -24,6 +34,9 @@ struct BusinessFormView: View {
                         Text("Firmenname:")
                         TextField("z. B. ACME GmbH", text: $viewModel.businessName, prompt: Text("z. B. ACME GmbH"))
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .businessName)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .email }
                         
                         if viewModel.showAttentionIcon && viewModel.businessName.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
                             Image(systemName: "exclamationmark.circle.fill")
@@ -36,6 +49,10 @@ struct BusinessFormView: View {
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.emailAddress)
                             .textCase(.lowercase)
+                            .focused($focusedField, equals: .email)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .website }
+                        
                         if viewModel.showAttentionIcon && viewModel.email.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -46,6 +63,9 @@ struct BusinessFormView: View {
                         TextField("z. B. acme.de", text: $viewModel.website, prompt: Text("z. B. acme.de"))
                             .multilineTextAlignment(.trailing)
                             .textCase(.lowercase)
+                            .focused($focusedField, equals: .website)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .contactName }
                     }
                 }
                 
@@ -54,6 +74,10 @@ struct BusinessFormView: View {
                         Text("Name:")
                         TextField("z. B. Max Mustermann", text: $viewModel.contactName, prompt: Text("z. B. Max Mustermann"))
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .contactName)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .phoneNumber }
+                        
                         if viewModel.showAttentionIcon && viewModel.contactName.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -64,6 +88,10 @@ struct BusinessFormView: View {
                         TextField("z. B. +49 123 456789", text: $viewModel.phoneNumber, prompt: Text("z. B. +49 123 456789"))
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
+                            .focused($focusedField, equals: .phoneNumber)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .street }
+                        
                         if viewModel.showAttentionIcon && viewModel.phoneNumber.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -76,6 +104,10 @@ struct BusinessFormView: View {
                         Text("Straße:")
                         TextField("z. B. Musterstraße ", text: $viewModel.street, prompt: Text("z. B. Musterstraße "))
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .street)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .houseNumber }
+                        
                         if viewModel.showAttentionIcon && viewModel.street.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -85,6 +117,10 @@ struct BusinessFormView: View {
                         Text("HouseNumber:")
                         TextField("z. B. 12a", text: $viewModel.houseNumber, prompt: Text("z. B. 12a"))
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .houseNumber)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .postalCode }
+                        
                         if viewModel.showAttentionIcon && viewModel.houseNumber.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -95,6 +131,10 @@ struct BusinessFormView: View {
                         TextField("z. B. 12345", text: $viewModel.postalCode, prompt: Text("z. B. 12345"))
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
+                            .focused($focusedField, equals: .postalCode)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .city }
+                        
                         if viewModel.showAttentionIcon && viewModel.postalCode.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -104,6 +144,10 @@ struct BusinessFormView: View {
                         Text("Stadt:")
                         TextField("z. B. Berlin", text: $viewModel.city, prompt: Text("z. B. Berlin"))
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .city)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .country }
+                        
                         if viewModel.showAttentionIcon && viewModel.city.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -113,6 +157,10 @@ struct BusinessFormView: View {
                         Text("Land:")
                         TextField("z. B. Deutschland", text: $viewModel.country, prompt: Text("z. B. Deutschland"))
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .country)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .companyRegistrationNumber }
+                        
                         if viewModel.showAttentionIcon && viewModel.country.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -125,16 +173,25 @@ struct BusinessFormView: View {
                         Text("Handelsregister-Nummer:")
                         TextField("z. B. DE011616", text: $viewModel.companyRegistrationNumber, prompt: Text("z. B. DE011616"))
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .companyRegistrationNumber)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .ustIdNr }
                     }
                     HStack {
                         Text("UST-ID-Nummer:")
                         TextField("z. B. 998011616", text: $viewModel.ustIdNr, prompt: Text("z. B. 900011616"))
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .ustIdNr)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .vatApplicable }
                     }
                     HStack {
                         Text("Umsatzsteuerpflichtig:")
                         TextField("z. B. 0", text: $viewModel.vatApplicable, prompt: Text("z. B. 0"))
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .vatApplicable)
+                            .submitLabel(.done)
+                            .onSubmit { focusedField = nil }
                     }
                     
                 }
@@ -222,6 +279,11 @@ struct BusinessFormView: View {
                                     .frame(height: 82)
                                     .tint(.primary)
                             }
+                            if viewModel.showAttentionIcon && viewModel.signatureImage == nil {
+                                Image(systemName: "exclamationmark.circle.fill")
+                                    .foregroundStyle(.red)
+                            }
+
                         }
                         .padding(.horizontal)
                     }
