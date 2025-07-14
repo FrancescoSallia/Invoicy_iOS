@@ -163,6 +163,7 @@ struct BusinessFormView: View {
                         Text("IBAN:")
                         TextField("Iban", text: $viewModel.iban, prompt: Text("DE09 22 1234 1234 45"))
                             .multilineTextAlignment(.trailing)
+                            .textCase(.uppercase)
                         if viewModel.showAttentionIcon && viewModel.iban.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)

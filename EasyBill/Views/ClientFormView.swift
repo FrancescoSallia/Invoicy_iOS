@@ -16,8 +16,8 @@ struct ClientFormView: View {
             Form {
                 Section(header: Text("Allgemein")) {
                     HStack {
-                        Text("Firmenname:")
-                        TextField("z. B. ACME GmbH", text: $viewModel.clientName, prompt: Text("z. B. ACME GmbH"))
+                        Text("Kundenname:")
+                        TextField("z. B. ACME GmbH", text: $viewModel.clientName, prompt: Text("z. B. ACM GmbH"))
                             .multilineTextAlignment(.trailing)
                         
                         if viewModel.showAttentionIcon && viewModel.clientName.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
