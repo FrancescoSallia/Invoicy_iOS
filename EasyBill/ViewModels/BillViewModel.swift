@@ -188,8 +188,8 @@ class BillViewModel: ObservableObject {
            }
     }
     
-    func newClient() {
-        guard !self.clientName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty else { return }
+    func newClient() -> Client? {
+        guard !self.clientName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty else { return nil }
         
         let client = Client(
             clientName: self.clientName,
@@ -206,7 +206,7 @@ class BillViewModel: ObservableObject {
             ustIdNr: self.ustIdNr.isEmpty ? nil : self.ustIdNr
         )
         print("Kunde gespeichert: \(client)")
-        resetInputs()
+        return client
     }
     
     func newBusiness() -> Business?{

@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ClientFormView: View {
     
     @ObservedObject var viewModel: BillViewModel
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationStack {
@@ -29,6 +32,8 @@ struct ClientFormView: View {
                         Text("E-Mail:")
                         TextField("z. B. info@acme.de", text: $viewModel.email, prompt: Text("z. B. info@acme.de"))
                             .multilineTextAlignment(.trailing)
+                            .keyboardType(.emailAddress)
+                            .textCase(.lowercase)
                         if viewModel.showAttentionIcon && viewModel.email.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -55,6 +60,7 @@ struct ClientFormView: View {
                         Text("Telefonnummer:")
                         TextField("z. B. +49 123 456789", text: $viewModel.phoneNumber, prompt: Text("z. B. +49 123 456789"))
                             .multilineTextAlignment(.trailing)
+                            .keyboardType(.numberPad)
                         if viewModel.showAttentionIcon && viewModel.phoneNumber.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -72,10 +78,21 @@ struct ClientFormView: View {
                                 .foregroundStyle(.red)
                         }
                     }
+                    
+                    HStack {
+                        Text("Hausnummer:")
+                        TextField("z. B. 12a", text: $viewModel.houseNumber, prompt: Text("z. B. 12a"))
+                            .multilineTextAlignment(.trailing)
+                        if viewModel.showAttentionIcon && viewModel.houseNumber.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundStyle(.red)
+                        }
+                    }
                     HStack {
                         Text("Postleitzahl:")
                         TextField("z. B. 12345", text: $viewModel.postalCode, prompt: Text("z. B. 12345"))
                             .multilineTextAlignment(.trailing)
+                            .keyboardType(.numberPad)
                         if viewModel.showAttentionIcon && viewModel.postalCode.isEmpty { //Zeigt den icon nur wenn der wert nicht befüllt wurde
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)
@@ -115,10 +132,16 @@ struct ClientFormView: View {
                 }
                 Section {
                         Button("Kunde speichern") {
-                        withAnimation {
-                            viewModel.showAttentionIcon = true
-                        }
-                            viewModel.newClient()
+                            
+                            if viewModel.newClient() != nil {
+                                context.insert(viewModel.newClient()!)
+                                try? context.save()
+                                viewModel.resetInputs()
+                            } else {
+                                withAnimation {
+                                    viewModel.showAttentionIcon = true
+                                }
+                            }
                     }
                     .buttonStyle(.borderedProminent)
                 }

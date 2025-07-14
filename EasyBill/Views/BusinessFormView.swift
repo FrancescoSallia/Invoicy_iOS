@@ -62,6 +62,7 @@ struct BusinessFormView: View {
                         Text("Telefonnummer:")
                         TextField("z. B. +49 123 456789", text: $viewModel.phoneNumber, prompt: Text("z. B. +49 123 456789"))
                             .multilineTextAlignment(.trailing)
+                            .keyboardType(.numberPad)
                         if viewModel.showAttentionIcon && viewModel.phoneNumber.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
                                 .foregroundStyle(.red)

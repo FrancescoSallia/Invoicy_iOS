@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Client {
+@Model
+class Client {
     
     var clientName: String
     var email: String
@@ -27,5 +29,20 @@ struct Client {
     //tax details
     var companyRegistrationNumber : String? = nil // Co. Reg. No. = Company Registration Number
     var ustIdNr: String? = nil //  VAT Reg. No. = Umsatzsteuer-Identifikationsnummer (USt-IdNr.)
+    
+    init(clientName: String, email: String, website: String? = nil, contactName: String, phoneNumber: String, street: String, houseNumber: String, postalCode: String, city: String, country: String, companyRegistrationNumber: String? = nil, ustIdNr: String? = nil) {
+        self.clientName = clientName
+        self.email = email
+        self.website = website
+        self.contactName = contactName
+        self.phoneNumber = phoneNumber
+        self.street = street
+        self.houseNumber = houseNumber
+        self.postalCode = postalCode
+        self.city = city
+        self.country = country
+        self.companyRegistrationNumber = companyRegistrationNumber
+        self.ustIdNr = ustIdNr
+    }
     
 }

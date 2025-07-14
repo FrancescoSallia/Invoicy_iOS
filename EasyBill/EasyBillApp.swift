@@ -23,6 +23,7 @@ struct EasyBillApp: App {
                 }
                 Tab("Clients", systemImage: "person.text.rectangle.fill") {
                     ClientsView(viewModel: viewModel)
+                        .modelContainer(for: [Client.self])
                 }
                 Tab("Business", systemImage: "suitcase") {
                     BusinessView(viewModel: viewModel)
