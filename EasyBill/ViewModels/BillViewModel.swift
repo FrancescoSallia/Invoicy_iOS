@@ -53,6 +53,9 @@ class BillViewModel: ObservableObject {
     @Published var accountNumber: String = ""
     @Published var bic: String = ""
     
+    @Published var focusedField: FieldFocusEnum?
+
+    
     
     var dummyBusinesses: [Business] = [
         Business(

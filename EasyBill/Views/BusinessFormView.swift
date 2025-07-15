@@ -15,17 +15,8 @@ struct BusinessFormView: View {
     @ObservedObject var viewModel: BillViewModel
     @Environment(\.modelContext) var context
     @Environment(\.dismiss) private var dismiss
-    @FocusState private var focusedField: Field?
+    @FocusState private var focusedField: FieldFocusEnum?
 
-    enum Field: Hashable { //TODO: Enum auslagern, erst bei ClientFormView die onSubmit funktion einfügen wie auf dieser View
-        case businessName, email, website,
-             contactName, phoneNumber,
-             street, houseNumber, postalCode, city, country,
-             companyRegistrationNumber, ustIdNr, vatApplicable,
-             accountHolder, bankName, iban, accountNumber, bic
-    }
-    
-   
     var body: some View {
         NavigationStack {
             Form {
@@ -196,8 +187,6 @@ struct BusinessFormView: View {
                     
                 }
                 
-                
-                
                 Toggle("Bank-Verbindung", isOn: $viewModel.isToggledBank)
                 if viewModel.isToggledBank {
                     HStack {
@@ -346,7 +335,6 @@ struct BusinessFormView: View {
                 }
             }
         }
-
     }
 }
 
