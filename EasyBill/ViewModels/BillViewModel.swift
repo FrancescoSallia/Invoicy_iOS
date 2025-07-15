@@ -210,6 +210,21 @@ class BillViewModel: ObservableObject {
         }
     }
     
+    func updateClient(_ client: Client) {
+        client.clientName = self.clientName
+        client.email = self.email
+        client.website = self.website.isEmpty ? nil : self.website
+        client.contactName = self.contactName
+        client.phoneNumber = self.phoneNumber
+        client.street = self.street
+        client.houseNumber = self.houseNumber
+        client.postalCode = self.postalCode
+        client.city = self.city
+        client.country = self.country
+        client.companyRegistrationNumber = self.companyRegistrationNumber.isEmpty ? nil : self.companyRegistrationNumber
+        client.ustIdNr = self.ustIdNr.isEmpty ? nil : self.ustIdNr
+    }
+    
     func getEditableBusiness(business: Business) {
         self.businessName = business.businessName
         self.email = business.email
@@ -232,6 +247,21 @@ class BillViewModel: ObservableObject {
         
         self.logoImage = business.logoImg
         self.signatureImage = business.signatureImg
+    }
+
+    func getEditableClient(client: Client) {
+        self.clientName = client.clientName
+        self.email = client.email
+        self.website = client.website ?? ""
+        self.contactName = client.contactName
+        self.phoneNumber = client.phoneNumber
+        self.street = client.street
+        self.houseNumber = client.houseNumber
+        self.postalCode = client.postalCode
+        self.city = client.city
+        self.country = client.country
+        self.companyRegistrationNumber = client.companyRegistrationNumber ?? ""
+        self.ustIdNr = client.ustIdNr ?? ""
     }
     
     

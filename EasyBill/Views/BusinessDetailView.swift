@@ -15,14 +15,12 @@ struct BusinessDetailView: View {
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @Query private var business: [Business]
-
+//    @Query private var business: [Business]
     var businessDetail: Business
 
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-
                 // Logo oben
                 if let image = businessDetail.logoImg {
                     Image(uiImage: image)

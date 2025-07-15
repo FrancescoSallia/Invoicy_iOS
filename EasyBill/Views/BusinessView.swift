@@ -49,30 +49,28 @@ struct BusinessView: View {
                                 NavigationLink {
                                     BusinessDetailView(viewModel: viewModel, businessDetail: business)
                                 } label: {
-                                HStack {
-                                    Spacer()
-                                    (business.logoImg ?? UIImage(named: "test_logo"))
-                                        .map { Image(uiImage: $0) }?
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 60, height: 60)
-                                        .clipShape(Circle())
-                                        .clipped()
-                                    Spacer()
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(business.businessName)
-                                            .font(.headline)
-                                        Text("Telefon: \(business.phoneNumber)")
-                                        Text("Adresse: \(business.street) \(business.houseNumber), \(business.postalCode) \(business.city), \(business.country)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
+                                    HStack(alignment: .top, spacing: 12) {
+                                        (business.logoImg ?? UIImage(named: "test_logo"))
+                                            .map { Image(uiImage: $0) }?
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 60, height: 60)
+                                            .clipShape(Circle())
+                                            .clipped()
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text(business.businessName)
+                                                .font(.headline)
+                                            Text("Telefon: \(business.phoneNumber)")
+                                            Text("Adresse: \(business.street) \(business.houseNumber), \(business.postalCode) \(business.city), \(business.country)")
+                                                .font(.subheadline)
+                                                .foregroundColor(.gray)
+                                        }
+                                        Spacer(minLength: 0)
                                     }
-                                    Spacer()
+                                    .padding()
                                 }
-                                .padding()
                                 Divider()
                                     .padding(.horizontal)
-                            }
                             }
                         }
                     }

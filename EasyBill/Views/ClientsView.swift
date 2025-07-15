@@ -44,36 +44,34 @@ struct ClientsView: View {
                             ForEach(clients, id: \.email) { client in
                                 let initialColor = Color.color(for: client.email) //Dank der extension generiert es zufälligen Farben für den Hintergrund
                                 NavigationLink {
-//                                    BusinessDetailView(viewModel: viewModel, businessDetail: business)
+                                    ClientDetailView(viewModel: viewModel, client: client)
                                 } label: {
-                                HStack {
-                                    Spacer()
-                                    Text(client.clientName.prefix(2).uppercased())
-                                        .frame(width: 60, height: 60)
-                                        .background(initialColor.opacity(0.2))
-                                        .foregroundStyle(initialColor)
-                                        .clipShape(Circle())
-                                        .clipped()
-                                        .overlay {
-                                            Circle()
-                                                .stroke(style: StrokeStyle(lineWidth: 1))
-                                                .foregroundStyle(initialColor)
+                                    HStack(alignment: .top, spacing: 12) {
+                                        Text(client.clientName.prefix(2).uppercased())
+                                            .frame(width: 60, height: 60)
+                                            .background(initialColor.opacity(0.2))
+                                            .foregroundStyle(initialColor)
+                                            .clipShape(Circle())
+                                            .clipped()
+                                            .overlay {
+                                                Circle()
+                                                    .stroke(style: StrokeStyle(lineWidth: 1))
+                                                    .foregroundStyle(initialColor)
+                                            }
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text(client.clientName)
+                                                .font(.headline)
+                                            Text("Telefon: \(client.phoneNumber)")
+                                            Text("Adresse: \(client.street) \(client.houseNumber), \(client.postalCode) \(client.city), \(client.country)")
+                                                .font(.subheadline)
+                                                .foregroundColor(.gray)
                                         }
-                                    Spacer()
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(client.clientName)
-                                            .font(.headline)
-                                        Text("Telefon: \(client.phoneNumber)")
-                                        Text("Adresse: \(client.street) \(client.houseNumber), \(client.postalCode) \(client.city), \(client.country)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
+                                        Spacer(minLength: 0)
                                     }
-                                    Spacer()
+                                    .padding()
                                 }
-                                .padding()
                                 Divider()
                                     .padding(.horizontal)
-                            }
                             }
                         }
                     }

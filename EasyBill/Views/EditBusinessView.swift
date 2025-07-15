@@ -16,8 +16,6 @@ struct EditBusinessView: View {
     @ObservedObject var viewModel: BillViewModel
     @Environment(\.modelContext) var context
     @Environment(\.dismiss) private var dismiss
-
-    
     var businessDetail: Business
 
     
