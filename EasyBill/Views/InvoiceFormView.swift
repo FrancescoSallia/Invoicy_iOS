@@ -69,16 +69,34 @@ struct InvoiceFormView: View {
 
                         Section(header: Text("Zusammenfassung")) {
                             HStack {
-                                Text("Rabatt:")
-                                TextField("Rabatt", value: $viewModel.discount, format: .number)
+                                Text("MwSt (%)")
+                                TextField("MwSt in %", value: $viewModel.tax, format: .number, prompt: Text("z. B. 19"))
                                     .keyboardType(.decimalPad)
                                     .multilineTextAlignment(.trailing)
                             }
                             HStack {
-                                Text("Gesamtbetrag:")
-                                TextField("Gesamtbetrag", value: $viewModel.totalSummery, format: .number)
+                                Text("Discount (%)")
+                                TextField("Rabatt in %", value: $viewModel.discount, format: .number, prompt: Text("z. B. 10"))
                                     .keyboardType(.decimalPad)
                                     .multilineTextAlignment(.trailing)
+                            }
+                            HStack {
+                                Text("Zwischensumme")
+                                Spacer()
+                                Text("€")
+                                Text("\(String(format: "%.2f", viewModel.totalSummery))")
+                            }
+                            HStack {
+                                Text("Rabatt (\(String(format: "%.0f", viewModel.discount))%)")
+                                Spacer()
+                                Text("€")
+                                Text("\(String(format: "%.2f", viewModel.totalSummery))")
+                            }
+                            HStack {
+                                Text("Gesamt:")
+                                Spacer()
+                                Text("€")
+                                Text("\(String(format: "%.2f", viewModel.totalSummery))")
                             }
                         }
 

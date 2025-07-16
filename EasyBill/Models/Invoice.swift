@@ -30,9 +30,10 @@ class Invoice {
     
     //Amounts Summary
     var discount: Double
+    var tax: Double
     var totalSummery: Double
     
-    init(business: Business, client: Client, invoiceName: String, invoiceNumber: String, currency: String, issuedOn: Date, dueDate: Date, items: [InvoiceItem], discount: Double, totalSummery: Double) {
+    init(business: Business, client: Client, invoiceName: String, invoiceNumber: String, currency: String, issuedOn: Date, dueDate: Date, items: [InvoiceItem], discount: Double, tax: Double, totalSummery: Double) {
         self.business = business
         self.client = client
         self.invoiceName = invoiceName
@@ -42,6 +43,7 @@ class Invoice {
         self.dueDate = dueDate
         self.items = items
         self.discount = discount
+        self.tax = tax
         self.totalSummery = totalSummery
     }
     
