@@ -241,7 +241,7 @@ struct EditBusinessView: View {
                         if viewModel.textFieldsAreEmpty() {
                             viewModel.updateBusiness(businessDetail)
                             try? context.save()
-                            viewModel.resetInputs()
+                            viewModel.resetInputsClientAndBusiness()
                             dismiss()
                         } else {
                             viewModel.showAttentionIcon = true
@@ -264,7 +264,7 @@ struct EditBusinessView: View {
                 viewModel.showAttentionIcon = false
                 viewModel.logoImage = nil
                 viewModel.photosPickerItem = nil
-                viewModel.resetInputs()
+                viewModel.resetInputsClientAndBusiness()
             }
             .onAppear {
                 viewModel.getEditableBusiness(business: businessDetail)

@@ -298,7 +298,7 @@ struct BusinessFormView: View {
                         if viewModel.newBusiness() != nil {
                             context.insert(viewModel.newBusiness()!)
                             try? context.save()
-                            viewModel.resetInputs()
+                            viewModel.resetInputsClientAndBusiness()
                             dismiss()
                         } else {
                             viewModel.showAttentionIcon = true

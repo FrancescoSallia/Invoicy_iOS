@@ -127,7 +127,7 @@ struct EditClientView: View {
                         if let _ = viewModel.newClient() {
                             viewModel.updateClient(clientDetail)
                             try? context.save()
-                            viewModel.resetInputs()
+                            viewModel.resetInputsClientAndBusiness()
                             dismiss()
                         } else {
                             withAnimation {
@@ -144,7 +144,7 @@ struct EditClientView: View {
             }
             .onDisappear {
                 viewModel.showAttentionIcon = false
-                viewModel.resetInputs()
+                viewModel.resetInputsClientAndBusiness()
             }
         }
     }

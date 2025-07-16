@@ -58,7 +58,7 @@ struct ObjectViewSheet: View {
                     }
                 }
                 Section {
-                    Button("Hinzufügen") {
+                    Button(viewModel.currentInvoiceItem == nil ? "Speichern" : "Aktualisieren") {
                         let newItem = InvoiceItem(
                             itemName: viewModel.itemName,
                             itemDescription: viewModel.itemDescription,
@@ -66,7 +66,12 @@ struct ObjectViewSheet: View {
                             unit: viewModel.unit,
                             price: viewModel.price
                         )
-                        viewModel.invoiceItems.append(newItem)
+                        if viewModel.currentInvoiceItem == nil {
+                            viewModel.invoiceItems.append(newItem)
+                        } else {
+                            viewModel.updateInvoiceItem(newItem)
+                        }
+                        viewModel.resetInvoiceItems()
                         dismiss()
                     }
                     .disabled(viewModel.itemName.isEmpty || viewModel.price <= 0)
@@ -81,6 +86,11 @@ struct ObjectViewSheet: View {
                         dismiss()
                     }
                 }
+            }
+            .onDisappear{
+                viewModel.currentInvoiceItem = nil
+                viewModel.resetInvoiceItems()
+                
             }
         }
     }

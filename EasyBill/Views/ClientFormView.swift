@@ -179,7 +179,7 @@ struct ClientFormView: View {
                             if viewModel.newClient() != nil {
                                 context.insert(viewModel.newClient()!)
                                 try? context.save()
-                                viewModel.resetInputs()
+                                viewModel.resetInputsClientAndBusiness()
                                 dismiss()
                             } else {
                                 withAnimation {

@@ -70,6 +70,8 @@ class BillViewModel: ObservableObject {
     @Published var unit: String = ""
     @Published var price: Double = 0.0
     
+    @Published var currentInvoiceItem: InvoiceItem? = nil
+
     
     var selectedBusiness: Business? = Business(
         businessName: "TechNova GmbH",
@@ -125,11 +127,7 @@ class BillViewModel: ObservableObject {
             price: 15.50
         )
     ]
-    
-    
-    
-    
-    
+  
     var dummyBusinesses: [Business] = [
         Business(
             businessName: "TechNova GmbH",
@@ -298,6 +296,14 @@ class BillViewModel: ObservableObject {
         client.ustIdNr = self.ustIdNr.isEmpty ? nil : self.ustIdNr
     }
     
+    func updateInvoiceItem(_ invoiceItem: InvoiceItem) {
+        invoiceItem.itemName = self.itemName
+        invoiceItem.itemDescription = self.itemDescription
+        invoiceItem.quantity = self.quantity
+        invoiceItem.unit = self.unit
+        invoiceItem.price = self.price
+    }
+    
     func getEditableBusiness(business: Business) {
         self.businessName = business.businessName
         self.email = business.email
@@ -335,6 +341,14 @@ class BillViewModel: ObservableObject {
         self.country = client.country
         self.companyRegistrationNumber = client.companyRegistrationNumber ?? ""
         self.ustIdNr = client.ustIdNr ?? ""
+    }
+    
+    func getEditableInvoiceItem(invoiceItem: InvoiceItem) {
+        self.itemName = invoiceItem.itemName
+        self.itemDescription = invoiceItem.itemDescription
+        self.quantity = invoiceItem.quantity
+        self.unit = invoiceItem.unit
+        self.price = invoiceItem.price
     }
     
     
@@ -408,7 +422,7 @@ class BillViewModel: ObservableObject {
         return business
     }
     
-     func resetInputs() {
+     func resetInputsClientAndBusiness() {
         self.clientName = ""
         self.businessName = ""
         self.email = ""
@@ -432,6 +446,16 @@ class BillViewModel: ObservableObject {
         self.iban = ""
         self.accountNumber = ""
         self.bic = ""
+    }
+    
+    func resetInvoiceItems() {
+        self.itemName = ""
+        self.itemDescription = ""
+        self.quantity = 1
+        self.unit = ""
+        self.price = 0.0
+        self.currentInvoiceItem = nil
+        
     }
     
 

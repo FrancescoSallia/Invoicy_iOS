@@ -64,16 +64,24 @@ struct InvoiceFormView: View {
                         }
                         Section(header: Text("Invoice Items")) {
                             ForEach(viewModel.invoiceItems, id: \.self) { item in
+                               
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(item.itemName)
                                         .font(.headline)
-
                                     HStack {
                                         Text("\(item.quantity) × €\(String(format: "%.2f", item.price))/Stück")
                                             .foregroundStyle(.secondary)
                                         Spacer()
                                         Text("€\(String(format: "%.2f", item.price))")
                                             .bold()
+                                        Button {
+                                            viewModel.currentInvoiceItem = item
+                                            viewModel.getEditableInvoiceItem(invoiceItem: item)
+                                            showObjectSheet.toggle()
+                                        } label: {
+                                            Image(systemName: "pencil.and.scribble")
+                                        }
+                                        .tint(.primary)
                                     }
                                 }
                                 .padding()

@@ -58,7 +58,7 @@ struct HomeView: View {
             HStack {
                 Spacer()
                 NavigationLink {
-                    //                    ClientFormView() //TODO: Hier muss noch die InvoiceFormView rein!!
+                    InvoiceFormView(viewModel: viewModel)
                 } label: {
                     HStack {
                         Image(systemName: "plus")
