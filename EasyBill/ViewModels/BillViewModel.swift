@@ -55,6 +55,50 @@ class BillViewModel: ObservableObject {
     
     @Published var focusedField: FieldFocusEnum?
 
+    //Invoice
+    
+    @Published var invoiceName: String = ""
+    @Published var invoiceNumber: String = ""
+    @Published var currency: String = ""
+    @Published var discount: Double = 0.0
+    @Published var totalSummery: Double = 0.0
+    
+    var selectedBusiness: Business? = Business(
+        businessName: "TechNova GmbH",
+        email: "info@technova.de",
+        website: "www.technova.de",
+        contactName: "Max Mustermann",
+        phoneNumber: "+49 123 4567890",
+        street: "Hauptstraße",
+        houseNumber: "12A",
+        postalCode: "10115",
+        city: "Berlin",
+        country: "Deutschland",
+        companyRegistrationNumber: "HRB 123456",
+        ustIdNr: "DE123456789",
+        vatApplicable: "Ja",
+        bankPayment: nil,
+        logoImgData: nil,
+        signatureImgData: nil
+    )
+    
+    var selectedClient: Client? = Client(
+        clientName: "ACME GmbH",
+        email: "info@acme.de",
+        website: "www.acme.de",
+        contactName: "Max Mustermann",
+        phoneNumber: "+49 123 456789",
+        street: "Musterstraße",
+        houseNumber: "1a",
+        postalCode: "12345",
+        city: "Berlin",
+        country: "Deutschland",
+        companyRegistrationNumber: "HRB 98765",
+        ustIdNr: "DE123456789"
+    )
+    
+    var selectedIssuedOn: Date = Date.now
+    var selectedDueDate: Date = Date.now.addingTimeInterval(86400)
     
     
     var dummyBusinesses: [Business] = [

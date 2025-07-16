@@ -36,8 +36,7 @@ class Business {
     var bankPayment: BankPayment? = nil
     var logoImgData: Data? = nil
     var signatureImgData: Data? = nil
-
-   
+    
     
     init(businessName: String, email: String, website: String? = nil, contactName: String? = nil, phoneNumber: String, street: String, houseNumber: String, postalCode: String, city: String, country: String, companyRegistrationNumber: String? = nil, ustIdNr: String? = nil, vatApplicable: String? = nil, bankPayment: BankPayment? = nil, logoImgData: Data? = nil, signatureImgData: Data? = nil) {
         self.businessName = businessName

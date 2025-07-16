@@ -108,7 +108,6 @@ struct ClientsView: View {
             .navigationTitle("Client's")
             .navigationBarTitleDisplayMode(.inline)
         }
-
     }
 }
 
