@@ -71,26 +71,11 @@ class BillViewModel: ObservableObject {
     @Published var price: Double = 0.0
     
     @Published var currentInvoiceItem: InvoiceItem? = nil
+//    @Published var businessIsSelected: String = ""
+
 
     
-    var selectedBusiness: Business? = Business(
-        businessName: "TechNova GmbH",
-        email: "info@technova.de",
-        website: "www.technova.de",
-        contactName: "Max Mustermann",
-        phoneNumber: "+49 123 4567890",
-        street: "Hauptstraße",
-        houseNumber: "12A",
-        postalCode: "10115",
-        city: "Berlin",
-        country: "Deutschland",
-        companyRegistrationNumber: "HRB 123456",
-        ustIdNr: "DE123456789",
-        vatApplicable: "Ja",
-        bankPayment: nil,
-        logoImgData: nil,
-        signatureImgData: nil
-    )
+    var selectedBusiness: String? = nil
     
     var selectedClient: Client? = Client(
         clientName: "ACME GmbH",

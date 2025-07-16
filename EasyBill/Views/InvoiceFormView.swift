@@ -10,7 +10,6 @@ import SwiftData
 
 struct InvoiceFormView: View {
     
-    
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var context
     @Query private var invoiceItems: [InvoiceItem]
@@ -32,7 +31,7 @@ struct InvoiceFormView: View {
                                 HStack {
                                     Text("Business")
                                     Spacer()
-                                    Text(viewModel.selectedBusiness?.businessName ?? "Auswählen")
+                                    Text(viewModel.selectedBusiness ?? "Auswählen")
                                         .foregroundColor(.gray)
                                 }
                             }
@@ -160,13 +159,17 @@ struct InvoiceFormView: View {
                     .navigationTitle("Rechnung erstellen")
                     .navigationBarTitleDisplayMode(.inline)
                     .sheet(isPresented: $showBusinessSheet) {
-//                        BusinessSelectionView(selectedBusiness: $viewModel.business)
+                        BusinessSelectionViewSheet(viewModel: viewModel)
+                            .presentationDetents([.large])
+                            .presentationDragIndicator(.visible)
                     }
                     .sheet(isPresented: $showClientSheet) {
 //                        ClientSelectionView(selectedClient: $viewModel.client)
                     }
                     .sheet(isPresented: $showObjectSheet) {
                         ObjectViewSheet(viewModel: viewModel)
+                            .presentationDetents([.height(600), .large])
+                            .presentationDragIndicator(.visible)
                       }
                     }
                 }
