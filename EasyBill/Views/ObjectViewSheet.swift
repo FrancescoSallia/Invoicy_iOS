@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ObjectViewSheet: View {
     
@@ -59,17 +60,17 @@ struct ObjectViewSheet: View {
                 }
                 Section {
                     Button(viewModel.currentInvoiceItem == nil ? "Speichern" : "Aktualisieren") {
-                        let newItem = InvoiceItem(
-                            itemName: viewModel.itemName,
-                            itemDescription: viewModel.itemDescription,
-                            quantity: viewModel.quantity,
-                            unit: viewModel.unit,
-                            price: viewModel.price
-                        )
+                      
                         if viewModel.currentInvoiceItem == nil {
-                            viewModel.invoiceItems.append(newItem)
+//                            viewModel.invoiceItems.append(newItem)
+                            context.insert(viewModel.newInvoiceItem())
+                            try? context.save()
+                            
                         } else {
-                            viewModel.updateInvoiceItem(newItem)
+                            if let item = viewModel.currentInvoiceItem {
+                                viewModel.updateInvoiceItem(item)
+                            }
+                            try? context.save()
                         }
                         viewModel.resetInvoiceItems()
                         dismiss()

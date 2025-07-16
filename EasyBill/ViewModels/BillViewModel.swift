@@ -422,6 +422,17 @@ class BillViewModel: ObservableObject {
         return business
     }
     
+    func newInvoiceItem() -> InvoiceItem {
+        let newItem = InvoiceItem(
+            itemName: self.itemName,
+            itemDescription: self.itemDescription,
+            quantity: self.quantity,
+            unit: self.unit,
+            price: self.price
+        )
+        return newItem
+    }
+    
      func resetInputsClientAndBusiness() {
         self.clientName = ""
         self.businessName = ""
@@ -456,6 +467,16 @@ class BillViewModel: ObservableObject {
         self.price = 0.0
         self.currentInvoiceItem = nil
         
+    }
+    
+    func calculateSubtotal(_ invoiceItems: [InvoiceItem]) -> String {
+        var total: Double = 0.0
+        
+        invoiceItems.forEach { item in
+          total += item.price * Double(item.quantity)
+        }
+        
+        return String(format: "%.2f", total)
     }
     
 

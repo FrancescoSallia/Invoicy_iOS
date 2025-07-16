@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct InvoiceFormView: View {
     
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var context
+    @Query private var invoiceItems: [InvoiceItem]
 
     @ObservedObject var viewModel: BillViewModel
 
@@ -63,16 +65,15 @@ struct InvoiceFormView: View {
                             }
                         }
                         Section(header: Text("Invoice Items")) {
-                            ForEach(viewModel.invoiceItems, id: \.self) { item in
-                               
+                            ForEach(invoiceItems, id: \.self) { item in
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(item.itemName)
                                         .font(.headline)
                                     HStack {
-                                        Text("\(item.quantity) × €\(String(format: "%.2f", item.price))/Stück")
+                                        Text("\(item.quantity) × €\(String(format: "%.2f", item.price))/\(item.unit)")
                                             .foregroundStyle(.secondary)
                                         Spacer()
-                                        Text("€\(String(format: "%.2f", item.price))")
+                                        Text("€\(String(format: "%.2f", Double(item.quantity) * item.price))")
                                             .bold()
                                         Button {
                                             viewModel.currentInvoiceItem = item
@@ -126,7 +127,7 @@ struct InvoiceFormView: View {
                                 Text("Zwischensumme")
                                 Spacer()
                                 Text("€")
-                                Text("\(String(format: "%.2f", viewModel.totalSummery))")
+                                Text(viewModel.calculateSubtotal(invoiceItems))
                             }
                             HStack {
                                 Text("Rabatt (\(String(format: "%.0f", viewModel.discount))%)")
