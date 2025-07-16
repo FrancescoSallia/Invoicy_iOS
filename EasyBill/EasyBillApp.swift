@@ -20,7 +20,7 @@ struct EasyBillApp: App {
             TabView {
                 Tab("Home", systemImage: "house.fill") {
                     HomeView(viewModel: viewModel)
-                        .modelContainer(for: [InvoiceItem.self])
+                        .modelContainer(for: [InvoiceItem.self, Business.self , Client.self])
                 }
                 Tab("Clients", systemImage: "person.text.rectangle.fill") {
                     ClientsView(viewModel: viewModel)

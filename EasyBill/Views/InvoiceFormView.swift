@@ -31,7 +31,7 @@ struct InvoiceFormView: View {
                                 HStack {
                                     Text("Business")
                                     Spacer()
-                                    Text(viewModel.selectedBusiness ?? "Auswählen")
+                                    Text(viewModel.businessItemSelected?.businessName ?? "Auswählen")
                                         .foregroundColor(.gray)
                                 }
                             }

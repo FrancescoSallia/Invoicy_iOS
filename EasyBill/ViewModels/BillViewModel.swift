@@ -71,11 +71,11 @@ class BillViewModel: ObservableObject {
     @Published var price: Double = 0.0
     
     @Published var currentInvoiceItem: InvoiceItem? = nil
-//    @Published var businessIsSelected: String = ""
+    @Published var businessItemSelected: Business? = nil
 
 
     
-    var selectedBusiness: String? = nil
+    @Published var selectedBusiness: String? = nil
     
     var selectedClient: Client? = Client(
         clientName: "ACME GmbH",

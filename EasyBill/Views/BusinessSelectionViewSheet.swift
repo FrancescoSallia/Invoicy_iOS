@@ -22,6 +22,7 @@ struct BusinessSelectionViewSheet: View {
                 VStack {
                     Button {
                         viewModel.selectedBusiness = business.email
+                        viewModel.businessItemSelected = business
                         dismiss()
                     } label: {
                         HStack {
