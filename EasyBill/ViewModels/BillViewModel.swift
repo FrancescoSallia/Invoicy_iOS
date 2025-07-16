@@ -56,13 +56,20 @@ class BillViewModel: ObservableObject {
     @Published var focusedField: FieldFocusEnum?
 
     //Invoice
-    
     @Published var invoiceName: String = ""
     @Published var invoiceNumber: String = ""
     @Published var currency: String = ""
     @Published var discount: Double = 0.0
     @Published var tax: Double = 0.0
     @Published var totalSummery: Double = 0.0
+    
+    //Invoice Item
+    @Published var itemName: String = ""
+    @Published var itemDescription: String = ""
+    @Published var quantity: Int = 1
+    @Published var unit: String = ""
+    @Published var price: Double = 0.0
+    
     
     var selectedBusiness: Business? = Business(
         businessName: "TechNova GmbH",
@@ -100,6 +107,27 @@ class BillViewModel: ObservableObject {
     
     var selectedIssuedOn: Date = Date.now
     var selectedDueDate: Date = Date.now.addingTimeInterval(86400)
+    
+    
+    @Published var invoiceItems: [InvoiceItem] = [
+        InvoiceItem(
+            itemName: "Pizza Margherita",
+            itemDescription: "mit Mozzarella, Tomatensauce, Basilikum",
+            quantity: 2,
+            unit: "Stück",
+            price: 12.50
+        ),
+        InvoiceItem(
+            itemName: "Pizza Tonno",
+            itemDescription: "mit Mozzarella, Tomatensauce, Basilikum und Thunfisch",
+            quantity: 4,
+            unit: "Stück",
+            price: 15.50
+        )
+    ]
+    
+    
+    
     
     
     var dummyBusinesses: [Business] = [

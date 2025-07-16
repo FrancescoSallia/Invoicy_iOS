@@ -17,6 +17,7 @@ struct InvoiceFormView: View {
 
     @State private var showBusinessSheet = false
     @State private var showClientSheet = false
+    @State private var showObjectSheet = false
 
     
     var body: some View {
@@ -61,7 +62,40 @@ struct InvoiceFormView: View {
                                     .multilineTextAlignment(.trailing)
                             }
                         }
+                        Section(header: Text("Invoice Items")) {
+                            ForEach(viewModel.invoiceItems, id: \.self) { item in
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(item.itemName)
+                                        .font(.headline)
 
+                                    HStack {
+                                        Text("\(item.quantity) × €\(String(format: "%.2f", item.price))/Stück")
+                                            .foregroundStyle(.secondary)
+                                        Spacer()
+                                        Text("€\(String(format: "%.2f", item.price))")
+                                            .bold()
+                                    }
+                                }
+                                .padding()
+                                .listRowInsets(EdgeInsets())
+                            }
+
+                            Button {
+                                // TODO: Logik zum Hinzufügen eines neuen Items
+                                showObjectSheet.toggle()
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "plus.circle.fill")
+                                    Text("Objekt hinzufügen")
+                                    Spacer()
+                                }
+                                .padding()
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .frame(maxWidth: .infinity)
+                            .listRowInsets(EdgeInsets())
+                        }
                         Section(header: Text("Datum")) {
                             DatePicker("Ausgestellt am", selection: $viewModel.selectedIssuedOn, displayedComponents: .date)
                             DatePicker("Fällig am", selection: $viewModel.selectedDueDate, displayedComponents: .date)
@@ -122,8 +156,11 @@ struct InvoiceFormView: View {
                     .sheet(isPresented: $showClientSheet) {
 //                        ClientSelectionView(selectedClient: $viewModel.client)
                     }
+                    .sheet(isPresented: $showObjectSheet) {
+                        ObjectViewSheet(viewModel: viewModel)
+                      }
+                    }
                 }
-    }
 }
 
 #Preview {
