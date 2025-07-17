@@ -221,6 +221,42 @@ class BillViewModel: ObservableObject {
             bankPayment: nil,
             logoImgData: nil,
             signatureImgData: nil
+        ),
+        Business(
+            businessName: "Solut Solutions",
+            email: "info@bautech2.com",
+            website: nil,
+            contactName: nil,
+            phoneNumber: "+49 222 333444",
+            street: "Industriestraße",
+            houseNumber: "15",
+            postalCode: "50667",
+            city: "Köln",
+            country: "Deutschland",
+            companyRegistrationNumber: nil,
+            ustIdNr: nil,
+            vatApplicable: nil,
+            bankPayment: nil,
+            logoImgData: nil,
+            signatureImgData: nil
+        ),
+        Business(
+            businessName: "RechSpide backpack",
+            email: "Rech@bautech.com",
+            website: nil,
+            contactName: nil,
+            phoneNumber: "+49 222 333444",
+            street: "Industriestraße",
+            houseNumber: "15",
+            postalCode: "50667",
+            city: "Köln",
+            country: "Deutschland",
+            companyRegistrationNumber: nil,
+            ustIdNr: nil,
+            vatApplicable: nil,
+            bankPayment: nil,
+            logoImgData: nil,
+            signatureImgData: nil
         )
     ]
     

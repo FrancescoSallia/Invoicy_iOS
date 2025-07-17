@@ -15,32 +15,48 @@ struct BusinessSelectionViewSheet: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        if businesses.isEmpty {
-            Text("No businesses yet. Create one first.")
-        } else {
-            ForEach(businesses, id: \.email) { business in
-                VStack {
-                    Button {
-                        viewModel.selectedBusiness = business.email
-                        viewModel.businessItemSelected = business
-                        dismiss()
-                    } label: {
-                        HStack {
+        NavigationStack {
+            
+            if businesses.isEmpty {
+                Text("No businesses yet. Create one first.")
+            } else {
+                ScrollView {
+                    VStack {
+                        ForEach(businesses, id: \.email) { business in
                             VStack {
-                                Image(systemName: viewModel.selectedBusiness == business.email ? "largecircle.fill.circle" : "circle")
+                                Button {
+                                    viewModel.selectedBusiness = business.email
+                                    viewModel.businessItemSelected = business
+                                    dismiss()
+                                } label: {
+                                    HStack {
+                                        VStack {
+                                            Image(systemName: viewModel.selectedBusiness == business.email ? "largecircle.fill.circle" : "circle")
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                                    VStack(alignment: .leading) {
+                                        Text(business.businessName)
+                                        Text(business.phoneNumber)
+                                        Text("\(business.street) \(business.houseNumber), \(business.postalCode) \(business.city)")
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding()
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .tint(.primary)
+                            }
+                            Divider()
+                        }
+                    }
+                    .padding(.top)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Abbrechen") {
+                                dismiss()
                             }
                         }
-                        .padding(.horizontal)
-                        VStack(alignment: .leading) {
-                            Text(business.businessName)
-                            Text(business.phoneNumber)
-                            Text("\(business.street) \(business.houseNumber), \(business.postalCode) \(business.city)")
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .tint(.primary)
                 }
             }
         }
