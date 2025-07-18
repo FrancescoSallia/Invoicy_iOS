@@ -1,44 +1,44 @@
 //
-//  BusinessSelectionViewSheet.swift
+//  ClientSelectionView.swift
 //  EasyBill
 //
-//  Created by Francesco Sallia on 17.07.25.
+//  Created by Francesco Sallia on 18.07.25.
 //
 
 import SwiftUI
 import SwiftData
 
-struct BusinessSelectionViewSheet: View {
+struct ClientSelectionViewSheet: View {
     
     @ObservedObject var viewModel: BillViewModel
-    @Query private var businesses: [Business]
+    @Query private var clients: [Client]
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack {
             
-            if businesses.isEmpty {
+            if clients.isEmpty {
                 Text("No businesses yet. Create one first.")
             } else {
                 ScrollView {
                     VStack {
-                        ForEach(businesses, id: \.email) { business in
+                        ForEach(clients, id: \.email) { client in
                             VStack {
                                 Button {
-                                    viewModel.selectedBusinessFromSheet = business.email
-                                    viewModel.businessItemSelected = business
+                                    viewModel.selectedClientFromSheet = client.email
+                                    viewModel.clientItemSelected = client
                                     dismiss()
                                 } label: {
                                     HStack {
                                         VStack {
-                                            Image(systemName: viewModel.selectedBusinessFromSheet == business.email ? "largecircle.fill.circle" : "circle")
+                                            Image(systemName: viewModel.selectedClientFromSheet == client.email ? "largecircle.fill.circle" : "circle")
                                         }
                                     }
                                     .padding(.horizontal)
                                     VStack(alignment: .leading) {
-                                        Text(business.businessName)
-                                        Text(business.phoneNumber)
-                                        Text("\(business.street) \(business.houseNumber), \(business.postalCode) \(business.city)")
+                                        Text(client.clientName)
+                                        Text(client.phoneNumber)
+                                        Text("\(client.street) \(client.houseNumber), \(client.postalCode) \(client.city)")
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding()
@@ -50,7 +50,7 @@ struct BusinessSelectionViewSheet: View {
                         }
                     }
                     .padding(.top)
-                    .navigationTitle("Business auswählen")
+                    .navigationTitle("Client auswählen")
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Abbrechen") {
@@ -61,10 +61,11 @@ struct BusinessSelectionViewSheet: View {
                 }
             }
         }
+
     }
 }
 
 #Preview {
     @Previewable @State var viewModel: BillViewModel = BillViewModel()
-    BusinessSelectionViewSheet(viewModel: viewModel)
+    ClientSelectionViewSheet(viewModel: viewModel)
 }

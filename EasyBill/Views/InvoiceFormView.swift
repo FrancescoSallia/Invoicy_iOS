@@ -35,18 +35,16 @@ struct InvoiceFormView: View {
                                         .foregroundColor(.gray)
                                 }
                             }
-
                             Button {
                                 showClientSheet = true
                             } label: {
                                 HStack {
                                     Text("Kunde")
                                     Spacer()
-                                    Text(viewModel.selectedClient?.clientName ?? "Auswählen")
+                                    Text(viewModel.clientItemSelected?.clientName ?? "Auswählen")
                                         .foregroundColor(.gray)
                                 }
                             }
-
                             HStack {
                                 Text("Rechnungsname:")
                                 TextField("Rechnungsname", text: $viewModel.invoiceName)
@@ -164,7 +162,9 @@ struct InvoiceFormView: View {
                             .presentationDragIndicator(.visible)
                     }
                     .sheet(isPresented: $showClientSheet) {
-//                        ClientSelectionView(selectedClient: $viewModel.client)
+                        ClientSelectionViewSheet(viewModel: viewModel)
+                            .presentationDetents([.large])
+                            .presentationDragIndicator(.visible)
                     }
                     .sheet(isPresented: $showObjectSheet) {
                         ObjectViewSheet(viewModel: viewModel)
