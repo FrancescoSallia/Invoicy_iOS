@@ -13,13 +13,13 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack {
-            Divider()
-                .padding(.top, 4)
-//            Spacer()
-            
             ZStack(alignment: .bottomTrailing) {
-                VStack(alignment: .center) {
+                VStack {
+                    Divider()
+                        .padding(.top, 4)
+                    
                     Spacer()
+                    
                     Image("bill_icon")
                         .resizable()
                         .scaledToFit()
@@ -27,15 +27,15 @@ struct HomeView: View {
                     
                     Text("Erstellen Sie ihre erste Rechnung")
                         .font(.title2)
-                        .padding(.bottom, 4)
                         .bold()
+                        .padding(.bottom, 4)
                     
                     Text("Beginnen Sie, Zahlungen zu verfolgen und ihr Geschäftseinkommen zu verwalten")
-                        .padding(.horizontal)
                         .font(.subheadline)
                         .foregroundStyle(.gray)
                         .multilineTextAlignment(.center)
-                    Spacer()
+                        .padding(.horizontal)
+                    
                     Spacer()
                 }
                 .navigationTitle("Invoices")
@@ -44,19 +44,16 @@ struct HomeView: View {
                     HStack {
                         Image(systemName: "gift.fill")
                         Button("Upgrade") {
-                            //TODO: Logic
+                            // TODO: Upgrade Logic
                         }
                     }
                     .foregroundStyle(.white)
-                    .padding(5)
+                    .padding(6)
                     .background(Color.yellow)
-                    .clipShape(.buttonBorder)
+                    .clipShape(.capsule)
                 }
-            }
-            
-            
-            HStack {
-                Spacer()
+
+                // ✅ Floating Action Button
                 NavigationLink {
                     InvoiceFormView(viewModel: viewModel)
                 } label: {
@@ -66,15 +63,15 @@ struct HomeView: View {
                         Text("Add Invoice")
                             .bold()
                     }
-                    .padding(4)
+                    .padding()
+                    .background(Color.accentColor)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 40))
+                    .shadow(radius: 5)
                 }
-                .buttonStyle(.borderedProminent)
-                .clipShape(RoundedRectangle(cornerRadius: 40))
-                .padding()
-                .padding(.bottom)
-                .shadow(radius: 4)
+                .padding(.trailing, 20)
+                .padding(.bottom, 40) // 🟡 Abstand zur TabView oder Bildschirmrand
             }
-            .padding(.trailing)
         }
     }
 }

@@ -18,7 +18,7 @@ struct ClientSelectionViewSheet: View {
         NavigationStack {
             
             if clients.isEmpty {
-                Text("No businesses yet. Create one first.")
+                Text("No Client's yet. Create one first.")
             } else {
                 ScrollView {
                     VStack {

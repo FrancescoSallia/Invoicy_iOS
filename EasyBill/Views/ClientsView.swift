@@ -15,68 +15,71 @@ struct ClientsView: View {
 
     var body: some View {
         NavigationStack {
-            Divider()
             ZStack(alignment: .bottomTrailing) {
-                if clients.isEmpty {
-                    VStack(alignment: .center) {
-                        Spacer()
-                        Image("customer_icon")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 150)
-
-                        Text("Fügen Sie ihren ersten Kunden hinzu")
-                            .font(.title2)
-                            .padding(.bottom, 4)
-                            .bold()
-
-                        Text("Beginnen Sie, Ihre Kundenbasis aufzubauen und erstellen Sie in wenigen Minuten professionelle Rechnungen.")
-                            .padding(.horizontal)
-                            .font(.subheadline)
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(.gray)
-                        Spacer()
-                    }
-                    .padding()
-                } else {
-                    ScrollView {
+                Group {
+                    if clients.isEmpty {
                         VStack {
-                            ForEach(clients, id: \.email) { client in
-                                let initialColor = Color.color(for: client.email) //Dank der extension generiert es zufälligen Farben für den Hintergrund
-                                NavigationLink {
-                                    ClientDetailView(viewModel: viewModel, client: client)
-                                } label: {
-                                    HStack(alignment: .top, spacing: 12) {
-                                        Text(client.clientName.prefix(2).uppercased())
-                                            .frame(width: 60, height: 60)
-                                            .background(initialColor.opacity(0.2))
-                                            .foregroundStyle(initialColor)
-                                            .clipShape(Circle())
-                                            .clipped()
-                                            .overlay {
-                                                Circle()
-                                                    .stroke(style: StrokeStyle(lineWidth: 1))
-                                                    .foregroundStyle(initialColor)
+                            Spacer()
+                            Image("customer_icon")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 150)
+
+                            Text("Fügen Sie ihren ersten Kunden hinzu")
+                                .font(.title2)
+                                .bold()
+                                .padding(.bottom, 4)
+
+                            Text("Beginnen Sie, Ihre Kundenbasis aufzubauen und erstellen Sie in wenigen Minuten professionelle Rechnungen.")
+                                .font(.subheadline)
+                                .foregroundStyle(.gray)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+                            Spacer()
+                        }
+                        .padding()
+                    } else {
+                        ScrollView {
+                            VStack(spacing: 0) {
+                                ForEach(clients, id: \.email) { client in
+                                    let initialColor = Color.color(for: client.email)
+                                    NavigationLink {
+                                        ClientDetailView(viewModel: viewModel, client: client)
+                                    } label: {
+                                        HStack(alignment: .top, spacing: 12) {
+                                            Text(client.clientName.prefix(2).uppercased())
+                                                .frame(width: 60, height: 60)
+                                                .background(initialColor.opacity(0.2))
+                                                .foregroundStyle(initialColor)
+                                                .clipShape(Circle())
+                                                .overlay(
+                                                    Circle()
+                                                        .stroke(style: StrokeStyle(lineWidth: 1))
+                                                        .foregroundStyle(initialColor)
+                                                )
+                                            
+                                            VStack(alignment: .leading, spacing: 4) {
+                                                Text(client.clientName)
+                                                    .font(.headline)
+                                                Text("Telefon: \(client.phoneNumber)")
+                                                Text("Adresse: \(client.street) \(client.houseNumber), \(client.postalCode) \(client.city), \(client.country)")
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.gray)
                                             }
-                                        VStack(alignment: .leading, spacing: 4) {
-                                            Text(client.clientName)
-                                                .font(.headline)
-                                            Text("Telefon: \(client.phoneNumber)")
-                                            Text("Adresse: \(client.street) \(client.houseNumber), \(client.postalCode) \(client.city), \(client.country)")
-                                                .font(.subheadline)
-                                                .foregroundColor(.gray)
+                                            Spacer(minLength: 0)
                                         }
-                                        Spacer(minLength: 0)
+                                        .padding()
                                     }
-                                    .padding()
+                                    Divider()
+                                        .padding(.horizontal)
                                 }
-                                Divider()
-                                    .padding(.horizontal)
                             }
+                            .padding(.top)
                         }
                     }
                 }
 
+                // ✅ Floating Action Button
                 NavigationLink {
                     ClientFormView(viewModel: viewModel)
                 } label: {
@@ -86,12 +89,14 @@ struct ClientsView: View {
                         Text("Add Client")
                             .bold()
                     }
-                    .padding(4)
+                    .padding()
+                    .background(Color.accentColor)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 40))
+                    .shadow(radius: 5)
                 }
-                .buttonStyle(.borderedProminent)
-                .clipShape(RoundedRectangle(cornerRadius: 40))
-                .padding()
-                .shadow(radius: 4)
+                .padding(.trailing, 20)
+                .padding(.bottom, 40) // Abstand zur TabView / Home Indicator
             }
             .toolbar {
                 HStack {
@@ -105,7 +110,7 @@ struct ClientsView: View {
                 .background(Color.yellow)
                 .clipShape(.buttonBorder)
             }
-            .navigationTitle("Client's")
+            .navigationTitle("Clients")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
