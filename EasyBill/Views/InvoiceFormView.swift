@@ -56,10 +56,6 @@ struct InvoiceFormView: View {
                                     .multilineTextAlignment(.trailing)
                             }
                             HStack {
-//                                Text("Währung:")
-//                                TextField("Währung", text: $viewModel.currency)
-//                                    .multilineTextAlignment(.trailing)
-                                
                                 Picker("Währung", selection: $viewModel.currency) {
                                     ForEach(CurrencyEnum.allCases.sorted(by: { $0.code < $1.code }), id: \.self) { currency in
                                             Text("\(currency.symbol) (\(currency.code))").tag(currency)
@@ -133,11 +129,13 @@ struct InvoiceFormView: View {
                                 Text("€")
                                 Text(viewModel.calculateSubtotal(invoiceItems))
                             }
-                            HStack {
-                                Text("Rabatt (\(String(format: "%.0f", viewModel.discount))%)")
-                                Spacer()
-                                Text("€")
-                                Text("\(String(format: "%.2f", viewModel.totalSummery))")
+                            if viewModel.discount != nil && viewModel.discount! > 0 {
+                                HStack {
+                                    Text("Rabatt (\(String(format: "%.0f", viewModel.discount ?? 0.0))%)")
+                                    Spacer()
+                                    Text("€")
+                                    Text("\(String(format: "%.2f", viewModel.totalSummery))")
+                                }
                             }
                             HStack {
                                 Text("Gesamt:")
