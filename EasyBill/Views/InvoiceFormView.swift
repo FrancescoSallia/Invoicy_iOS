@@ -56,9 +56,16 @@ struct InvoiceFormView: View {
                                     .multilineTextAlignment(.trailing)
                             }
                             HStack {
-                                Text("Währung:")
-                                TextField("Währung", text: $viewModel.currency)
-                                    .multilineTextAlignment(.trailing)
+//                                Text("Währung:")
+//                                TextField("Währung", text: $viewModel.currency)
+//                                    .multilineTextAlignment(.trailing)
+                                
+                                Picker("Währung", selection: $viewModel.currency) {
+                                    ForEach(CurrencyEnum.allCases.sorted(by: { $0.code < $1.code }), id: \.self) { currency in
+                                            Text("\(currency.symbol) (\(currency.code))").tag(currency)
+                                        }
+                                }
+                                .pickerStyle(.menu)
                             }
                         }
                         Section(header: Text("Invoice Items")) {

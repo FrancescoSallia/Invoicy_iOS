@@ -58,7 +58,7 @@ class BillViewModel: ObservableObject {
     //Invoice
     @Published var invoiceName: String = ""
     @Published var invoiceNumber: String = ""
-    @Published var currency: String = ""
+    @Published var currency: CurrencyEnum = .euro
     @Published var discount: Double = 0.0
     @Published var tax: Double = 0.0
     @Published var totalSummery: Double = 0.0
