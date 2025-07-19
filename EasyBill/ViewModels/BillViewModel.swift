@@ -78,6 +78,9 @@ class BillViewModel: ObservableObject {
     @Published var selectedBusinessFromSheet: String? = nil
     @Published var selectedClientFromSheet: String? = nil
     
+    @Published var currentInvoiceCount = 0
+
+    
     
     
     var selectedClient: Client? = Client(
@@ -375,7 +378,6 @@ class BillViewModel: ObservableObject {
         self.price = invoiceItem.price
     }
     
-    
     func loadUIImageLogo() async {
         let photoItem = self.photosPickerItem
            if let photoItem,
@@ -457,6 +459,43 @@ class BillViewModel: ObservableObject {
         return newItem
     }
     
+    func newInvoice() -> Invoice? {
+        guard
+            self.businessItemSelected != nil,
+            self.clientItemSelected != nil,
+            !self.invoiceName.isEmpty,
+            !self.invoiceNumber.isEmpty,
+            !self.invoiceItems.isEmpty,
+            self.tax != nil || self.tax ?? 0 <= 0
+        else { return nil }
+        
+        let newInvoice = Invoice(
+            business: self.businessItemSelected!,
+            client: self.clientItemSelected!,
+            invoiceName: self.invoiceName,
+            invoiceNumber: self.invoiceNumber,
+            currency: self.currency.rawValue,
+            issuedOn: self.selectedIssuedOn,
+            dueDate: self.selectedDueDate,
+            items: self.invoiceItems,
+            discount: self.discount ?? 0,
+            tax: self.tax ?? 0,
+            totalSummery: self.totalSummery
+        )
+        return newInvoice
+    }
+    
+    func resetInputsInvoiceFrom() {
+        self.businessItemSelected = nil
+        self.clientItemSelected = nil
+        self.invoiceName = ""
+        self.invoiceItems = []
+        self.discount = nil
+        self.tax = nil
+    }
+    
+    
+    
      func resetInputsClientAndBusiness() {
         self.clientName = ""
         self.businessName = ""
@@ -494,15 +533,79 @@ class BillViewModel: ObservableObject {
     }
     
     func calculateSubtotal(_ invoiceItems: [InvoiceItem]) -> String {
-        var total: Double = 0.0
-        
-        invoiceItems.forEach { item in
-          total += item.price * Double(item.quantity)
+        let totalWithoutDiscount = invoiceItems.reduce(0.0) { result, item in
+            result + item.price * Double(item.quantity)
+        }
+        return String(format: "%.2f", totalWithoutDiscount)
+    }
+    
+    func calculateTotal(_ invoiceItems: [InvoiceItem]) -> String {
+        let totalWithoutDiscount = invoiceItems.reduce(0.0) { result, item in
+            result + item.price * Double(item.quantity)
         }
         
+        // Wenn Rabatt vorhanden, wende ihn auf den Gesamtbetrag an
+        let total: Double
+        if let discount = self.discount {
+            total = totalWithoutDiscount * (1 - (discount / 100))
+        } else {
+            total = totalWithoutDiscount
+        }
         return String(format: "%.2f", total)
     }
     
+    func calculateWithoutTax(_ invoiceItems: [InvoiceItem]) -> String {
+        let totalWithoutTax = invoiceItems.reduce(0.0) { result, item in
+            result + item.price * Double(item.quantity)
+        }
+        
+        // Wenn MwStr. vorhanden, wende ihn auf den Gesamtbetrag an
+        let taxTotal: Double
+        if let tax = self.tax {
+            taxTotal = totalWithoutTax * (1 - (tax / 100))
+        } else {
+            taxTotal = totalWithoutTax
+        }
+        return String(format: "%.2f", taxTotal)
+    }
+    
+    
+    func calculateDiscountAmount(_ invoiceItems: [InvoiceItem]) -> String {
+        guard let discount = self.discount, discount > 0 else {
+            return "0.00"
+        }
+        let totalWithoutDiscount = invoiceItems.reduce(0.0) { result, item in
+            result + item.price * Double(item.quantity)
+        }
+        let discountAmount = totalWithoutDiscount * ((self.discount ?? 0) / 100)
+        return String(format: "%.2f", discountAmount)
+    }
+    
+    func calculateTaxAmount(_ invoiceItems: [InvoiceItem]) -> String {
+        guard let discount = self.tax, discount > 0 else {
+            return "0.00"
+        }
+        let totalWithoutDiscount = invoiceItems.reduce(0.0) { result, item in
+            result + item.price * Double(item.quantity)
+        }
+        let discountAmount = totalWithoutDiscount * ((self.tax ?? 0) / 100)
+        return String(format: "%.2f", discountAmount)
+    }
+ 
+    
+    // Diese Funktion könnte den letzten Zählerwert ermitteln und um 1 erhöhen.
+      func generateInvoiceNumber() -> String {
+          // Datum formatieren: TagMonatJahr (z. B. 19072025)
+             let dateFormatter = DateFormatter()
+             dateFormatter.dateFormat = "ddMMyyyy"
+             let dateString = dateFormatter.string(from: self.selectedIssuedOn)
+          
+          // Erhöhe um eins, formatiere mit führenden Nullen
+          let newNumber = String(format: "%03d", self.currentInvoiceCount + 1)
+          let invoiceNum = "INV-\(dateString)-\(newNumber)"
+            self.invoiceNumber = invoiceNum
+            return invoiceNum
+      }
 
 
     

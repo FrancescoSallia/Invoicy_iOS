@@ -52,6 +52,7 @@ struct InvoiceFormView: View {
                             }
                             HStack {
                                 Text("Rechnungsnummer:")
+//                                TextField("Rechnungsnummer", text: $viewModel.invoiceNumber)
                                 TextField("Rechnungsnummer", text: $viewModel.invoiceNumber)
                                     .multilineTextAlignment(.trailing)
                             }
@@ -134,29 +135,43 @@ struct InvoiceFormView: View {
                                     Text("Rabatt (\(String(format: "%.0f", viewModel.discount ?? 0.0))%)")
                                     Spacer()
                                     Text("€")
-                                    Text("\(String(format: "%.2f", viewModel.totalSummery))")
+                                    Text( "-\(viewModel.calculateDiscountAmount(invoiceItems))")
+                                }
+                            }
+                            if viewModel.tax != nil && viewModel.tax! > 0 {
+                                HStack {
+                                    Text("MwSt (\(String(format: "%.0f", viewModel.tax ?? 0.0))%)")
+                                    Spacer()
+                                    Text("€")
+                                    Text("\(viewModel.calculateTaxAmount(invoiceItems))")
+                                }
+                                HStack {
+                                    Text("Gesamt (excl.MwSt):")
+                                    Spacer()
+                                    Text("€")
+                                    Text("\( viewModel.calculateWithoutTax(invoiceItems))")
                                 }
                             }
                             HStack {
-                                Text("Gesamt:")
+                                Text("Gesamt (inkl.MwSt):")
                                 Spacer()
                                 Text("€")
-                                Text("\(String(format: "%.2f", viewModel.totalSummery))")
+                                Text("\( viewModel.calculateTotal(invoiceItems))")
                             }
                         }
 
                         Section {
                             Button("Rechnung speichern") {
-//                                guard let invoice = viewModel.createInvoice() else {
-//                                    // Fehlermeldung oder Hinweis anzeigen
-//                                    return
-//                                }
-//
-//                                context.insert(invoice)
-//                                try? context.save()
-//                                dismiss()
+                                if viewModel.newInvoice() != nil {
+                                    context.insert(viewModel.newInvoice()!)
+                                    try? context.save()
+                                    viewModel.resetInputsInvoiceFrom()
+                                }
+                                dismiss()
                             }
                             .buttonStyle(.borderedProminent)
+                            .disabled(viewModel.newInvoice() == nil)
+                            
                         }
                     }
                     .navigationTitle("Rechnung erstellen")
@@ -177,7 +192,18 @@ struct InvoiceFormView: View {
                             .presentationDragIndicator(.visible)
                       }
                     }
-                }
+        .onAppear {
+            viewModel.invoiceNumber = viewModel.generateInvoiceNumber()
+        }
+        .onDisappear {
+            var invoiceNumberToInt = Int(viewModel.invoiceNumber)
+            if invoiceNumberToInt != nil, invoiceNumberToInt ?? 0 > 0 {
+                invoiceNumberToInt! -= 1
+            }
+            
+            //TODO: teste die diappear funktion wenn man immer wieder neue invoices erstellt ob die generierte zahl sich so verhält wie es sich verhalten sollte!
+        }
+    }
 }
 
 #Preview {
