@@ -110,8 +110,8 @@ struct InvoiceFormView: View {
                             DatePicker("Ausgestellt am", selection: $viewModel.selectedIssuedOn, displayedComponents: .date)
                             DatePicker("Fällig am", selection: $viewModel.selectedDueDate, displayedComponents: .date)
                         }
-
-                        Section(header: Text("Zusammenfassung")) {
+                        
+                        Section(header: Text("MwSt. & Rabatt")) {
                             HStack {
                                 Text("MwSt (%)")
                                 TextField("MwSt in %", value: $viewModel.tax, format: .number, prompt: Text("z. B. 19"))
@@ -124,6 +124,9 @@ struct InvoiceFormView: View {
                                     .keyboardType(.decimalPad)
                                     .multilineTextAlignment(.trailing)
                             }
+                        }
+
+                        Section(header: Text("Zusammenfassung")) {
                             HStack {
                                 Text("Zwischensumme")
                                 Spacer()
@@ -144,12 +147,6 @@ struct InvoiceFormView: View {
                                     Spacer()
                                     Text("€")
                                     Text("\(viewModel.calculateTaxAmount(invoiceItems))")
-                                }
-                                HStack {
-                                    Text("Gesamt (excl.MwSt):")
-                                    Spacer()
-                                    Text("€")
-                                    Text("\( viewModel.calculateWithoutTax(invoiceItems))")
                                 }
                             }
                             HStack {

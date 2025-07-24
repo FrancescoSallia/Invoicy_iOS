@@ -494,8 +494,6 @@ class BillViewModel: ObservableObject {
         self.tax = nil
     }
     
-    
-    
      func resetInputsClientAndBusiness() {
         self.clientName = ""
         self.businessName = ""
@@ -554,22 +552,6 @@ class BillViewModel: ObservableObject {
         return String(format: "%.2f", total)
     }
     
-    func calculateWithoutTax(_ invoiceItems: [InvoiceItem]) -> String {
-        let totalWithoutTax = invoiceItems.reduce(0.0) { result, item in
-            result + item.price * Double(item.quantity)
-        }
-        
-        // Wenn MwStr. vorhanden, wende ihn auf den Gesamtbetrag an
-        let taxTotal: Double
-        if let tax = self.tax {
-            taxTotal = totalWithoutTax * (1 - (tax / 100))
-        } else {
-            taxTotal = totalWithoutTax
-        }
-        return String(format: "%.2f", taxTotal)
-    }
-    
-    
     func calculateDiscountAmount(_ invoiceItems: [InvoiceItem]) -> String {
         guard let discount = self.discount, discount > 0 else {
             return "0.00"
@@ -582,14 +564,27 @@ class BillViewModel: ObservableObject {
     }
     
     func calculateTaxAmount(_ invoiceItems: [InvoiceItem]) -> String {
-        guard let discount = self.tax, discount > 0 else {
+        guard let tax = self.tax, tax > 0 else {
             return "0.00"
         }
-        let totalWithoutDiscount = invoiceItems.reduce(0.0) { result, item in
+
+        // 1. Zwischensumme
+        let subtotal = invoiceItems.reduce(0.0) { result, item in
             result + item.price * Double(item.quantity)
         }
-        let discountAmount = totalWithoutDiscount * ((self.tax ?? 0) / 100)
-        return String(format: "%.2f", discountAmount)
+
+        // 2. Rabatt anwenden (falls vorhanden)
+        let discountedSubtotal: Double
+        if let discount = self.discount, discount > 0 {
+            discountedSubtotal = subtotal * (1 - discount / 100)
+        } else {
+            discountedSubtotal = subtotal
+        }
+
+        // 3. Steuer auf rabattierten Betrag berechnen
+        let taxAmount = discountedSubtotal * (tax / 100)
+
+        return String(format: "%.2f", taxAmount)
     }
  
     
