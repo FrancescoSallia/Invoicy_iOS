@@ -59,24 +59,47 @@ struct ObjectViewSheet: View {
                     }
                 }
                 Section {
-                    Button(viewModel.currentInvoiceItem == nil ? "Speichern" : "Aktualisieren") {
-                      
-                        if viewModel.currentInvoiceItem == nil {
-//                            viewModel.invoiceItems.append(newItem)
-                            context.insert(viewModel.newInvoiceItem())
-                            try? context.save()
-                            
-                        } else {
-                            if let item = viewModel.currentInvoiceItem {
-                                viewModel.updateInvoiceItem(item)
+                    HStack {
+                        Button(viewModel.currentInvoiceItem == nil ? "Speichern" : "Aktualisieren") {
+                          
+                            if viewModel.currentInvoiceItem == nil {
+    //                            viewModel.invoiceItems.append(newItem)
+                                context.insert(viewModel.newInvoiceItem())
+                                try? context.save()
+                                
+                            } else {
+                                if let item = viewModel.currentInvoiceItem {
+                                    viewModel.updateInvoiceItem(item)
+                                }
+                                try? context.save()
                             }
-                            try? context.save()
+                            viewModel.resetInvoiceItems()
+                            dismiss()
                         }
-                        viewModel.resetInvoiceItems()
-                        dismiss()
+                        .disabled(viewModel.itemName.isEmpty || viewModel.price <= 0)
+                        .buttonStyle(.borderedProminent)
+                        
+                        Spacer()
+                        
+                        if viewModel.currentInvoiceItem != nil {
+                            Button {
+                                guard viewModel.currentInvoiceItem != nil else { return }
+                                
+                                context.delete(viewModel.currentInvoiceItem!)
+                                try? context.save()
+                                dismiss()
+                                
+                            } label: {
+                                HStack {
+                                    Text("Löschen")
+                                    Image(systemName: "trash.circle")
+                                        .scaledToFit()
+                                }
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.red)
+                        }
                     }
-                    .disabled(viewModel.itemName.isEmpty || viewModel.price <= 0)
-                    .buttonStyle(.borderedProminent)
                 }
             }
             .navigationTitle("Neues Objekt")
