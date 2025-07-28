@@ -171,6 +171,16 @@ struct InvoiceFormView: View {
                             
                         }
                     }
+                    .toolbar {
+                        Button {
+                            if viewModel.newInvoice() != nil {
+                                InvoicePrinter().druckeRechnung(invoice: viewModel.newInvoice()!)
+                            }
+                        } label: {
+                            Image(systemName: "printer.fill")
+                        }
+                        .disabled(viewModel.newInvoice() == nil)
+                    }
                     .navigationTitle("Rechnung erstellen")
                     .navigationBarTitleDisplayMode(.inline)
                     .sheet(isPresented: $showBusinessSheet) {

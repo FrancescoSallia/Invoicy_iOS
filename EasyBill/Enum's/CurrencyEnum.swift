@@ -59,6 +59,15 @@ enum CurrencyEnum: String, CaseIterable {
             case .southAfricanRand: return "R"
             }
         }
+    
+    func getSymbol(from currencyString: String) -> String {
+        if let currency = CurrencyEnum(rawValue: currencyString) {
+            return currency.symbol
+        } else {
+            return ""
+        }
+    }
+    
     var code: String {
         switch self {
         case .euro: return "EUR"
