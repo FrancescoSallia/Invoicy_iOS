@@ -138,7 +138,7 @@ struct InvoiceFormView: View {
                                     Text("Rabatt (\(String(format: "%.0f", viewModel.discount ?? 0.0))%)")
                                     Spacer()
                                     Text("€")
-                                    Text( "-\(viewModel.calculateDiscountAmount(viewModel.invoiceItems))")
+                                    Text( "-\(viewModel.calculateDiscountAmount(viewModel.invoiceItems, discounT: viewModel.discount))")
                                 }
                             }
                             if viewModel.tax != nil && viewModel.tax! > 0 {
@@ -146,7 +146,7 @@ struct InvoiceFormView: View {
                                     Text("MwSt (\(String(format: "%.0f", viewModel.tax ?? 0.0))%)")
                                     Spacer()
                                     Text("\(viewModel.currency.symbol)")
-                                    Text("\(viewModel.calculateTaxAmount(viewModel.invoiceItems))")
+                                    Text("\(viewModel.calculateTaxAmount(viewModel.invoiceItems, taX: viewModel.tax, discounT: viewModel.discount))")
                                 }
                             }
                             HStack {

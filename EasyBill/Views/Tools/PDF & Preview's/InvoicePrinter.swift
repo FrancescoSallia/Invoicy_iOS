@@ -181,9 +181,9 @@ struct InvoicePrinter {
 
                     drawSummary(label: "Zwischensumme:", value: formatPrice(subtotal, currency: CurrencyEnum.symbol(from: invoice.currency)))
                     if invoice.discount > 0 {
-                        drawSummary(label: "Rabatt(%):", value: "-\(String(format: "%.0f", invoice.discount))")
+                        drawSummary(label: "Rabatt(%):", value: "-\(viewModel.calculateDiscountAmount(invoice.items, discounT: invoice.discount))")
                     }
-                    drawSummary(label: "MwSt.(%):", value: String(format: "%.0f", invoice.tax))
+                    drawSummary(label: "MwSt.(\(invoice.tax)%):", value: viewModel.calculateTaxAmount(invoice.items, taX: invoice.tax, discounT: invoice.discount))
                     drawSummary(label: "Gesamtbetrag (inkl.MwSt):", value: viewModel.calculateTotal(invoice.items, discount: invoice.discount))
 
                     y += 10

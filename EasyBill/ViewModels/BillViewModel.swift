@@ -555,19 +555,19 @@ class BillViewModel: ObservableObject {
         return String(format: "%.2f", total)
     }
     
-    func calculateDiscountAmount(_ invoiceItems: [InvoiceItem]) -> String {
-        guard let discount = self.discount, discount > 0 else {
+    func calculateDiscountAmount(_ invoiceItems: [InvoiceItem], discounT: Double?) -> String {
+        guard let discount = discounT, discount > 0 else {
             return "0.00"
         }
         let totalWithoutDiscount = invoiceItems.reduce(0.0) { result, item in
             result + item.price * Double(item.quantity)
         }
-        let discountAmount = totalWithoutDiscount * ((self.discount ?? 0) / 100)
+        let discountAmount = totalWithoutDiscount * ((discounT ?? 0) / 100)
         return String(format: "%.2f", discountAmount)
     }
     
-    func calculateTaxAmount(_ invoiceItems: [InvoiceItem]) -> String {
-        guard let tax = self.tax, tax > 0 else {
+    func calculateTaxAmount(_ invoiceItems: [InvoiceItem], taX: Double?, discounT: Double?) -> String {
+        guard let tax = taX, tax > 0 else {
             return "0.00"
         }
 
@@ -578,7 +578,7 @@ class BillViewModel: ObservableObject {
 
         // 2. Rabatt anwenden (falls vorhanden)
         let discountedSubtotal: Double
-        if let discount = self.discount, discount > 0 {
+        if let discount = discounT, discount > 0 {
             discountedSubtotal = subtotal * (1 - discount / 100)
         } else {
             discountedSubtotal = subtotal

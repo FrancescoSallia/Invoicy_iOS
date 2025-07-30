@@ -37,6 +37,12 @@ struct PreviewScreen: View {
                 } label: {
                     Image(systemName: "trash.fill")
                 }
+                Button {
+                   //LOGIK Einbauen
+                } label: {
+                    Image(systemName: "pencil.and.scribble")
+                }
+                .tint(.primary)
             }
         }
         Spacer()
