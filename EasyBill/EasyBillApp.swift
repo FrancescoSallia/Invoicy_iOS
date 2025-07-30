@@ -33,6 +33,9 @@ struct EasyBillApp: App {
                 Tab("Settings", systemImage: "gearshape") {
                     SettingsView(viewModel: viewModel)
                 }
+                Tab("Test", systemImage: "cat") {
+                    TestView()
+                }
             }
             .preferredColorScheme(viewModel.selectedTheme.colorScheme) // <- globaler Theme Switch
             .tint(.tabViewBackground)

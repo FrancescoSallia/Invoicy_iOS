@@ -48,7 +48,8 @@ struct HomeView: View {
                             VStack(spacing: 0) {
                                 ForEach(invoices, id: \.self) { invoice in
                                     NavigationLink {
-                                        InvoiceDetailView(viewModel: viewModel)
+//                                        InvoiceDetailView(viewModel: viewModel)
+                                        PreviewScreen(invoice: invoice)
                                     } label: {
                                         HStack(alignment: .top, spacing: 12) {
                                             Image(systemName: "doc.text")
