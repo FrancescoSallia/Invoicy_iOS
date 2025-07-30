@@ -95,4 +95,9 @@ enum CurrencyEnum: String, CaseIterable {
         case .southAfricanRand: return "ZAR"
         }
     }
+    
+    // MARK: - Static helper to get symbol from raw string
+       static func symbol(from raw: String) -> String {
+           CurrencyEnum(rawValue: raw)?.symbol ?? ""
+       }
 }

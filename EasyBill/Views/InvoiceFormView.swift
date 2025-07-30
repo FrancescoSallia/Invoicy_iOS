@@ -71,10 +71,10 @@ struct InvoiceFormView: View {
                                     Text(item.itemName)
                                         .font(.headline)
                                     HStack {
-                                        Text("\(item.quantity) × €\(String(format: "%.2f", item.price))/\(item.unit)")
+                                        Text("\(item.quantity) × \(viewModel.currency.symbol)\(String(format: "%.2f", item.price))/\(item.unit)")
                                             .foregroundStyle(.secondary)
                                         Spacer()
-                                        Text("€\(String(format: "%.2f", Double(item.quantity) * item.price))")
+                                        Text("\(viewModel.currency.symbol)\(String(format: "%.2f", Double(item.quantity) * item.price))")
                                             .bold()
                                         Button {
                                             viewModel.currentInvoiceItem = item
@@ -130,7 +130,7 @@ struct InvoiceFormView: View {
                             HStack {
                                 Text("Zwischensumme")
                                 Spacer()
-                                Text("€")
+                                Text("\(viewModel.currency.symbol)")
                                 Text(viewModel.calculateSubtotal(viewModel.invoiceItems))
                             }
                             if viewModel.discount != nil && viewModel.discount! > 0 {
@@ -145,14 +145,14 @@ struct InvoiceFormView: View {
                                 HStack {
                                     Text("MwSt (\(String(format: "%.0f", viewModel.tax ?? 0.0))%)")
                                     Spacer()
-                                    Text("€")
+                                    Text("\(viewModel.currency.symbol)")
                                     Text("\(viewModel.calculateTaxAmount(viewModel.invoiceItems))")
                                 }
                             }
                             HStack {
                                 Text("Gesamt (inkl.MwSt):")
                                 Spacer()
-                                Text("€")
+                                Text("\(viewModel.currency.symbol)")
                                 Text("\( viewModel.calculateTotal(viewModel.invoiceItems))")
                             }
                         }

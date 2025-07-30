@@ -158,8 +158,8 @@ struct InvoicePrinter {
                 let lineTotal = Double(item.quantity) * item.price
                 item.itemName.draw(at: CGPoint(x: leftX, y: y), withAttributes: [.font: regularFont])
                 "\(item.quantity)".draw(at: CGPoint(x: qtyX, y: y), withAttributes: [.font: regularFont])
-                formatPrice(item.price, currency: invoice.currency).draw(at: CGPoint(x: priceX, y: y), withAttributes: [.font: regularFont])
-                formatPrice(lineTotal, currency: invoice.currency).draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: regularFont])
+                formatPrice(item.price, currency: CurrencyEnum.symbol(from: invoice.currency)).draw(at: CGPoint(x: priceX, y: y), withAttributes: [.font: regularFont])
+                formatPrice(lineTotal, currency: CurrencyEnum.symbol(from: invoice.currency)).draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: regularFont])
                 y += itemLineHeight
 
                 // After last item, draw rest of invoice (summary, signature, footer)
@@ -176,12 +176,12 @@ struct InvoicePrinter {
                         y += font.lineHeight + 4
                     }
 
-                    drawSummary(label: "Zwischensumme:", value: formatPrice(subtotal, currency: invoice.currency))
+                    drawSummary(label: "Zwischensumme:", value: formatPrice(subtotal, currency: CurrencyEnum.symbol(from: invoice.currency)))
                     if invoice.discount > 0 {
-                        drawSummary(label: "Rabatt:", value: "-\(formatPrice(invoice.discount, currency: invoice.currency))")
+                        drawSummary(label: "Rabatt(%):", value: "-\(formatPrice(invoice.discount, currency: CurrencyEnum.symbol(from: invoice.currency)))")
                     }
-                    drawSummary(label: "Steuer:", value: formatPrice(invoice.tax, currency: invoice.currency))
-                    drawSummary(label: "Gesamtbetrag:", value: formatPrice(invoice.totalSummery, currency: invoice.currency), bold: true)
+                    drawSummary(label: "MwSt.(%):", value: String(format: "%.0f", invoice.tax))
+                    drawSummary(label: "Gesamtbetrag:", value: formatPrice(invoice.totalSummery, currency: CurrencyEnum.symbol(from: invoice.currency)), bold: true)
 
                     y += 10
                     drawText("Fällig am: \(formatDate(invoice.dueDate))", font: regularFont, x: padding, y: &y)
