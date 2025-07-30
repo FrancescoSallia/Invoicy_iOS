@@ -104,20 +104,20 @@ class BillViewModel: ObservableObject {
     
     
     @Published var invoiceItems: [InvoiceItem] = [
-        InvoiceItem(
-            itemName: "Pizza Margherita",
-            itemDescription: "mit Mozzarella, Tomatensauce, Basilikum",
-            quantity: 2,
-            unit: "Stück",
-            price: 12.50
-        ),
-        InvoiceItem(
-            itemName: "Pizza Tonno",
-            itemDescription: "mit Mozzarella, Tomatensauce, Basilikum und Thunfisch",
-            quantity: 4,
-            unit: "Stück",
-            price: 15.50
-        )
+//        InvoiceItem(
+//            itemName: "Pizza Margherita",
+//            itemDescription: "mit Mozzarella, Tomatensauce, Basilikum",
+//            quantity: 2,
+//            unit: "Stück",
+//            price: 12.50
+//        ),
+//        InvoiceItem(
+//            itemName: "Pizza Tonno",
+//            itemDescription: "mit Mozzarella, Tomatensauce, Basilikum und Thunfisch",
+//            quantity: 4,
+//            unit: "Stück",
+//            price: 15.50
+//        )
     ]
   
     var dummyBusinesses: [Business] = [
@@ -450,14 +450,14 @@ class BillViewModel: ObservableObject {
     }
     
     func newInvoiceItem() -> InvoiceItem {
-        let newItem = InvoiceItem(
+        return InvoiceItem(
+            id: currentInvoiceItem?.id ?? UUID(),
             itemName: self.itemName,
             itemDescription: self.itemDescription,
             quantity: self.quantity,
             unit: self.unit,
             price: self.price
         )
-        return newItem
     }
     
     func newInvoice() -> Invoice? {
@@ -470,6 +470,8 @@ class BillViewModel: ObservableObject {
             self.tax != nil || self.tax ?? 0 <= 0
         else { return nil }
         
+        let itemsAdded = self.invoiceItems
+        
         let newInvoice = Invoice(
             business: self.businessItemSelected!,
             client: self.clientItemSelected!,
@@ -478,7 +480,7 @@ class BillViewModel: ObservableObject {
             currency: self.currency.rawValue,
             issuedOn: self.selectedIssuedOn,
             dueDate: self.selectedDueDate,
-            items: self.invoiceItems,
+            items: itemsAdded,
             discount: self.discount ?? 0,
             tax: self.tax ?? 0,
             totalSummery: self.totalSummery

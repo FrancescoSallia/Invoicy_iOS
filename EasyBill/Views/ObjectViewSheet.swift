@@ -61,39 +61,36 @@ struct ObjectViewSheet: View {
                 Section {
                     HStack {
                         Button(viewModel.currentInvoiceItem == nil ? "Speichern" : "Aktualisieren") {
-                          
                             if viewModel.currentInvoiceItem == nil {
-    //                            viewModel.invoiceItems.append(newItem)
-                                context.insert(viewModel.newInvoiceItem())
-                                try? context.save()
-                                
+                                // Neues Item hinzufügen
+                                viewModel.invoiceItems.append(viewModel.newInvoiceItem())
                             } else {
-                                if let item = viewModel.currentInvoiceItem {
-                                    viewModel.updateInvoiceItem(item)
+                                // Vorhandenes Item aktualisieren
+                                if let oldItem = viewModel.currentInvoiceItem,
+                                   let index = viewModel.invoiceItems.firstIndex(where: { $0.id == oldItem.id }) {
+                                    let updatedItem = viewModel.newInvoiceItem()
+                                    viewModel.invoiceItems[index] = updatedItem
                                 }
-                                try? context.save()
                             }
+                            
                             viewModel.resetInvoiceItems()
                             dismiss()
                         }
                         .disabled(viewModel.itemName.isEmpty || viewModel.price <= 0)
                         .buttonStyle(.borderedProminent)
-                        
+
                         Spacer()
-                        
-                        if viewModel.currentInvoiceItem != nil {
+
+                        if let currentItem = viewModel.currentInvoiceItem,
+                           let index = viewModel.invoiceItems.firstIndex(where: { $0.id == currentItem.id }) {
                             Button {
-                                guard viewModel.currentInvoiceItem != nil else { return }
-                                
-                                context.delete(viewModel.currentInvoiceItem!)
-                                try? context.save()
+                                viewModel.invoiceItems.remove(at: index)
+                                viewModel.resetInvoiceItems()
                                 dismiss()
-                                
                             } label: {
                                 HStack {
                                     Text("Löschen")
                                     Image(systemName: "trash.circle")
-                                        .scaledToFit()
                                 }
                             }
                             .buttonStyle(.borderedProminent)

@@ -9,7 +9,8 @@ import Foundation
 import SwiftData
 
 @Model
-class InvoiceItem {
+class InvoiceItem: Identifiable {
+    var id : UUID = UUID()
     var itemName: String
     var itemDescription: String
     var quantity: Int
@@ -19,7 +20,8 @@ class InvoiceItem {
     @Relationship(inverse: \Invoice.items)
     var invoice: Invoice?
     
-    init(itemName: String, itemDescription: String, quantity: Int, unit: String, price: Double) {
+    init(id: UUID = UUID(), itemName: String, itemDescription: String, quantity: Int, unit: String, price: Double) {
+        self.id = id
         self.itemName = itemName
         self.itemDescription = itemDescription
         self.quantity = quantity

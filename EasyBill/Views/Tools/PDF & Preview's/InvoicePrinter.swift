@@ -107,6 +107,9 @@ struct InvoicePrinter {
             }
 
             y = max(infoY, rightY)
+            
+            y += 50
+            
             drawDivider(&y)
 
             // MARK: - Items Table Header
@@ -115,97 +118,127 @@ struct InvoicePrinter {
             let priceX = pageWidth * 0.70
             let totalX = pageWidth * 0.85
 
+            // --- Begin new paginated items logic ---
+            let itemLineHeight = regularFont.lineHeight + 2
+            let maxY = pageHeight - 160 // reserve space for footer
+            let totalItems = invoice.items.count
+            var currentPage = 1
+            let totalPages = Int(ceil(Double(totalItems * Int(itemLineHeight)) / Double(maxY - y)))
+
+            func drawPageNumber() {
+                let pageNumberText = "\(currentPage)/\(totalPages)"
+                drawCenteredText(pageNumberText, font: footerFont, y: pageHeight - 30)
+            }
+
+            // Draw table headers
             "Beschreibung".draw(at: CGPoint(x: leftX, y: y), withAttributes: [.font: boldFont])
             "Menge".draw(at: CGPoint(x: qtyX, y: y), withAttributes: [.font: boldFont])
             "Preis".draw(at: CGPoint(x: priceX, y: y), withAttributes: [.font: boldFont])
             "Gesamt".draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: boldFont])
             y += boldFont.lineHeight + 6
+            drawDivider(&y)
 
-            // MARK: - Items
-            for item in invoice.items {
+            // Draw items
+            for (index, item) in invoice.items.enumerated() {
+                if y + itemLineHeight > maxY {
+                    drawPageNumber()
+                    context.beginPage()
+                    y = padding
+                    currentPage += 1
+
+                    // Optionally re-draw table headers on each page
+                    "Beschreibung".draw(at: CGPoint(x: leftX, y: y), withAttributes: [.font: boldFont])
+                    "Menge".draw(at: CGPoint(x: qtyX, y: y), withAttributes: [.font: boldFont])
+                    "Preis".draw(at: CGPoint(x: priceX, y: y), withAttributes: [.font: boldFont])
+                    "Gesamt".draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: boldFont])
+                    y += boldFont.lineHeight + 6
+                    drawDivider(&y)
+                }
+
                 let lineTotal = Double(item.quantity) * item.price
                 item.itemName.draw(at: CGPoint(x: leftX, y: y), withAttributes: [.font: regularFont])
                 "\(item.quantity)".draw(at: CGPoint(x: qtyX, y: y), withAttributes: [.font: regularFont])
                 formatPrice(item.price, currency: invoice.currency).draw(at: CGPoint(x: priceX, y: y), withAttributes: [.font: regularFont])
                 formatPrice(lineTotal, currency: invoice.currency).draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: regularFont])
-                y += regularFont.lineHeight + 2
-            }
+                y += itemLineHeight
 
-            drawDivider(&y)
+                // After last item, draw rest of invoice (summary, signature, footer)
+                if index == totalItems - 1 {
+                    y += 20
+                    drawDivider(&y)
 
-            // MARK: - Summary
-            let subtotal = invoice.items.reduce(0) { $0 + (Double($1.quantity) * $1.price) }
+                    let subtotal = invoice.items.reduce(0) { $0 + (Double($1.quantity) * $1.price) }
 
-            func drawSummary(label: String, value: String, bold: Bool = false) {
-                let font = bold ? boldFont : regularFont
-                drawRightText(label, font: font, y: y, inset: 160)
-                drawRightText(value, font: font, y: y)
-                y += font.lineHeight + 4
-            }
+                    func drawSummary(label: String, value: String, bold: Bool = false) {
+                        let font = bold ? boldFont : regularFont
+                        drawRightText(label, font: font, y: y, inset: 160)
+                        drawRightText(value, font: font, y: y)
+                        y += font.lineHeight + 4
+                    }
 
-            drawSummary(label: "Zwischensumme:", value: formatPrice(subtotal, currency: invoice.currency))
-            if invoice.discount > 0 {
-                drawSummary(label: "Rabatt:", value: "-\(formatPrice(invoice.discount, currency: invoice.currency))")
-            }
-            drawSummary(label: "Steuer:", value: formatPrice(invoice.tax, currency: invoice.currency))
-            drawSummary(label: "Gesamtbetrag:", value: formatPrice(invoice.totalSummery, currency: invoice.currency), bold: true)
+                    drawSummary(label: "Zwischensumme:", value: formatPrice(subtotal, currency: invoice.currency))
+                    if invoice.discount > 0 {
+                        drawSummary(label: "Rabatt:", value: "-\(formatPrice(invoice.discount, currency: invoice.currency))")
+                    }
+                    drawSummary(label: "Steuer:", value: formatPrice(invoice.tax, currency: invoice.currency))
+                    drawSummary(label: "Gesamtbetrag:", value: formatPrice(invoice.totalSummery, currency: invoice.currency), bold: true)
 
-            y += 10
-            drawText("Fällig am: \(formatDate(invoice.dueDate))", font: regularFont, x: padding, y: &y)
+                    y += 10
+                    drawText("Fällig am: \(formatDate(invoice.dueDate))", font: regularFont, x: padding, y: &y)
 
-            // MARK: - Signature
-            if let signatureData = invoice.business.signatureImgData,
-               let signatureImage = UIImage(data: signatureData) {
-                drawText("Unterschrift:", font: regularFont, x: padding, y: &y)
-                let maxHeight: CGFloat = 50
-                let scale = maxHeight / signatureImage.size.height
-                let size = CGSize(width: signatureImage.size.width * scale, height: maxHeight)
-                signatureImage.draw(in: CGRect(x: padding, y: y, width: size.width, height: size.height))
-                y += size.height + 8
-            }
+                    if let signatureData = invoice.business.signatureImgData,
+                       let signatureImage = UIImage(data: signatureData) {
+                        drawText("Unterschrift:", font: regularFont, x: padding, y: &y)
+                        let maxHeight: CGFloat = 50
+                        let scale = maxHeight / signatureImage.size.height
+                        let size = CGSize(width: signatureImage.size.width * scale, height: maxHeight)
+                        signatureImage.draw(in: CGRect(x: padding, y: y, width: size.width, height: size.height))
+                        y += size.height + 8
+                    }
 
-            // MARK: - Footer
-            y = pageHeight - 80
-            invoice.business.businessName.draw(at: CGPoint(x: padding, y: y), withAttributes: [.font: boldFont])
-           
-            if let bank = invoice.business.bankPayment {
-                var bankLines: [String] = []
+                    var footerY = pageHeight - 80
+                    drawDivider(&footerY)
+                    invoice.business.businessName.draw(at: CGPoint(x: leftX, y: footerY), withAttributes: [.font: boldFont])
 
-            bankLines.append(bank.accountHolder)
+                    if let bank = invoice.business.bankPayment {
+                        var bankLines: [String] = []
+                        bankLines.append(bank.accountHolder)
 
-            if !bank.iban.isEmpty {
-                bankLines.append("IBAN: \(bank.iban)")
-            } else {
-                if !bank.accountNumber.isEmpty {
-                    bankLines.append("Konto: \(bank.accountNumber)")
+                        if !bank.iban.isEmpty {
+                            bankLines.append("IBAN: \(bank.iban)")
+                        } else {
+                            if !bank.accountNumber.isEmpty {
+                                bankLines.append("Konto: \(bank.accountNumber)")
+                            }
+                            if !bank.bic.isEmpty {
+                                bankLines.append("BIC: \(bank.bic)")
+                            }
+                        }
+                        bankLines.append(bank.bankName)
+
+                        var centerY = footerY
+                        for line in bankLines {
+                            drawCenteredText(line, font: footerFont, y: centerY)
+                            centerY += footerFont.lineHeight + 2
+                        }
+                    }
+
+                    var contactLines: [String] = [invoice.business.email]
+                    if let website = invoice.business.website {
+                        contactLines.append(website)
+                    }
+                    contactLines.append("Tel.: \(invoice.business.phoneNumber)")
+
+                    var contactY = footerY
+                    for line in contactLines {
+                        drawRightText(line, font: footerFont, y: contactY, inset: padding)
+                        contactY += footerFont.lineHeight + 2
+                    }
+
+                    drawPageNumber()
                 }
-                if !bank.bic.isEmpty {
-                    bankLines.append("BIC: \(bank.bic)")
-                }
             }
-
-            bankLines.append(bank.bankName)
-
-            for line in bankLines {
-                drawCenteredText(line, font: footerFont, y: y)
-                y += footerFont.lineHeight + 2
-            }
-        }
-
-//            let contact = "\(invoice.business.email) | \(invoice.business.phoneNumber)"
-            var contactLines: [String] = []
-            
-            contactLines.append(invoice.business.email)
-            
-            if (invoice.business.website != nil) {
-                contactLines.append(invoice.business.website!)
-            }
-            contactLines.append("Tel.:\(invoice.business.phoneNumber)")
-
-            for line in contactLines {
-                drawRightText(line, font: footerFont, y: y)
-                y += footerFont.lineHeight - 2
-            }
+            // --- End new paginated items logic ---
         }
 
         return data

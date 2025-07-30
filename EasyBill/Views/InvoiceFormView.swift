@@ -66,7 +66,7 @@ struct InvoiceFormView: View {
                             }
                         }
                         Section(header: Text("Invoice Items")) {
-                            ForEach(invoiceItems, id: \.self) { item in
+                            ForEach(viewModel.invoiceItems, id: \.self) { item in
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(item.itemName)
                                         .font(.headline)
@@ -131,14 +131,14 @@ struct InvoiceFormView: View {
                                 Text("Zwischensumme")
                                 Spacer()
                                 Text("€")
-                                Text(viewModel.calculateSubtotal(invoiceItems))
+                                Text(viewModel.calculateSubtotal(viewModel.invoiceItems))
                             }
                             if viewModel.discount != nil && viewModel.discount! > 0 {
                                 HStack {
                                     Text("Rabatt (\(String(format: "%.0f", viewModel.discount ?? 0.0))%)")
                                     Spacer()
                                     Text("€")
-                                    Text( "-\(viewModel.calculateDiscountAmount(invoiceItems))")
+                                    Text( "-\(viewModel.calculateDiscountAmount(viewModel.invoiceItems))")
                                 }
                             }
                             if viewModel.tax != nil && viewModel.tax! > 0 {
@@ -146,25 +146,32 @@ struct InvoiceFormView: View {
                                     Text("MwSt (\(String(format: "%.0f", viewModel.tax ?? 0.0))%)")
                                     Spacer()
                                     Text("€")
-                                    Text("\(viewModel.calculateTaxAmount(invoiceItems))")
+                                    Text("\(viewModel.calculateTaxAmount(viewModel.invoiceItems))")
                                 }
                             }
                             HStack {
                                 Text("Gesamt (inkl.MwSt):")
                                 Spacer()
                                 Text("€")
-                                Text("\( viewModel.calculateTotal(invoiceItems))")
+                                Text("\( viewModel.calculateTotal(viewModel.invoiceItems))")
                             }
                         }
 
                         Section {
                             Button("Rechnung speichern") {
-                                if viewModel.newInvoice() != nil {
-                                    context.insert(viewModel.newInvoice()!)
-                                    try? context.save()
-                                    viewModel.resetInputsInvoiceFrom()
-                                }
-                                dismiss()
+                                if let invoice = viewModel.newInvoice() {
+                                        // Füge jedes Item dem Kontext hinzu
+                                        for item in invoice.items {
+                                            context.insert(item)
+                                        }
+
+                                        // Füge auch die Rechnung ein
+                                        context.insert(invoice)
+                                        try? context.save()
+
+                                        viewModel.resetInputsInvoiceFrom()
+                                        dismiss()
+                                    }
                             }
                             .buttonStyle(.borderedProminent)
                             .disabled(viewModel.newInvoice() == nil)
@@ -183,6 +190,19 @@ struct InvoiceFormView: View {
                     }
                     .navigationTitle("Rechnung erstellen")
                     .navigationBarTitleDisplayMode(.inline)
+                    .onDisappear {
+                        var invoiceNumberToInt = Int(viewModel.invoiceNumber)
+                        if invoiceNumberToInt != nil, invoiceNumberToInt ?? 0 > 0 {
+                            invoiceNumberToInt! -= 1
+                        }
+                        
+                        //TODO: teste die diappear funktion wenn man immer wieder neue invoices erstellt ob die generierte zahl sich so verhält wie es sich verhalten sollte!
+//                        
+//                        for item in invoiceItems {
+//                            context.delete(item)
+//                            try? context.save()
+//                        }
+                    }
                     .sheet(isPresented: $showBusinessSheet) {
                         BusinessSelectionViewSheet(viewModel: viewModel)
                             .presentationDetents([.large])
@@ -201,14 +221,7 @@ struct InvoiceFormView: View {
                     }
         .onAppear {
             viewModel.invoiceNumber = viewModel.generateInvoiceNumber()
-        }
-        .onDisappear {
-            var invoiceNumberToInt = Int(viewModel.invoiceNumber)
-            if invoiceNumberToInt != nil, invoiceNumberToInt ?? 0 > 0 {
-                invoiceNumberToInt! -= 1
-            }
-            
-            //TODO: teste die diappear funktion wenn man immer wieder neue invoices erstellt ob die generierte zahl sich so verhält wie es sich verhalten sollte!
+            viewModel.resetInputsInvoiceFrom()
         }
     }
 }
