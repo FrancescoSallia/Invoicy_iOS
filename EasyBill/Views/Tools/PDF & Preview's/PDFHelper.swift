@@ -10,7 +10,7 @@ import PDFKit
 
 // PDF-Helfer zur Erzeugung aus HTML
 struct PDFHelper {
-    static func generatePDF(from invoice: Invoice) -> Data {
-        return InvoicePrinter().generateInvoicePDF(invoice)
+    static func generatePDF(from invoice: Invoice, with viewModel: BillViewModel) -> Data {
+        return InvoicePrinter(viewModel: viewModel).generateInvoicePDF(invoice)
     }
 }

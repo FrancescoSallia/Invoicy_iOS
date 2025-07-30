@@ -10,6 +10,9 @@ import UIKit
 import PDFKit
 
 struct InvoicePrinter {
+    
+    @ObservedObject var viewModel: BillViewModel
+
     /// Generates a PDF as native elements using PDFKit + UIGraphicsPDFRenderer.
     /// Returns PDF data.
     func generateInvoicePDF(_ invoice: Invoice) -> Data {
@@ -178,10 +181,10 @@ struct InvoicePrinter {
 
                     drawSummary(label: "Zwischensumme:", value: formatPrice(subtotal, currency: CurrencyEnum.symbol(from: invoice.currency)))
                     if invoice.discount > 0 {
-                        drawSummary(label: "Rabatt(%):", value: "-\(formatPrice(invoice.discount, currency: CurrencyEnum.symbol(from: invoice.currency)))")
+                        drawSummary(label: "Rabatt(%):", value: "-\(String(format: "%.0f", invoice.discount))")
                     }
                     drawSummary(label: "MwSt.(%):", value: String(format: "%.0f", invoice.tax))
-                    drawSummary(label: "Gesamtbetrag:", value: formatPrice(invoice.totalSummery, currency: CurrencyEnum.symbol(from: invoice.currency)), bold: true)
+                    drawSummary(label: "Gesamtbetrag (inkl.MwSt):", value: viewModel.calculateTotal(invoice.items, discount: invoice.discount))
 
                     y += 10
                     drawText("Fällig am: \(formatDate(invoice.dueDate))", font: regularFont, x: padding, y: &y)

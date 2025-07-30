@@ -153,7 +153,7 @@ struct InvoiceFormView: View {
                                 Text("Gesamt (inkl.MwSt):")
                                 Spacer()
                                 Text("\(viewModel.currency.symbol)")
-                                Text("\( viewModel.calculateTotal(viewModel.invoiceItems))")
+                                Text("\(viewModel.calculateTotal(viewModel.invoiceItems,discount: viewModel.discount))")
                             }
                         }
 
@@ -181,7 +181,7 @@ struct InvoiceFormView: View {
                     .toolbar {
                         Button {
                             if viewModel.newInvoice() != nil {
-                                InvoicePrinter().druckeRechnung(invoice: viewModel.newInvoice()!)
+                                InvoicePrinter(viewModel: viewModel).druckeRechnung(invoice: viewModel.newInvoice()!)
                             }
                         } label: {
                             Image(systemName: "printer.fill")

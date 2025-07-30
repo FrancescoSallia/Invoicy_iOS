@@ -540,14 +540,14 @@ class BillViewModel: ObservableObject {
         return String(format: "%.2f", totalWithoutDiscount)
     }
     
-    func calculateTotal(_ invoiceItems: [InvoiceItem]) -> String {
+    func calculateTotal(_ invoiceItems: [InvoiceItem], discount: Double?) -> String {
         let totalWithoutDiscount = invoiceItems.reduce(0.0) { result, item in
             result + item.price * Double(item.quantity)
         }
         
         // Wenn Rabatt vorhanden, wende ihn auf den Gesamtbetrag an
         let total: Double
-        if let discount = self.discount {
+        if let discount = discount {
             total = totalWithoutDiscount * (1 - (discount / 100))
         } else {
             total = totalWithoutDiscount
