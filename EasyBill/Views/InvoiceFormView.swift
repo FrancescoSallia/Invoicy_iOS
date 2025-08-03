@@ -13,13 +13,14 @@ struct InvoiceFormView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var context
     @Query private var invoiceItems: [InvoiceItem]
+    @Query private var invoices: [Invoice]
 
     @ObservedObject var viewModel: BillViewModel
 
     @State private var showBusinessSheet = false
     @State private var showClientSheet = false
     @State private var showObjectSheet = false
-
+    
     
     var body: some View {
         NavigationStack {
@@ -197,11 +198,7 @@ struct InvoiceFormView: View {
                         }
                         
                         //TODO: teste die diappear funktion wenn man immer wieder neue invoices erstellt ob die generierte zahl sich so verhält wie es sich verhalten sollte!
-//                        
-//                        for item in invoiceItems {
-//                            context.delete(item)
-//                            try? context.save()
-//                        }
+
                     }
                     .sheet(isPresented: $showBusinessSheet) {
                         BusinessSelectionViewSheet(viewModel: viewModel)
@@ -220,7 +217,7 @@ struct InvoiceFormView: View {
                       }
                     }
         .onAppear {
-            viewModel.invoiceNumber = viewModel.generateInvoiceNumber()
+            viewModel.invoiceNumber = viewModel.generateInvoiceNumber(existingInvoices: invoices)
             viewModel.resetInputsInvoiceFrom()
         }
     }

@@ -590,25 +590,25 @@ class BillViewModel: ObservableObject {
         return String(format: "%.2f", taxAmount)
     }
  
-    
     // Diese Funktion könnte den letzten Zählerwert ermitteln und um 1 erhöhen.
-      func generateInvoiceNumber() -> String {
-          // Datum formatieren: TagMonatJahr (z. B. 19072025)
-             let dateFormatter = DateFormatter()
-             dateFormatter.dateFormat = "ddMMyyyy"
-             let dateString = dateFormatter.string(from: self.selectedIssuedOn)
-          
-          // Erhöhe um eins, formatiere mit führenden Nullen
-          let newNumber = String(format: "%03d", self.currentInvoiceCount + 1)
-          let invoiceNum = "INV-\(dateString)-\(newNumber)"
-            self.invoiceNumber = invoiceNum
-            return invoiceNum
-      }
-    
+    func generateInvoiceNumber(existingInvoices: [Invoice]) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "ddMMyyyy"
+        let dateString = dateFormatter.string(from: self.selectedIssuedOn)
+
+        // Zähle vorhandene Rechnungen an dem Tag (oder insgesamt, je nach Wunsch)
+        let countForToday = existingInvoices.filter {
+            Calendar.current.isDate($0.issuedOn, inSameDayAs: self.selectedIssuedOn)
+        }.count
+
+        let newNumber = String(format: "%03d", countForToday + 1)
+        let invoiceNum = "INV-\(dateString)-\(newNumber)"
+        self.invoiceNumber = invoiceNum
+        return invoiceNum
+    }
     
     
 //HTML Invoice
-    
     func htmlInvoiceContent(invoice: Invoice) -> String {
         var html = """
         <html>
@@ -741,7 +741,6 @@ class BillViewModel: ObservableObject {
         formatter.dateStyle = .medium
         return formatter.string(from: date)
     }
-    
     
     func renderHTMLToPDF(html: String, completion: @escaping (URL?) -> Void) {
         let webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 595, height: 842)) // A4 size in points (72 dpi)

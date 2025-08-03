@@ -90,7 +90,7 @@ struct ClientsView: View {
                             .bold()
                     }
                     .padding()
-                    .background(Color.accentColor)
+                    .background(Color.tabViewBackground)
                     .foregroundStyle(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 40))
                     .shadow(radius: 5)
