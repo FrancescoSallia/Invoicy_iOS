@@ -80,6 +80,10 @@ class BillViewModel: ObservableObject {
     @Published var selectedClientFromSheet: String? = nil
     
     @Published var currentInvoiceCount = 0
+    
+    @Published var showBusinessSheet = false
+    @Published var showClientSheet = false
+    @Published var showObjectSheet = false
 
     
     

@@ -17,17 +17,12 @@ struct InvoiceFormView: View {
 
     @ObservedObject var viewModel: BillViewModel
 
-    @State private var showBusinessSheet = false
-    @State private var showClientSheet = false
-    @State private var showObjectSheet = false
-    
-    
     var body: some View {
         NavigationStack {
                     Form {
                         Section(header: Text("Allgemein")) {
                             Button {
-                                showBusinessSheet = true
+                                viewModel.showBusinessSheet = true
                             } label: {
                                 HStack {
                                     Text("Business")
@@ -37,7 +32,7 @@ struct InvoiceFormView: View {
                                 }
                             }
                             Button {
-                                showClientSheet = true
+                                viewModel.showClientSheet = true
                             } label: {
                                 HStack {
                                     Text("Kunde")
@@ -80,7 +75,7 @@ struct InvoiceFormView: View {
                                         Button {
                                             viewModel.currentInvoiceItem = item
                                             viewModel.getEditableInvoiceItem(invoiceItem: item)
-                                            showObjectSheet.toggle()
+                                            viewModel.showObjectSheet.toggle()
                                         } label: {
                                             Image(systemName: "pencil.and.scribble")
                                         }
@@ -93,7 +88,7 @@ struct InvoiceFormView: View {
 
                             Button {
                                 // TODO: Logik zum Hinzufügen eines neuen Items
-                                showObjectSheet.toggle()
+                                viewModel.showObjectSheet.toggle()
                             } label: {
                                 HStack {
                                     Spacer()
@@ -200,17 +195,17 @@ struct InvoiceFormView: View {
                         //TODO: teste die diappear funktion wenn man immer wieder neue invoices erstellt ob die generierte zahl sich so verhält wie es sich verhalten sollte!
 
                     }
-                    .sheet(isPresented: $showBusinessSheet) {
+                    .sheet(isPresented: $viewModel.showBusinessSheet) {
                         BusinessSelectionViewSheet(viewModel: viewModel)
                             .presentationDetents([.large])
                             .presentationDragIndicator(.visible)
                     }
-                    .sheet(isPresented: $showClientSheet) {
+                    .sheet(isPresented: $viewModel.showClientSheet) {
                         ClientSelectionViewSheet(viewModel: viewModel)
                             .presentationDetents([.large])
                             .presentationDragIndicator(.visible)
                     }
-                    .sheet(isPresented: $showObjectSheet) {
+                    .sheet(isPresented: $viewModel.showObjectSheet) {
                         ObjectViewSheet(viewModel: viewModel)
                             .presentationDetents([.height(600), .large])
                             .presentationDragIndicator(.visible)
