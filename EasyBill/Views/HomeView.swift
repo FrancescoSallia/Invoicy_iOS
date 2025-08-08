@@ -15,6 +15,19 @@ struct HomeView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @Query private var invoices: [Invoice]
+    
+    @State private var selectedFilter: InvoiceFilter = .all
+
+    var filteredInvoices: [Invoice] {
+        switch selectedFilter {
+        case .all:
+            return invoices
+        case .Open:
+            return invoices.filter { $0.status == .Open }
+        case .Paid:
+            return invoices.filter { $0.status == .Paid }
+        }
+    }
 
     var body: some View {
         NavigationStack {
@@ -46,27 +59,53 @@ struct HomeView: View {
                     } else {
                         ScrollView {
                             VStack(spacing: 0) {
-                                ForEach(invoices, id: \.self) { invoice in
+                                Picker("InvoicePicker", selection: $selectedFilter) {
+                                    Text("All").tag(InvoiceFilter.all)
+                                    Text("Open").tag(InvoiceFilter.Open)
+                                    Text("Paid").tag(InvoiceFilter.Paid)
+                                }
+                                .pickerStyle(.segmented)
+                                .padding(.horizontal)
+                                ForEach(filteredInvoices, id: \.self) { invoice in
                                     NavigationLink {
 //                                        InvoiceDetailView(viewModel: viewModel)
                                         PreviewScreen(invoice: invoice, viewModel: viewModel, pdfData: PDFHelper.generatePDF(from: invoice, with: viewModel))
                                     } label: {
                                         HStack(alignment: .top, spacing: 12) {
-                                            Image(systemName: "doc.text")
+                                            Image(systemName: "doc.text.fill")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 40, height: 40)
-                                                .padding(8)
+                                                .frame(width: 30, height: 30)
+                                                .padding(16)
                                                 .background(Color.gray.opacity(0.2))
                                                 .clipShape(Circle())
 
                                             VStack(alignment: .leading, spacing: 4) {
-                                                Text(invoice.invoiceName)
-                                                    .font(.headline)
-                                                Text("Datum: \(invoice.issuedOn)")
+                                                HStack {
+                                                    Text(invoice.invoiceName)
+                                                        .font(.headline)
+                                                    Spacer()
+                                                    Text("\(viewModel.calculateTotal(invoice.items, discount: invoice.discount))")
+                                                    Text(CurrencyEnum.symbol(from: invoice.currency))
+                                                        .padding(.leading, -2)
+                                                }
+                                                Text("Erstellt: \(invoice.issuedOn.formatted())")
                                                     .font(.subheadline)
                                                     .foregroundColor(.gray)
-                                                Text(invoice.invoiceNumber)
+                                                HStack {
+                                                    Text("\(invoice.invoiceNumber)")
+                                                    Spacer()
+                                                    HStack {
+                                                        Circle()
+                                                            .fill(Color.orange)
+                                                            .scaledToFit()
+                                                            .frame(width: 8)
+                                                        Text("\(invoice.status)")
+                                                            .tint(.secondary)
+                                                    }
+                                                }
+                                                .padding(.trailing,4)
+                                                .font(.callout)
                                             }
 
                                             Spacer()
@@ -180,6 +219,8 @@ struct HomeView: View {
         unit: "Projekt",
         price: 1200
     )
+    
+    let status: InvoiceStatusEnum = .Open
 
     let invoice = Invoice(
         business: business,
@@ -192,7 +233,8 @@ struct HomeView: View {
         items: [item1, item2],
         discount: 0,
         tax: 19,
-        totalSummery: 1600
+        totalSummery: 1600,
+        status: status
     )
 
     context.insert(business)

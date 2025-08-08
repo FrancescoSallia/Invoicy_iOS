@@ -32,8 +32,9 @@ class Invoice {
     var discount: Double
     var tax: Double
     var totalSummery: Double
+    var status: InvoiceStatusEnum
     
-    init(business: Business, client: Client, invoiceName: String, invoiceNumber: String, currency: String, issuedOn: Date, dueDate: Date, items: [InvoiceItem], discount: Double, tax: Double, totalSummery: Double) {
+    init(business: Business, client: Client, invoiceName: String, invoiceNumber: String, currency: String, issuedOn: Date, dueDate: Date, items: [InvoiceItem], discount: Double, tax: Double, totalSummery: Double, status: InvoiceStatusEnum = .Open ) {
         self.business = business
         self.client = client
         self.invoiceName = invoiceName
@@ -45,6 +46,7 @@ class Invoice {
         self.discount = discount
         self.tax = tax
         self.totalSummery = totalSummery
+        self.status = status
     }
     
     
