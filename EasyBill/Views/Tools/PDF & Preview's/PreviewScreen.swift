@@ -44,6 +44,23 @@ struct PreviewScreen: View {
                         ButtonItemLabel(item: "pencil.and.scribble")
                     }
                     .tint(.primary)
+                    Button {
+                        invoice.status = .Paid
+                        try? context.save()
+                        dismiss()
+                        //TODO: diese button funktion testen und noch ein button erstellen um es auch wieder auf offen zu stellen die rechnung!
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .frame(width: 60, height: 60)
+                                .foregroundStyle(.green.opacity(0.12))
+                            Image(systemName: "checkmark")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 32, height: 32)
+                                .tint(.green)
+                        }
+                    }
                 }
                 .padding(.horizontal)
                 .padding(.bottom)
@@ -61,6 +78,8 @@ struct PreviewScreen: View {
         }
     }
 }
+
+
 
 
 #Preview {
@@ -91,6 +110,20 @@ struct PreviewScreen: View {
                     ButtonItemLabel(item: "pencil.and.scribble")
                 }
                 .tint(.primary)
+                Button {
+                    //LOGIK
+                } label: {
+                    ZStack {
+                        Circle()
+                            .frame(width: 60, height: 60)
+                            .foregroundStyle(.green.opacity(0.12))
+                        Image(systemName: "checkmark")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 32, height: 32)
+                            .tint(.green)
+                    }
+                }
             }
             .padding(.horizontal)
         }
@@ -102,6 +135,7 @@ struct PreviewScreen: View {
 struct ButtonItemLabel: View {
     let item: String
     var color: Color = .primary
+    var backgroundMaterial: Material? = .thinMaterial
     var body: some View {
         ZStack {
             Circle()
