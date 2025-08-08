@@ -48,7 +48,6 @@ struct InvoiceFormView: View {
                             }
                             HStack {
                                 Text("Rechnungsnummer:")
-//                                TextField("Rechnungsnummer", text: $viewModel.invoiceNumber)
                                 TextField("Rechnungsnummer", text: $viewModel.invoiceNumber)
                                     .multilineTextAlignment(.trailing)
                             }
@@ -177,7 +176,10 @@ struct InvoiceFormView: View {
                     .toolbar {
                         Button {
                             if viewModel.newInvoice() != nil {
-                                InvoicePrinter(viewModel: viewModel).druckeRechnung(invoice: viewModel.newInvoice()!)
+                                let pdfData = PDFHelper.generatePDF(from: viewModel.newInvoice()!, with: viewModel)
+                                PDFHelper.printPDF(data: pdfData)
+
+//                                InvoicePrinter(viewModel: viewModel).druckeRechnung(invoice: viewModel.newInvoice()!)
                             }
                         } label: {
                             Image(systemName: "printer.fill")

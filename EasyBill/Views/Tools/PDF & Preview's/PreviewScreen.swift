@@ -14,37 +14,104 @@ struct PreviewScreen: View {
     
     let invoice: Invoice
     let viewModel: BillViewModel
+    let pdfData: Data
 
+    
+    @State var showDeleteAlert: Bool = false
+    
     var body: some View {
-        Spacer()
+//        let pdfData = PDFHelper.generatePDF(from: invoice, with: viewModel)
+        VStack {
+            PDFPreviewView(pdfData: pdfData)
+                .edgesIgnoringSafeArea(.all)
+                .padding(.top, 40)
+            
+            ScrollView(.horizontal) {
+                HStack {
+                    Button {
+                        PDFHelper.printPDF(data: pdfData)
+                    } label: {
+                        ButtonItemLabel(item: "printer.fill")
+                    }
+                    Button {
+                        showDeleteAlert.toggle()
+                    } label: {
+                        ButtonItemLabel(item: "trash.fill", color: .red)
+                    }
+                    Button {
+                        //LOGIK Einbauen
+                    } label: {
+                        ButtonItemLabel(item: "pencil.and.scribble")
+                    }
+                    .tint(.primary)
+                }
+                .padding(.horizontal)
+                .padding(.bottom)
+            }
+        }
+        .alert("Delete?", isPresented: $showDeleteAlert) {
+            Button("Löschen", role: .destructive) {
+                context.delete(invoice)
+                try? context.save()
+                dismiss()
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Are you sure you want to delete this Invoice?")
+        }
+    }
+}
 
-        let pdfData = PDFHelper.generatePDF(from: invoice, with: viewModel)
-        PDFPreviewView(pdfData: pdfData)
-            .edgesIgnoringSafeArea(.all)
-        
-        ScrollView(.horizontal) {
+
+#Preview {
+    let viewModel: BillViewModel = BillViewModel()
+//    Spacer()
+
+    let pdfData = PDFHelper.generatePDF(from: .previewInvoice, with: viewModel)
+    PDFPreviewView(pdfData: pdfData)
+        .edgesIgnoringSafeArea(.all)
+    
+    ScrollView(.horizontal) {
+        Group {
             HStack {
                 Button {
                     PDFHelper.printPDF(data: pdfData)
                 } label: {
-                    Image(systemName: "printer.fill")
+                    ButtonItemLabel(item: "printer.fill")
                 }
                 
                 Button {
-                    context.delete(invoice)
-                    try? context.save()
-                    dismiss()
+                    //LOGIK
                 } label: {
-                    Image(systemName: "trash.fill")
+                    ButtonItemLabel(item: "trash.fill", color: .red)
                 }
                 Button {
-                   //LOGIK Einbauen
+                    //LOGIK Einbauen
                 } label: {
-                    Image(systemName: "pencil.and.scribble")
+                    ButtonItemLabel(item: "pencil.and.scribble")
                 }
                 .tint(.primary)
             }
+            .padding(.horizontal)
         }
-        Spacer()
+    }
+//    Spacer()
+}
+
+
+struct ButtonItemLabel: View {
+    let item: String
+    var color: Color = .primary
+    var body: some View {
+        ZStack {
+            Circle()
+                .frame(width: 60, height: 60)
+                .foregroundStyle(.thinMaterial)
+            Image(systemName: item)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 32, height: 32)
+                .tint(color)
+        }
     }
 }
