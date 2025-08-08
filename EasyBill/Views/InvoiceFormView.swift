@@ -222,6 +222,19 @@ struct InvoiceFormView: View {
 
 #Preview {
     @Previewable @State var viewModel: BillViewModel = BillViewModel()
+    let invoice: Invoice = .init(
+        business: viewModel.dummyBusinesses.first!,
+        client: viewModel.selectedClient!,
+        invoiceName: "",
+        invoiceNumber: "",
+        currency: "",
+        issuedOn: Date(),
+        dueDate: Date(),
+        items: [],
+        discount: 0,
+        tax: 0,
+        totalSummery: 0
+    )
 
     InvoiceFormView(viewModel: viewModel)
 }

@@ -38,8 +38,8 @@ struct PreviewScreen: View {
                     } label: {
                         ButtonItemLabel(item: "trash.fill", color: .red)
                     }
-                    Button {
-                        //LOGIK Einbauen
+                    NavigationLink {
+                        EditInvoiceView(viewModel: viewModel, invoice: invoice)
                     } label: {
                         ButtonItemLabel(item: "pencil.and.scribble")
                     }

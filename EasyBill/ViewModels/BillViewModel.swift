@@ -336,6 +336,27 @@ class BillViewModel: ObservableObject {
         invoiceItem.price = self.price
     }
     
+    func updateInvoice(_ invoice: Invoice) {
+        // Business und Client dürfen nicht geändert werden, falls du das nicht möchtest,
+        // sonst kannst du sie hier auch updaten:
+        invoice.business = self.businessItemSelected!
+        invoice.client = self.clientItemSelected!
+        
+        invoice.invoiceName = self.invoiceName
+        invoice.invoiceNumber = self.invoiceNumber
+        invoice.currency = self.currency.rawValue
+        invoice.issuedOn = self.selectedIssuedOn
+        invoice.dueDate = self.selectedDueDate
+        
+        // InvoiceItems updaten – hier kommt’s darauf an, ob du die Liste komplett ersetzen
+        // oder die einzelnen Items bearbeiten willst:
+        invoice.items = self.invoiceItems
+        
+        invoice.discount = self.discount ?? 0
+        invoice.tax = self.tax ?? 0
+        invoice.totalSummery = self.totalSummery
+    }
+    
     func getEditableBusiness(business: Business) {
         self.businessName = business.businessName
         self.email = business.email
@@ -490,6 +511,20 @@ class BillViewModel: ObservableObject {
             totalSummery: self.totalSummery
         )
         return newInvoice
+    }
+    
+    func loadInvoice(_ invoice: Invoice) {
+        self.invoiceName = invoice.invoiceName
+        self.invoiceNumber = invoice.invoiceNumber
+        self.businessItemSelected = invoice.business
+        self.clientItemSelected = invoice.client
+        self.currency = CurrencyEnum(rawValue: invoice.currency) ?? .euro
+        self.selectedIssuedOn = invoice.issuedOn
+        self.selectedDueDate = invoice.dueDate
+        self.invoiceItems = invoice.items
+        self.discount = invoice.discount
+        self.tax = invoice.tax
+        self.totalSummery = invoice.totalSummery
     }
     
     func resetInputsInvoiceFrom() {
