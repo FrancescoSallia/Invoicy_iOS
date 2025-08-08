@@ -120,7 +120,86 @@ struct HomeView: View {
     }
 }
 
+//#Preview {
+//    @Previewable @State var viewModel: BillViewModel = BillViewModel()
+//    HomeView(viewModel: viewModel)
+//       
+//}
+
 #Preview {
-    @Previewable @State var viewModel: BillViewModel = BillViewModel()
-    HomeView(viewModel: viewModel)
+    @Previewable @State var viewModel = BillViewModel()
+
+    // 1. In-Memory Container erstellen
+    let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(
+        for: Invoice.self,
+            Business.self,
+            Client.self,
+            InvoiceItem.self,
+        configurations: configuration
+    )
+
+    // 2. Beispiel-Daten einfügen
+    let context = container.mainContext
+
+    let business = Business(
+        businessName: "Test GmbH",
+        email: "info@test.de",
+        phoneNumber: "01234 567890",
+        street: "Hauptstraße",
+        houseNumber: "1",
+        postalCode: "12345",
+        city: "Musterstadt",
+        country: "Deutschland"
+    )
+
+    let client = Client(
+        clientName: "Max Mustermann",
+        email: "max@example.com",
+        contactName: "Max Mustermann",
+        phoneNumber: "09876 543210",
+        street: "Nebenstraße",
+        houseNumber: "2",
+        postalCode: "54321",
+        city: "Beispielstadt",
+        country: "Deutschland"
+    )
+
+    let item1 = InvoiceItem(
+        itemName: "Design Arbeit",
+        itemDescription: "Logo & Branding",
+        quantity: 5,
+        unit: "Stunden",
+        price: 80
+    )
+
+    let item2 = InvoiceItem(
+        itemName: "Webentwicklung",
+        itemDescription: "Landingpage",
+        quantity: 1,
+        unit: "Projekt",
+        price: 1200
+    )
+
+    let invoice = Invoice(
+        business: business,
+        client: client,
+        invoiceName: "Rechnung 001",
+        invoiceNumber: "INV-001",
+        currency: "EUR",
+        issuedOn: Date(),
+        dueDate: Date().addingTimeInterval(7*24*60*60),
+        items: [item1, item2],
+        discount: 0,
+        tax: 19,
+        totalSummery: 1600
+    )
+
+    context.insert(business)
+    context.insert(client)
+    context.insert(invoice)
+
+    // 3. View mit Container zurückgeben
+    return HomeView(viewModel: viewModel)
+        .modelContainer(container)
 }
