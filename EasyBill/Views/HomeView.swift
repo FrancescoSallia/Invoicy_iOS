@@ -97,7 +97,7 @@ struct HomeView: View {
                                                     Spacer()
                                                     HStack {
                                                         Circle()
-                                                            .fill(Color.orange)
+                                                            .fill(invoice.status == .Paid ? Color.green : Color.orange)
                                                             .scaledToFit()
                                                             .frame(width: 8)
                                                         Text("\(invoice.status)")
