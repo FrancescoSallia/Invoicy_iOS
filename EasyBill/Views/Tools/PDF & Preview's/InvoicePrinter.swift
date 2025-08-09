@@ -72,6 +72,14 @@ struct InvoicePrinter {
                 ctx.strokePath()
                 y += 10
             }
+            
+            func drawDividerPartial(y: CGFloat, startX: CGFloat, endX: CGFloat) {
+                ctx.setStrokeColor(UIColor.lightGray.cgColor)
+                ctx.setLineWidth(0.5)
+                ctx.move(to: CGPoint(x: startX, y: y))
+                ctx.addLine(to: CGPoint(x: endX, y: y))
+                ctx.strokePath()
+            }
 
             // MARK: - Header
             let headerY = y
@@ -83,10 +91,11 @@ struct InvoicePrinter {
 
             // MARK: - Customer + Business Info (Side by side)
             let customerX = padding
-            let businessX = pageWidth / 2 + 20
+            let _ = pageWidth / 2 + 20
             var infoY = y
 
             let customerLines = [
+                "Rechnungsempfänger:",
                 invoice.client.clientName,
                 invoice.client.contactName,
                 "\(invoice.client.street) \(invoice.client.houseNumber)",
@@ -98,6 +107,7 @@ struct InvoicePrinter {
             }
 
             let businessLines = [
+                "Zahlen an:",
                 invoice.business.businessName,
                 invoice.business.email,
                 invoice.business.phoneNumber
@@ -184,7 +194,15 @@ struct InvoicePrinter {
                         drawSummary(label: "Rabatt(%):", value: "-\(viewModel.calculateDiscountAmount(invoice.items, discounT: invoice.discount))")
                     }
                     drawSummary(label: "MwSt.(\(invoice.tax)%):", value: viewModel.calculateTaxAmount(invoice.items, taX: invoice.tax, discounT: invoice.discount))
-                    drawSummary(label: "Gesamtbetrag (inkl.MwSt):", value: viewModel.calculateTotal(invoice.items, discount: invoice.discount))
+                    
+                //Divider
+                    let startX = pageWidth * 0.59 // ungefähr bis MwSt divider
+                    let endX = pageWidth - padding
+                    drawDividerPartial(y: y, startX: startX, endX: endX)
+                    y += 8
+                    
+                    
+                    drawSummary(label: "Gesamtbetrag:", value: viewModel.calculateTotal(invoice.items, discount: invoice.discount))
 
                     y += 10
                     drawText("Fällig am: \(formatDate(invoice.dueDate))", font: regularFont, x: padding, y: &y)
@@ -199,7 +217,7 @@ struct InvoicePrinter {
                         y += size.height + 8
                     }
 
-                    var footerY = pageHeight - 80
+                    var footerY = pageHeight - 100
                     drawDivider(&footerY)
                     invoice.business.businessName.draw(at: CGPoint(x: leftX, y: footerY), withAttributes: [.font: boldFont])
 
@@ -238,7 +256,7 @@ struct InvoicePrinter {
                         contactY += footerFont.lineHeight + 2
                     }
 
-                    drawPageNumber()
+                    drawPageNumber() //SeitenAnzahl von der Rechnung z.ß. 1/2 oder 2/2
                 }
             }
             // --- End new paginated items logic ---

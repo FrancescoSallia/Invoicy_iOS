@@ -15,7 +15,6 @@ struct PreviewScreen: View {
     let invoice: Invoice
     let viewModel: BillViewModel
     let pdfData: Data
-
     
     @State var showDeleteAlert: Bool = false
     
