@@ -22,7 +22,7 @@ struct BusinessView: View {
                     if business.isEmpty {
                         VStack {
                             Spacer()
-                            Image("business_icon")
+                            Image("koffer_icon")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 150)
@@ -48,7 +48,7 @@ struct BusinessView: View {
                                         BusinessDetailView(viewModel: viewModel, businessDetail: business)
                                     } label: {
                                         HStack(alignment: .top, spacing: 12) {
-                                            (business.logoImg ?? UIImage(named: "test_logo"))
+                                            (business.logoImg ?? UIImage(named: "koffer_icon"))
                                                 .map { Image(uiImage: $0) }?
                                                 .resizable()
                                                 .scaledToFill()
