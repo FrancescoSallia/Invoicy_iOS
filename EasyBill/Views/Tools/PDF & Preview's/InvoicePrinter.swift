@@ -42,7 +42,7 @@ struct InvoicePrinter {
             let regularFont = UIFont.systemFont(ofSize: 12)
             let footerFont = UIFont.systemFont(ofSize: 11)
 
-            // MARK: - Draw Functions
+            // MARK: - Helper Draw Functions
             func drawText(_ text: String, font: UIFont, x: CGFloat, y: inout CGFloat) {
                 let attrs: [NSAttributedString.Key: Any] = [.font: font]
                 let size = text.size(withAttributes: attrs)
@@ -72,7 +72,7 @@ struct InvoicePrinter {
                 ctx.strokePath()
                 y += 10
             }
-            
+
             func drawDividerPartial(y: CGFloat, startX: CGFloat, endX: CGFloat) {
                 ctx.setStrokeColor(UIColor.lightGray.cgColor)
                 ctx.setLineWidth(0.5)
@@ -81,91 +81,89 @@ struct InvoicePrinter {
                 ctx.strokePath()
             }
 
-            // MARK: - Header
-            let headerY = y
-            drawText("RECHNUNG", font: titleFont, x: padding, y: &y)
-            drawRightText("Nr.: \(invoice.invoiceNumber)", font: regularFont, y: headerY)
-            drawRightText("Datum: \(formatDate(invoice.issuedOn))", font: regularFont, y: headerY + 18)
-            y += 8
-            drawDivider(&y)
+            // MARK: - Draw Page Header (Kopfzeile)
+            func drawHeader() {
+                let headerY = y
+                var tempY = y
+                drawText("RECHNUNG", font: titleFont, x: padding, y: &tempY)
+                drawRightText("Nr.: \(invoice.invoiceNumber)", font: regularFont, y: headerY)
+                drawRightText("Datum: \(formatDate(invoice.issuedOn))", font: regularFont, y: headerY + 18)
+                y = tempY + 8
+                drawDivider(&y)
 
-            // MARK: - Customer + Business Info (Side by side)
-            let customerX = padding
-            let _ = pageWidth / 2 + 20
-            var infoY = y
+                // Customer Info
+                let customerX = padding
+                var infoY = y
+                let customerLines = [
+                    "Rechnungsempfänger:",
+                    invoice.client.clientName,
+                    invoice.client.contactName,
+                    "\(invoice.client.street) \(invoice.client.houseNumber)",
+                    "\(invoice.client.postalCode) \(invoice.client.city)"
+                ]
+                for line in customerLines {
+                    drawText(line, font: regularFont, x: customerX, y: &infoY)
+                }
 
-            let customerLines = [
-                "Rechnungsempfänger:",
-                invoice.client.clientName,
-                invoice.client.contactName,
-                "\(invoice.client.street) \(invoice.client.houseNumber)",
-                "\(invoice.client.postalCode) \(invoice.client.city)"
-            ]
+                // Business Info
+                let businessLines = [
+                    "Zahlen an:",
+                    invoice.business.businessName,
+                    invoice.business.email,
+                    invoice.business.phoneNumber
+                ]
+                var rightY = y
+                for line in businessLines {
+                    drawRightText(line, font: regularFont, y: rightY)
+                    rightY += regularFont.lineHeight + 4
+                }
 
-            for line in customerLines {
-                drawText(line, font: regularFont, x: customerX, y: &infoY)
+                y = max(infoY, rightY) + 50
+                drawDivider(&y)
             }
 
-            let businessLines = [
-                "Zahlen an:",
-                invoice.business.businessName,
-                invoice.business.email,
-                invoice.business.phoneNumber
-            ]
-
-            var rightY = y
-            for line in businessLines {
-                drawRightText(line, font: regularFont, y: rightY)
-                rightY += regularFont.lineHeight + 4
-            }
-
-            y = max(infoY, rightY)
-            
-            y += 50
-            
-            drawDivider(&y)
-
-            // MARK: - Items Table Header
+            // MARK: - Draw Table Header
             let leftX = padding
             let qtyX = pageWidth * 0.55
             let priceX = pageWidth * 0.70
             let totalX = pageWidth * 0.85
 
-            // --- Begin new paginated items logic ---
-            let itemLineHeight = regularFont.lineHeight + 2
-            let maxY = pageHeight - 160 // reserve space for footer
+            func drawTableHeader() {
+                "Beschreibung".draw(at: CGPoint(x: leftX, y: y), withAttributes: [.font: boldFont])
+                "Menge".draw(at: CGPoint(x: qtyX, y: y), withAttributes: [.font: boldFont])
+                "Preis".draw(at: CGPoint(x: priceX, y: y), withAttributes: [.font: boldFont])
+                "Gesamt".draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: boldFont])
+                y += boldFont.lineHeight + 6
+                drawDivider(&y)
+            }
+
+            // Draw first page header + table header
+            drawHeader()
+            drawTableHeader()
+
+            // MARK: - Pagination Setup
+            let itemsPerPage = 16 // Zweite Seite erstellen, Max. Anzahl an InvoiceItems bestimmen Pro Seite
             let totalItems = invoice.items.count
             var currentPage = 1
-            let totalPages = Int(ceil(Double(totalItems * Int(itemLineHeight)) / Double(maxY - y)))
+            let totalPages = Int(ceil(Double(totalItems) / Double(itemsPerPage)))
 
             func drawPageNumber() {
                 let pageNumberText = "\(currentPage)/\(totalPages)"
                 drawCenteredText(pageNumberText, font: footerFont, y: pageHeight - 30)
             }
 
-            // Draw table headers
-            "Beschreibung".draw(at: CGPoint(x: leftX, y: y), withAttributes: [.font: boldFont])
-            "Menge".draw(at: CGPoint(x: qtyX, y: y), withAttributes: [.font: boldFont])
-            "Preis".draw(at: CGPoint(x: priceX, y: y), withAttributes: [.font: boldFont])
-            "Gesamt".draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: boldFont])
-            y += boldFont.lineHeight + 6
-            drawDivider(&y)
-
-            // Draw items
+            // MARK: - Draw Items
+            let itemLineHeight = regularFont.lineHeight + 2
             for (index, item) in invoice.items.enumerated() {
-                if y + itemLineHeight > maxY {
+
+                // Check for new page
+                if index > 0 && index % itemsPerPage == 0 {
                     drawPageNumber()
                     context.beginPage()
                     y = padding
                     currentPage += 1
-
-                    // Optionally re-draw table headers on each page
-                    "Beschreibung".draw(at: CGPoint(x: leftX, y: y), withAttributes: [.font: boldFont])
-                    "Menge".draw(at: CGPoint(x: qtyX, y: y), withAttributes: [.font: boldFont])
-                    "Preis".draw(at: CGPoint(x: priceX, y: y), withAttributes: [.font: boldFont])
-                    "Gesamt".draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: boldFont])
-                    y += boldFont.lineHeight + 6
-                    drawDivider(&y)
+                    drawHeader()
+                    drawTableHeader()
                 }
 
                 let lineTotal = Double(item.quantity) * item.price
@@ -175,13 +173,12 @@ struct InvoicePrinter {
                 formatPrice(lineTotal, currency: CurrencyEnum.symbol(from: invoice.currency)).draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: regularFont])
                 y += itemLineHeight
 
-                // After last item, draw rest of invoice (summary, signature, footer)
+                // Last item → draw summary & footer
                 if index == totalItems - 1 {
                     y += 20
                     drawDivider(&y)
 
                     let subtotal = invoice.items.reduce(0) { $0 + (Double($1.quantity) * $1.price) }
-
                     func drawSummary(label: String, value: String, bold: Bool = false) {
                         let font = bold ? boldFont : regularFont
                         drawRightText(label, font: font, y: y, inset: 160)
@@ -194,16 +191,13 @@ struct InvoicePrinter {
                         drawSummary(label: "Rabatt(%):", value: "-\(viewModel.calculateDiscountAmount(invoice.items, discounT: invoice.discount))")
                     }
                     drawSummary(label: "MwSt.(\(invoice.tax)%):", value: viewModel.calculateTaxAmount(invoice.items, taX: invoice.tax, discounT: invoice.discount))
-                    
-                //Divider
-                    let startX = pageWidth * 0.59 // ungefähr bis MwSt divider
+
+                    let startX = pageWidth * 0.59
                     let endX = pageWidth - padding
                     drawDividerPartial(y: y, startX: startX, endX: endX)
                     y += 8
-                    
-                    
-                    drawSummary(label: "Gesamtbetrag:", value: viewModel.calculateTotal(invoice.items, discount: invoice.discount))
 
+                    drawSummary(label: "Gesamtbetrag:", value: viewModel.calculateTotal(invoice.items, discount: invoice.discount))
                     y += 10
                     drawText("Fällig am: \(formatDate(invoice.dueDate))", font: regularFont, x: padding, y: &y)
 
@@ -222,18 +216,12 @@ struct InvoicePrinter {
                     invoice.business.businessName.draw(at: CGPoint(x: leftX, y: footerY), withAttributes: [.font: boldFont])
 
                     if let bank = invoice.business.bankPayment {
-                        var bankLines: [String] = []
-                        bankLines.append(bank.accountHolder)
-
+                        var bankLines: [String] = [bank.accountHolder]
                         if !bank.iban.isEmpty {
                             bankLines.append("IBAN: \(bank.iban)")
                         } else {
-                            if !bank.accountNumber.isEmpty {
-                                bankLines.append("Konto: \(bank.accountNumber)")
-                            }
-                            if !bank.bic.isEmpty {
-                                bankLines.append("BIC: \(bank.bic)")
-                            }
+                            if !bank.accountNumber.isEmpty { bankLines.append("Konto: \(bank.accountNumber)") }
+                            if !bank.bic.isEmpty { bankLines.append("BIC: \(bank.bic)") }
                         }
                         bankLines.append(bank.bankName)
 
@@ -245,9 +233,7 @@ struct InvoicePrinter {
                     }
 
                     var contactLines: [String] = [invoice.business.email]
-                    if let website = invoice.business.website {
-                        contactLines.append(website)
-                    }
+                    if let website = invoice.business.website { contactLines.append(website) }
                     contactLines.append("Tel.: \(invoice.business.phoneNumber)")
 
                     var contactY = footerY
@@ -256,15 +242,13 @@ struct InvoicePrinter {
                         contactY += footerFont.lineHeight + 2
                     }
 
-                    drawPageNumber() //SeitenAnzahl von der Rechnung z.ß. 1/2 oder 2/2
+                    drawPageNumber()
                 }
             }
-            // --- End new paginated items logic ---
         }
 
         return data
     }
-    
     func druckeRechnung(invoice: Invoice) {
         let printController = UIPrintInteractionController.shared
         
