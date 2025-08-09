@@ -86,7 +86,7 @@ struct InvoicePrinter {
                 let headerY = y
                 var tempY = y
                 drawText("RECHNUNG", font: titleFont, x: padding, y: &tempY)
-                drawRightText("Nr.: \(invoice.invoiceNumber)", font: regularFont, y: headerY)
+                drawRightText("Rechnungsnummer: \(invoice.invoiceNumber)", font: regularFont, y: headerY)
                 drawRightText("Datum: \(formatDate(invoice.issuedOn))", font: regularFont, y: headerY + 18)
                 y = tempY + 8
                 drawDivider(&y)
@@ -197,7 +197,7 @@ struct InvoicePrinter {
                     drawDividerPartial(y: y, startX: startX, endX: endX)
                     y += 8
 
-                    drawSummary(label: "Gesamtbetrag:", value: viewModel.calculateTotal(invoice.items, discount: invoice.discount))
+                    drawSummary(label: "Gesamtbetrag (\(CurrencyEnum.code(from: invoice.currency))):", value: viewModel.calculateTotal(invoice.items, discount: invoice.discount))
                     y += 10
                     drawText("Fällig am: \(formatDate(invoice.dueDate))", font: regularFont, x: padding, y: &y)
 

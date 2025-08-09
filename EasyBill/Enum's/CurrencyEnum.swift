@@ -97,7 +97,11 @@ enum CurrencyEnum: String, CaseIterable {
     }
     
     // MARK: - Static helper to get symbol from raw string
-       static func symbol(from raw: String) -> String {
-           CurrencyEnum(rawValue: raw)?.symbol ?? ""
-       }
+    static func symbol(from raw: String) -> String {
+        CurrencyEnum(rawValue: raw)?.symbol ?? ""
+    }
+   
+    static func code(from raw: String) -> String {
+        CurrencyEnum(rawValue: raw)?.code ?? ""
+    }
 }
