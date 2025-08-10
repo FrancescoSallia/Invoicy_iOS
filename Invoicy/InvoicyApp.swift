@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 @main
-struct EasyBillApp: App {
+struct InvoicyApp: App {
     
     @StateObject var viewModel: BillViewModel = BillViewModel()
     
