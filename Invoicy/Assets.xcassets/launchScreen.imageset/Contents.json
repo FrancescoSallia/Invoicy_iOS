@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Invoicy_light.png",
+      "filename" : "Invoicy_dark 1.png",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Invoicy_dark.png",
+      "filename" : "Invoicy_dark (2).png",
       "idiom" : "universal"
     }
   ],
