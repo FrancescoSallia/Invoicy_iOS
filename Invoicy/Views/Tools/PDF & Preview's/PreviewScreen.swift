@@ -12,9 +12,11 @@ struct PreviewScreen: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var context
     @ObservedObject var errorHandler = ErrorHandler.shared
+
     
     let invoice: Invoice
-    let viewModel: BillViewModel
+//    let viewModel: BillViewModel
+    @ObservedObject var viewModel: BillViewModel
     let pdfData: Data
     
     @State var showDeleteAlert: Bool = false
@@ -38,16 +40,6 @@ struct PreviewScreen: View {
                                     .tint(.primary)
                             }
                         }
-                        Button {
-                            showDeleteAlert.toggle()
-                        } label: {
-                            VStack {
-                                ButtonItemLabel(item: "trash.fill", color: .red)
-                                Text("Delete")
-                                    .font(.footnote)
-                                    .tint(.primary)
-                            }
-                        }
                         NavigationLink {
                             EditInvoiceView(viewModel: viewModel, invoice: invoice)
                         } label: {
@@ -66,8 +58,6 @@ struct PreviewScreen: View {
                                 invoice.status = .Open
                             }
                             try? context.save()
-    //                        dismiss()
-                            //TODO: diese button funktion testen und noch ein button erstellen um es auch wieder auf offen zu stellen die rechnung!
                         } label: {
                             VStack {
                                 ZStack {
@@ -81,6 +71,26 @@ struct PreviewScreen: View {
                                         .tint(invoice.status == .Paid ? Color.orange : Color.green)
                                 }
                                 Text(invoice.status == .Paid ? "Open" : "Paid")
+                                    .font(.footnote)
+                                    .tint(.primary)
+                            }
+                        } 
+                        Button {
+                            viewModel.showShareSheet.toggle()
+                        } label: {
+                            VStack{
+                                ButtonItemLabel(item: "square.and.arrow.up", color: .primary)
+                                Text("Share")
+                                    .font(.footnote)
+                                    .tint(.primary)
+                            }
+                        }
+                        Button {
+                            showDeleteAlert.toggle()
+                        } label: {
+                            VStack {
+                                ButtonItemLabel(item: "trash.fill", color: .red)
+                                Text("Delete")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -106,6 +116,10 @@ struct PreviewScreen: View {
                 Button("Cancel", role: .cancel) { }
             } message: {
                 Text("Are you sure you want to delete this Invoice?")
+            }
+            .sheet(isPresented: $viewModel.showShareSheet) {
+                ShareView(activityItems: [pdfData])
+                    .presentationDetents([.medium, .large])
             }
             .navigationTitle("Invoice-Preview")
             .navigationBarTitleDisplayMode(.inline)
@@ -176,6 +190,16 @@ struct PreviewScreen: View {
                         Text("Complete")
                             .font(.footnote)
                             .tint(.primary)
+                    }
+                    Button {
+                        //Logik
+                    } label: {
+                        VStack{
+                            ButtonItemLabel(item: "square.and.arrow.up", color: .primary)
+                            Text("Share")
+                                .font(.footnote)
+                                .tint(.primary)
+                        }
                     }
                 }
             }

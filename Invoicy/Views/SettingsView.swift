@@ -34,7 +34,7 @@ struct SettingsView: View {
                         //TODO: App bewerten Logik
                     }
                     Button("App teilen") {
-                       //TODO: App Teilen Logic
+//                        viewModel.showShareSheet.toggle()
                     }
 
                 }
@@ -48,6 +48,12 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
+        //TODO: App Store link statt pdf einfügen um die app zu teilen und nicht das ganze dokument!
+        
+//        .sheet(isPresented: $viewModel.showShareSheet) {
+//            ShareView(activityItems: [pdfData])
+//                .presentationDetents([.medium, .large])
+//        }
     }
 }
 

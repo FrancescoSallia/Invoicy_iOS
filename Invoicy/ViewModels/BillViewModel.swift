@@ -85,6 +85,8 @@ class BillViewModel: ObservableObject {
     @Published var showBusinessSheet = false
     @Published var showClientSheet = false
     @Published var showObjectSheet = false
+    @Published var showShareSheet = false
+
 
     
     
