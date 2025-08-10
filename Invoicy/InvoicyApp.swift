@@ -35,7 +35,7 @@ struct InvoicyApp: App {
                 }
             }
             .preferredColorScheme(viewModel.selectedTheme.colorScheme) // <- globaler Theme Switch
-            .tint(.tabViewBackground)
+            .tint(.primaryApp)
         }
     }
 }

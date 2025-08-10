@@ -133,7 +133,7 @@ struct HomeView: View {
                             .bold()
                     }
                     .padding()
-                    .background(Color.tabViewBackground)
+                    .background(Color.primaryApp)
                     .foregroundStyle(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 40))
                     .shadow(radius: 5)
