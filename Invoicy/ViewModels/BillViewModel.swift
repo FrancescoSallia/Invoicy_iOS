@@ -31,6 +31,7 @@ class BillViewModel: ObservableObject {
     @Published var ustIdNr = ""
     
     @Published var showAttentionIcon = false
+    @Published var showAlert = false
     
     @Published var vatApplicable = ""
     @Published var showSignatureView = false

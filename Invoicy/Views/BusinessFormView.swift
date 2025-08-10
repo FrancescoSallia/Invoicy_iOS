@@ -301,6 +301,7 @@ struct BusinessFormView: View {
                             viewModel.resetInputsClientAndBusiness()
                             dismiss()
                         } else {
+                            viewModel.showAlert = true
                             viewModel.showAttentionIcon = true
                         }
                     }
@@ -333,6 +334,11 @@ struct BusinessFormView: View {
                         }
                     }
                 }
+            }
+            .alert("Error", isPresented: $viewModel.showAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("Something went wrong. Probably you forgot to fill in some fields.")
             }
         }
     }
