@@ -41,8 +41,8 @@ struct SettingsView: View {
                 .foregroundStyle(.primary)
 
                 Section(header: Text("Rechtl. Informationen")) {
-                    NavigationLink("Datenschutz", destination: Text("Datenschutz Inhalt"))
-                    NavigationLink("Nutzungsbedingungen", destination: Text("Nutzungsbedingungen Inhalt"))
+                    NavigationLink("Datenschutz", destination: PrivacyPolicyView())
+                    NavigationLink("Nutzungsbedingungen", destination: TermsOfServiceView())
                 }
             }
             .navigationTitle("Settings")

@@ -12,6 +12,7 @@ import SwiftData
 struct InvoicyApp: App {
     
     @StateObject var viewModel: BillViewModel = BillViewModel()
+    @StateObject var errorHandler = ErrorHandler.shared
     
     var body: some Scene {
         WindowGroup {

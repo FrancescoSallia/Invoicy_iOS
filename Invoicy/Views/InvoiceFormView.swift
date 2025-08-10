@@ -14,6 +14,7 @@ struct InvoiceFormView: View {
     @Environment(\.modelContext) var context
     @Query private var invoiceItems: [InvoiceItem]
     @Query private var invoices: [Invoice]
+    @ObservedObject var errorHandler = ErrorHandler.shared
 
     @ObservedObject var viewModel: BillViewModel
 
@@ -212,6 +213,13 @@ struct InvoiceFormView: View {
                             .presentationDetents([.height(600), .large])
                             .presentationDragIndicator(.visible)
                       }
+                    .alert(item: $errorHandler.currentError) { appError in
+                        Alert(
+                            title: Text(appError.title),
+                            message: Text(appError.errorDescription ?? ""),
+                            dismissButton: .default(Text("OK"))
+                        )
+                    }
                     }
         .onAppear {
             viewModel.invoiceNumber = viewModel.generateInvoiceNumber(existingInvoices: invoices)

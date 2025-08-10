@@ -16,6 +16,7 @@ struct BusinessFormView: View {
     @Environment(\.modelContext) var context
     @Environment(\.dismiss) private var dismiss
     @FocusState private var focusedField: FieldFocusEnum?
+    @ObservedObject var errorHandler = ErrorHandler.shared
 
     var body: some View {
         NavigationStack {
@@ -335,10 +336,17 @@ struct BusinessFormView: View {
                     }
                 }
             }
-            .alert("Error", isPresented: $viewModel.showAlert) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text("Something went wrong. Probably you forgot to fill in some fields.")
+//            .alert("Error", isPresented: $viewModel.showAlert) {
+//                Button("OK", role: .cancel) { }
+//            } message: {
+//                Text("Something went wrong. Probably you forgot to fill in some fields.")
+//            }
+            .alert(item: $errorHandler.currentError) { appError in
+                Alert(
+                    title: Text(appError.title),
+                    message: Text(appError.errorDescription ?? ""),
+                    dismissButton: .default(Text("OK"))
+                )
             }
         }
     }

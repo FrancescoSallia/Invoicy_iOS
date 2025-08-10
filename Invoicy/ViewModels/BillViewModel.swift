@@ -276,7 +276,10 @@ class BillViewModel: ObservableObject {
         let hasIBAN = !self.iban.isEmpty
         let hasAccountNumberAndBIC = !self.accountNumber.isEmpty && !self.bic.isEmpty
         
-        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else { return false }
+        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else {
+            ErrorHandler.shared.showValidationError("Überprüfe deine Eingaben!")
+            return false
+        }
         
         if isToggledBank {
             guard !self.accountHolder.isEmpty,  hasIBAN || hasAccountNumberAndBIC else { return false }
@@ -416,7 +419,10 @@ class BillViewModel: ObservableObject {
     }
     
     func newClient() -> Client? {
-        guard !self.clientName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty else { return nil }
+        guard !self.clientName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty else {
+            ErrorHandler.shared.showValidationError("Bitte überprüfe deine Eingaben. Der Kunde konnte nicht gespeichert werden.")
+            return nil
+        }
         
         let client = Client(
             clientName: self.clientName,
@@ -440,7 +446,10 @@ class BillViewModel: ObservableObject {
         let hasIBAN = !self.iban.isEmpty
         let hasAccountNumberAndBIC = !self.accountNumber.isEmpty && !self.bic.isEmpty
         
-        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else { return nil }
+        guard !self.businessName.isEmpty, !self.email.isEmpty, !self.phoneNumber.isEmpty, !self.street.isEmpty, !self.houseNumber.isEmpty, !self.postalCode.isEmpty, !self.city.isEmpty, !self.country.isEmpty, !contactName.isEmpty, signatureImage != nil else {
+            ErrorHandler.shared.showValidationError("Bitte überprüfe deine Eingaben. Der Geschäftskontakt konnte nicht gespeichert werden.")
+            return nil
+        }
         
         if isToggledBank {
             guard !self.accountHolder.isEmpty,  hasIBAN || hasAccountNumberAndBIC else { return nil }
@@ -797,6 +806,7 @@ class BillViewModel: ObservableObject {
                     try? data.write(to: url)
                     completion(url)
                 case .failure(let error):
+                    ErrorHandler.shared.showValidationError("Fehler beim PDF-Rendern: \(error)")
                     print("Fehler beim PDF-Rendern: \(error)")
                     completion(nil)
                 }

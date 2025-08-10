@@ -14,6 +14,7 @@ struct ClientFormView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @FocusState private var focusedField: FieldFocusEnum?
+    @ObservedObject var errorHandler = ErrorHandler.shared
 
     var body: some View {
         NavigationStack {
@@ -204,6 +205,13 @@ struct ClientFormView: View {
                         }
                     }
                 }
+            }
+            .alert(item: $errorHandler.currentError) { appError in
+                Alert(
+                    title: Text(appError.title),
+                    message: Text(appError.errorDescription ?? ""),
+                    dismissButton: .default(Text("OK"))
+                )
             }
         }
         .navigationTitle("Add Client")

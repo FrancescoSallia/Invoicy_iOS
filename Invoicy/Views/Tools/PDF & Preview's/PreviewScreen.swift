@@ -11,6 +11,7 @@ struct PreviewScreen: View {
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var context
+    @ObservedObject var errorHandler = ErrorHandler.shared
     
     let invoice: Invoice
     let viewModel: BillViewModel
@@ -87,6 +88,13 @@ struct PreviewScreen: View {
                     }
                     .padding(.horizontal)
                     .padding(.bottom)
+                }
+                .alert(item: $errorHandler.currentError) { appError in
+                    Alert(
+                        title: Text(appError.title),
+                        message: Text(appError.errorDescription ?? ""),
+                        dismissButton: .default(Text("OK"))
+                    )
                 }
             }
             .alert("Delete?", isPresented: $showDeleteAlert) {
