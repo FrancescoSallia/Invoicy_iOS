@@ -51,7 +51,7 @@ struct BusinessFormView: View {
                         }
                     }
                     HStack {
-                        Text("Website:")
+                        Text("Webseite:")
                         TextField("z. B. acme.de", text: $viewModel.website, prompt: Text("z. B. acme.de"))
                             .multilineTextAlignment(.trailing)
                             .textCase(.lowercase)
@@ -106,7 +106,7 @@ struct BusinessFormView: View {
                         }
                     }
                     HStack {
-                        Text("HouseNumber:")
+                        Text("Hausnummer:")
                         TextField("z. B. 12a", text: $viewModel.houseNumber, prompt: Text("z. B. 12a"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .houseNumber)
@@ -191,8 +191,8 @@ struct BusinessFormView: View {
                 Toggle("Bank-Verbindung", isOn: $viewModel.isToggledBank)
                 if viewModel.isToggledBank {
                     HStack {
-                        Text("Account Holder:")
-                        TextField("Account Holder", text: $viewModel.accountHolder, prompt: Text("Max Mustermann"))
+                        Text("Kontoinhaber:")
+                        TextField("Kontoinhaber", text: $viewModel.accountHolder, prompt: Text("Max Mustermann"))
                             .multilineTextAlignment(.trailing)
                         if viewModel.showAttentionIcon && viewModel.accountHolder.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
@@ -219,8 +219,8 @@ struct BusinessFormView: View {
                         }
                     }
                     HStack {
-                        Text("Account Number:")
-                        TextField("Account Number", text: $viewModel.accountNumber, prompt: Text("1234 1234 45"))
+                        Text("Kontonummer:")
+                        TextField("Kontonummer", text: $viewModel.accountNumber, prompt: Text("1234 1234 45"))
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
                         if viewModel.showAttentionIcon && viewModel.accountNumber.isEmpty && viewModel.iban.isEmpty {
@@ -295,7 +295,7 @@ struct BusinessFormView: View {
                 }
                 
                 Section {
-                    Button("Business erstellen") {
+                    Button("Unternehmen erstellen") {
                         if viewModel.newBusiness() != nil {
                             context.insert(viewModel.newBusiness()!)
                             try? context.save()
@@ -308,7 +308,7 @@ struct BusinessFormView: View {
                     }
                 }
             }
-            .navigationTitle("Neues Business")
+            .navigationTitle("Neues Unternehmen")
             .sheet(isPresented: $viewModel.showSignatureView) {
                 SignatureView(drawing: $viewModel.drawing, signatureImage: $viewModel.signatureImage)
                     .presentationDetents([.medium])

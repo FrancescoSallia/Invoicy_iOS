@@ -49,7 +49,7 @@ struct ClientFormView: View {
                         }
                     }
                     HStack {
-                        Text("Website:")
+                        Text("Webseite:")
                         TextField("z. B. acme.de", text: $viewModel.website, prompt: Text("z. B. acme.de"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .website)
@@ -214,7 +214,7 @@ struct ClientFormView: View {
                 )
             }
         }
-        .navigationTitle("Add Client")
+        .navigationTitle("Kunde hinzufügen")
         .navigationBarTitleDisplayMode(.inline)
         .background(Color(.systemGroupedBackground))
     }

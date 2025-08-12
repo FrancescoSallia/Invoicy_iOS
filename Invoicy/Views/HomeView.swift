@@ -60,9 +60,9 @@ struct HomeView: View {
                         ScrollView {
                             VStack(spacing: 0) {
                                 Picker("InvoicePicker", selection: $selectedFilter) {
-                                    Text("All").tag(InvoiceFilter.all)
-                                    Text("Open").tag(InvoiceFilter.Open)
-                                    Text("Paid").tag(InvoiceFilter.Paid)
+                                    Text("Alle").tag(InvoiceFilter.all)
+                                    Text("Offen").tag(InvoiceFilter.Open)
+                                    Text("Bezahlt").tag(InvoiceFilter.Paid)
                                 }
                                 .pickerStyle(.segmented)
                                 .padding(.horizontal)
@@ -129,7 +129,7 @@ struct HomeView: View {
                     HStack {
                         Image(systemName: "plus")
                             .bold()
-                        Text("Add Invoice")
+                        Text("Rechnung erstellen")
                             .bold()
                     }
                     .padding()
@@ -141,7 +141,7 @@ struct HomeView: View {
                 .padding(.trailing, 20)
                 .padding(.bottom, 40)
             }
-            .navigationTitle("Invoices")
+            .navigationTitle("Rechnungen")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 HStack {

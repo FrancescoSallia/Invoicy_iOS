@@ -85,7 +85,7 @@ struct BusinessView: View {
                     HStack {
                         Image(systemName: "plus")
                             .bold()
-                        Text("Add Business")
+                        Text("Unternehmen hinzufügen")
                             .bold()
                     }
                     .padding()
@@ -109,7 +109,7 @@ struct BusinessView: View {
                 .background(Color.yellow)
                 .clipShape(.buttonBorder)
             }
-            .navigationTitle("Business")
+            .navigationTitle("Unternehmen")
             .navigationBarTitleDisplayMode(.inline)
         }
     }

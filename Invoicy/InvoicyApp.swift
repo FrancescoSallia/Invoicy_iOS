@@ -19,19 +19,19 @@ struct InvoicyApp: App {
 //            CustomTabView()
 //                .preferredColorScheme(.light) // <- globaler Theme Switch
             TabView {
-                Tab("Home", systemImage: "house.fill") {
+                Tab("Invoicy", systemImage: "house.fill") {
                     HomeView(viewModel: viewModel)
                         .modelContainer(for: [Invoice.self, Business.self , Client.self])
                 }
-                Tab("Clients", systemImage: "person.text.rectangle.fill") {
+                Tab("Kunden", systemImage: "person.text.rectangle.fill") {
                     ClientsView(viewModel: viewModel)
                         .modelContainer(for: [Client.self])
                 }
-                Tab("Business", systemImage: "suitcase") {
+                Tab("Unternehmen", systemImage: "suitcase") {
                     BusinessView(viewModel: viewModel)
                         .modelContainer(for: [Business.self])
                 }
-                Tab("Settings", systemImage: "gearshape") {
+                Tab("Einstellungen", systemImage: "gearshape") {
                     SettingsView(viewModel: viewModel)
                 }
             }

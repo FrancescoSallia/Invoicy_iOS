@@ -21,8 +21,8 @@ struct SettingsView: View {
                         Text("Theme")
                         Picker("Theme", selection: $viewModel.selectedTheme) {
                             Text("System").tag(ColorSchemeEnum.system)
-                            Text("Light").tag(ColorSchemeEnum.light)
-                            Text("Dark").tag(ColorSchemeEnum.dark)
+                            Text("Hell").tag(ColorSchemeEnum.light)
+                            Text("Dunkel").tag(ColorSchemeEnum.dark)
                         }
                         .pickerStyle(.segmented)
                     }
@@ -45,7 +45,7 @@ struct SettingsView: View {
                     NavigationLink("Nutzungsbedingungen", destination: TermsOfServiceView())
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle("Einstellungen")
             .navigationBarTitleDisplayMode(.inline)
         }
         //TODO: App Store link statt pdf einfügen um die app zu teilen und nicht das ganze dokument!

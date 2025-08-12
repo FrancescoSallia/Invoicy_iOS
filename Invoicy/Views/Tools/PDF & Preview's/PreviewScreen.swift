@@ -13,9 +13,7 @@ struct PreviewScreen: View {
     @Environment(\.modelContext) var context
     @ObservedObject var errorHandler = ErrorHandler.shared
 
-    
     let invoice: Invoice
-//    let viewModel: BillViewModel
     @ObservedObject var viewModel: BillViewModel
     let pdfData: Data
     
@@ -35,7 +33,7 @@ struct PreviewScreen: View {
                         } label: {
                             VStack {
                                 ButtonItemLabel(item: "printer.fill")
-                                Text("Print")
+                                Text("Drucken")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -45,7 +43,7 @@ struct PreviewScreen: View {
                         } label: {
                             VStack {
                                 ButtonItemLabel(item: "pencil.and.scribble")
-                                Text("Edit")
+                                Text("Bearbeiten")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -70,7 +68,7 @@ struct PreviewScreen: View {
                                         .frame(width: 24, height: 24)
                                         .tint(invoice.status == .Paid ? Color.orange : Color.green)
                                 }
-                                Text(invoice.status == .Paid ? "Open" : "Paid")
+                                Text(invoice.status == .Paid ? "Offen" : "Bezahlt")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -80,7 +78,7 @@ struct PreviewScreen: View {
                         } label: {
                             VStack{
                                 ButtonItemLabel(item: "square.and.arrow.up", color: .primary)
-                                Text("Share")
+                                Text("Teilen")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -90,7 +88,7 @@ struct PreviewScreen: View {
                         } label: {
                             VStack {
                                 ButtonItemLabel(item: "trash.fill", color: .red)
-                                Text("Delete")
+                                Text("Löschen")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -121,7 +119,7 @@ struct PreviewScreen: View {
                 ShareView(activityItems: [pdfData])
                     .presentationDetents([.medium, .large])
             }
-            .navigationTitle("Invoice-Preview")
+            .navigationTitle("Rechnung-Vorschau")
             .navigationBarTitleDisplayMode(.inline)
         }
     }

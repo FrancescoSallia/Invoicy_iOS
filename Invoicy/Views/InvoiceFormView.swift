@@ -26,7 +26,7 @@ struct InvoiceFormView: View {
                                 viewModel.showBusinessSheet = true
                             } label: {
                                 HStack {
-                                    Text("Business")
+                                    Text("Unternehmen")
                                     Spacer()
                                     Text(viewModel.businessItemSelected?.businessName ?? "Auswählen")
                                         .foregroundColor(.gray)
@@ -61,7 +61,7 @@ struct InvoiceFormView: View {
                                 .pickerStyle(.menu)
                             }
                         }
-                        Section(header: Text("Invoice Items")) {
+                        Section(header: Text("Artikeln")) {
                             ForEach(viewModel.invoiceItems, id: \.self) { item in
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(item.itemName)
@@ -93,7 +93,7 @@ struct InvoiceFormView: View {
                                 HStack {
                                     Spacer()
                                     Image(systemName: "plus.circle.fill")
-                                    Text("Objekt hinzufügen")
+                                    Text("Artikeln hinzufügen")
                                     Spacer()
                                 }
                                 .padding()
@@ -115,7 +115,7 @@ struct InvoiceFormView: View {
                                     .multilineTextAlignment(.trailing)
                             }
                             HStack {
-                                Text("Discount (%)")
+                                Text("Rabatt (%)")
                                 TextField("Rabatt in %", value: $viewModel.discount, format: .number, prompt: Text("z. B. 10"))
                                     .keyboardType(.decimalPad)
                                     .multilineTextAlignment(.trailing)

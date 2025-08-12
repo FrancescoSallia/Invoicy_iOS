@@ -86,7 +86,7 @@ struct ClientsView: View {
                     HStack {
                         Image(systemName: "plus")
                             .bold()
-                        Text("Add Client")
+                        Text("Kunde hinzufügen")
                             .bold()
                     }
                     .padding()
@@ -110,7 +110,7 @@ struct ClientsView: View {
                 .background(Color.yellow)
                 .clipShape(.buttonBorder)
             }
-            .navigationTitle("Clients")
+            .navigationTitle("Kunden")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
