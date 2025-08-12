@@ -90,7 +90,7 @@ struct ClientFormView: View {
                 Section(header: Text("Adresse")) {
                     HStack {
                         Text("Straße:")
-                        TextField("z. B. Musterstraße 1", text: $viewModel.street, prompt: Text("z. B. Musterstraße 1"))
+                        TextField("z. B. Musterstraße", text: $viewModel.street, prompt: Text("z. B. Musterstraße"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .street)
                             .submitLabel(.next)
