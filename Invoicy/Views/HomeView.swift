@@ -60,9 +60,9 @@ struct HomeView: View {
                         ScrollView {
                             VStack(spacing: 0) {
                                 Picker("InvoicePicker", selection: $selectedFilter) {
-                                    Text("Alle").tag(InvoiceFilter.all)
-                                    Text("Offen").tag(InvoiceFilter.Open)
-                                    Text("Bezahlt").tag(InvoiceFilter.Paid)
+                                    Text("invoice_filter_all").tag(InvoiceFilter.all)
+                                    Text("invoice_filter_open").tag(InvoiceFilter.Open)
+                                    Text("invoice_filter_paid").tag(InvoiceFilter.Paid)
                                 }
                                 .pickerStyle(.segmented)
                                 .padding(.horizontal)

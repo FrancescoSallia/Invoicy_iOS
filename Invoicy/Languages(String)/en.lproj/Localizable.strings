@@ -1,0 +1,15 @@
+/* 
+  German.strings
+  Invoicy
+
+  Created by Francesco Sallia on 12.08.25.
+  
+*/
+
+
+//HomeView
+"invoice_filter_all" = "All";
+"invoice_filter_open" = "Open";
+"invoice_filter_paid" = "Paid";
+
+
