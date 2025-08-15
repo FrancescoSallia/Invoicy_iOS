@@ -121,6 +121,12 @@
 "e_g_vat_reg_no" = "e.g. 900011616";
 "subject_to_VAT" = "Subject to VAT:";
 "e_g_subject_to_VAT" = "e.g. 0";
+"bank_connection, %@" = "Bank Connection";
+"account_holder" = "Account Holder:";
+"account_number" = "Account Number:";
+"create_business" = "Create Business";
+"new_business" = "New Business";
+
 
 
 

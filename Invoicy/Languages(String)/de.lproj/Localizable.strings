@@ -121,6 +121,12 @@
 "e_g_vat_reg_no" = "z.ß. 900011616";
 "subject_to_VAT" = "Umsatzsteuerpflichtig:";
 "e_g_subject_to_VAT" = "z.ß. 0";
+"bank_connection" = "Bank-Verbindung";
+"account_holder" = "Kontoinhaber:";
+"account_number" = "Kontonummer:";
+"create_business" = "Unternehmen erstellen";
+"new_business" = "Neues Unternehmen";
+
 
 
 

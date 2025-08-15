@@ -190,11 +190,11 @@ struct BusinessFormView: View {
                 
                 //TODO: Hier weiter machen mit dem translaten!!!
                 
-                Toggle("Bank-Verbindung", isOn: $viewModel.isToggledBank)
+                Toggle("bank_connection", isOn: $viewModel.isToggledBank)
                 if viewModel.isToggledBank {
                     HStack {
-                        Text("Kontoinhaber:")
-                        TextField("Kontoinhaber", text: $viewModel.accountHolder, prompt: Text("Max Mustermann"))
+                        Text("account_holder")
+                        TextField("Kontoinhaber", text: $viewModel.accountHolder, prompt: Text("e_g_max_mustermann"))
                             .multilineTextAlignment(.trailing)
                         if viewModel.showAttentionIcon && viewModel.accountHolder.isEmpty {
                             Image(systemName: "exclamationmark.circle.fill")
@@ -221,7 +221,7 @@ struct BusinessFormView: View {
                         }
                     }
                     HStack {
-                        Text("Kontonummer:")
+                        Text("account_number")
                         TextField("Kontonummer", text: $viewModel.accountNumber, prompt: Text("1234 1234 45"))
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
@@ -297,7 +297,7 @@ struct BusinessFormView: View {
                 }
                 
                 Section {
-                    Button("Unternehmen erstellen") {
+                    Button("create_business") {
                         if viewModel.newBusiness() != nil {
                             context.insert(viewModel.newBusiness()!)
                             try? context.save()
@@ -310,7 +310,7 @@ struct BusinessFormView: View {
                     }
                 }
             }
-            .navigationTitle("Neues Unternehmen")
+            .navigationTitle("new_business")
             .sheet(isPresented: $viewModel.showSignatureView) {
                 SignatureView(drawing: $viewModel.drawing, signatureImage: $viewModel.signatureImage)
                     .presentationDetents([.medium])
