@@ -115,9 +115,12 @@
 "save_client_button" = "Kunde speichern";
 
 
-
-
-
+//BusinessFormView
+"business_name_" = "Firmenname:";
+"contact_" = "Kontakt";
+"e_g_vat_reg_no" = "z.ß. 900011616";
+"subject_to_VAT" = "Umsatzsteuerpflichtig:";
+"e_g_subject_to_VAT" = "z.ß. 0";
 
 
 

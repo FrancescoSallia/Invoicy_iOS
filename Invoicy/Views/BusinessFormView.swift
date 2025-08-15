@@ -21,10 +21,10 @@ struct BusinessFormView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section(header: Text("Allgemein")) {
+                Section(header: Text("generally_")) {
                     HStack {
-                        Text("Firmenname:")
-                        TextField("z. B. ACME GmbH", text: $viewModel.businessName, prompt: Text("z. B. ACME GmbH"))
+                        Text("business_name_")
+                        TextField("z. B. ACME GmbH", text: $viewModel.businessName, prompt: Text("e_g_ACM_GmbH"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .businessName)
                             .submitLabel(.next)
@@ -37,7 +37,7 @@ struct BusinessFormView: View {
                     }
                     HStack {
                         Text("E-Mail:")
-                        TextField("z. B. info@acme.de", text: $viewModel.email, prompt: Text("z. B. info@acme.de"))
+                        TextField("z. B. info@acme.de", text: $viewModel.email, prompt: Text("e_g_info@acme_de"))
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.emailAddress)
                             .textCase(.lowercase)
@@ -51,8 +51,8 @@ struct BusinessFormView: View {
                         }
                     }
                     HStack {
-                        Text("Webseite:")
-                        TextField("z. B. acme.de", text: $viewModel.website, prompt: Text("z. B. acme.de"))
+                        Text("website_")
+                        TextField("z. B. acme.de", text: $viewModel.website, prompt: Text("e_g_acme_de"))
                             .multilineTextAlignment(.trailing)
                             .textCase(.lowercase)
                             .focused($focusedField, equals: .website)
@@ -61,10 +61,10 @@ struct BusinessFormView: View {
                     }
                 }
                 
-                Section(header: Text("Kontakt")) {
+                Section(header: Text("contact_")) {
                     HStack {
                         Text("Name:")
-                        TextField("z. B. Max Mustermann", text: $viewModel.contactName, prompt: Text("z. B. Max Mustermann"))
+                        TextField("z. B. Max Mustermann", text: $viewModel.contactName, prompt: Text("e_g_max_mustermann"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .contactName)
                             .submitLabel(.next)
@@ -76,8 +76,8 @@ struct BusinessFormView: View {
                         }
                     }
                     HStack {
-                        Text("Telefonnummer:")
-                        TextField("z. B. +49 123 456789", text: $viewModel.phoneNumber, prompt: Text("z. B. +49 123 456789"))
+                        Text("telefonnumber_")
+                        TextField("z. B. +49 123 456789", text: $viewModel.phoneNumber, prompt: Text("telefonnumber_e_g_"))
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
                             .focused($focusedField, equals: .phoneNumber)
@@ -91,10 +91,10 @@ struct BusinessFormView: View {
                     }
                 }
                 
-                Section(header: Text("Adresse")) {
+                Section(header: Text("adress_")) {
                     HStack {
-                        Text("Straße:")
-                        TextField("z. B. Musterstraße ", text: $viewModel.street, prompt: Text("z. B. Musterstraße "))
+                        Text("street_")
+                        TextField("z. B. Musterstraße ", text: $viewModel.street, prompt: Text("e_g_street"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .street)
                             .submitLabel(.next)
@@ -106,8 +106,8 @@ struct BusinessFormView: View {
                         }
                     }
                     HStack {
-                        Text("Hausnummer:")
-                        TextField("z. B. 12a", text: $viewModel.houseNumber, prompt: Text("z. B. 12a"))
+                        Text("housenumber_")
+                        TextField("z. B. 12a", text: $viewModel.houseNumber, prompt: Text("e_g_house_number"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .houseNumber)
                             .submitLabel(.next)
@@ -119,8 +119,8 @@ struct BusinessFormView: View {
                         }
                     }
                     HStack {
-                        Text("Postleitzahl:")
-                        TextField("z. B. 12345", text: $viewModel.postalCode, prompt: Text("z. B. 12345"))
+                        Text("postal_code")
+                        TextField("z. B. 12345", text: $viewModel.postalCode, prompt: Text("e_g_postal_code"))
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
                             .focused($focusedField, equals: .postalCode)
@@ -133,8 +133,8 @@ struct BusinessFormView: View {
                         }
                     }
                     HStack {
-                        Text("Stadt:")
-                        TextField("z. B. Berlin", text: $viewModel.city, prompt: Text("z. B. Berlin"))
+                        Text("city_")
+                        TextField("z. B. Berlin", text: $viewModel.city, prompt: Text("e_g_city"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .city)
                             .submitLabel(.next)
@@ -146,8 +146,8 @@ struct BusinessFormView: View {
                         }
                     }
                     HStack {
-                        Text("Land:")
-                        TextField("z. B. Deutschland", text: $viewModel.country, prompt: Text("z. B. Deutschland"))
+                        Text("country_")
+                        TextField("z. B. Deutschland", text: $viewModel.country, prompt: Text("e_g_country"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .country)
                             .submitLabel(.next)
@@ -160,26 +160,26 @@ struct BusinessFormView: View {
                     }
                 }
                 
-                Section(header: Text("Steuerdetails")) {
+                Section(header: Text("tax_information")) {
                     HStack {
-                        Text("Handelsregister-Nummer:")
-                        TextField("z. B. DE011616", text: $viewModel.companyRegistrationNumber, prompt: Text("z. B. DE011616"))
+                        Text("Co_Reg_No_")
+                        TextField("z. B. DE011616", text: $viewModel.companyRegistrationNumber, prompt: Text("e_g_co_reg_no"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .companyRegistrationNumber)
                             .submitLabel(.next)
                             .onSubmit { focusedField = .ustIdNr }
                     }
                     HStack {
-                        Text("UST-ID-Nummer:")
-                        TextField("z. B. 998011616", text: $viewModel.ustIdNr, prompt: Text("z. B. 900011616"))
+                        Text("VAT_Reg_No_")
+                        TextField("z. B. 998011616", text: $viewModel.ustIdNr, prompt: Text("e_g_vat_reg_no"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .ustIdNr)
                             .submitLabel(.next)
                             .onSubmit { focusedField = .vatApplicable }
                     }
                     HStack {
-                        Text("Umsatzsteuerpflichtig:")
-                        TextField("z. B. 0", text: $viewModel.vatApplicable, prompt: Text("z. B. 0"))
+                        Text("subject_to_VAT")
+                        TextField("z. B. 0", text: $viewModel.vatApplicable, prompt: Text("e_g_subject_to_VAT"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .vatApplicable)
                             .submitLabel(.done)
@@ -187,6 +187,8 @@ struct BusinessFormView: View {
                     }
                     
                 }
+                
+                //TODO: Hier weiter machen mit dem translaten!!!
                 
                 Toggle("Bank-Verbindung", isOn: $viewModel.isToggledBank)
                 if viewModel.isToggledBank {
