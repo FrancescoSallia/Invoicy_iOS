@@ -13,7 +13,7 @@ enum InvoiceStatusEnum: String, Codable {
 }
 
 enum InvoiceFilter: String, CaseIterable {
-    case all = "All"
-    case Open = "Open"
-    case Paid = "Paid"
+    case all = "invoice_filter_all"
+    case Open = "invoice_filter_open"
+    case Paid = "invoice_filter_paid"
 }

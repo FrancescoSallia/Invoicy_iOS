@@ -11,5 +11,18 @@
 "invoice_filter_all" = "All";
 "invoice_filter_open" = "Open";
 "invoice_filter_paid" = "Paid";
+"invoice_created_at %@" = "Created: %@";
+"add_invoice" = "Add Invoice";
+"invoice_title" = "Invoice";
+"create_your_first_invoice" = "Create your first Invoice";
+"create_your_first_invoice_description" = "Start tracking payments and managing your business income";
+
+//ClientView
+"add_your_first_client" = "Add your first customer";
+"add_your_first_client_description" = "Start building your customer base and create professional invoices in minutes.";
+"telefon_ %@" = "Telefon: %@";
+"adress_ %@ %@, %@ %@, %@" = "Adress: %@ %@, %@ %@, %@";
+"add_client" = "Add Client";
+"clients_" = "Client's";
 
 

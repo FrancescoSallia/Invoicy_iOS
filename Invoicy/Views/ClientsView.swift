@@ -25,12 +25,12 @@ struct ClientsView: View {
                                 .scaledToFit()
                                 .frame(height: 150)
 
-                            Text("Fügen Sie ihren ersten Kunden hinzu")
+                            Text("add_your_first_client")
                                 .font(.title2)
                                 .bold()
                                 .padding(.bottom, 4)
 
-                            Text("Beginnen Sie, Ihre Kundenbasis aufzubauen und erstellen Sie in wenigen Minuten professionelle Rechnungen.")
+                            Text("add_your_first_client_description")
                                 .font(.subheadline)
                                 .foregroundStyle(.gray)
                                 .multilineTextAlignment(.center)
@@ -61,8 +61,8 @@ struct ClientsView: View {
                                             VStack(alignment: .leading, spacing: 4) {
                                                 Text(client.clientName)
                                                     .font(.headline)
-                                                Text("Telefon: \(client.phoneNumber)")
-                                                Text("Adresse: \(client.street) \(client.houseNumber), \(client.postalCode) \(client.city), \(client.country)")
+                                                Text("telefon_ \(client.phoneNumber)")
+                                                Text("adress_ \(client.street) \(client.houseNumber), \(client.postalCode) \(client.city), \(client.country)")
                                                     .font(.subheadline)
                                                     .foregroundColor(.gray)
                                             }
@@ -86,7 +86,7 @@ struct ClientsView: View {
                     HStack {
                         Image(systemName: "plus")
                             .bold()
-                        Text("Kunde hinzufügen")
+                        Text("add_client")
                             .bold()
                     }
                     .padding()
@@ -110,7 +110,7 @@ struct ClientsView: View {
                 .background(Color.yellow)
                 .clipShape(.buttonBorder)
             }
-            .navigationTitle("Kunden")
+            .navigationTitle("clients_")
             .navigationBarTitleDisplayMode(.inline)
         }
     }

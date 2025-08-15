@@ -11,5 +11,21 @@
 "invoice_filter_all" = "Alle";
 "invoice_filter_open" = "Offen";
 "invoice_filter_paid" = "Bezahlt";
+"invoice_created_at %@" = "Erstellt: %@";
+"add_invoice" = "Rechnung erstellen";
+"invoice_title" = "Rechnung";
+"create_your_first_invoice" = "Erstellen Sie ihre erste Rechnung";
+"create_your_first_invoice_description" = "Beginnen Sie, Zahlungen zu verfolgen und ihr Geschäftseinkommen zu verwalten";
+
+//ClientView
+"add_your_first_client" = "Fügen Sie ihren ersten Kunden hinzu";
+"add_your_first_client_description" = "Beginnen Sie, Ihre Kundenbasis aufzubauen und erstellen Sie in wenigen Minuten professionelle Rechnungen.";
+"telefon_ %@" = "Telefon: %@";
+"adress_ %@ %@, %@ %@, %@" = "Adresse: %@ %@, %@ %@, %@";
+"add_client" = "Kunde hinzufügen";
+"clients_" = "Kunden";
+
+
+
 
 

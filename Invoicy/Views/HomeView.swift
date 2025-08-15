@@ -42,12 +42,12 @@ struct HomeView: View {
                                 .scaledToFit()
                                 .frame(height: 200)
 
-                            Text("Erstellen Sie ihre erste Rechnung")
+                            Text("create_your_first_invoice")
                                 .font(.title2)
                                 .bold()
                                 .padding(.bottom, 4)
 
-                            Text("Beginnen Sie, Zahlungen zu verfolgen und ihr Geschäftseinkommen zu verwalten")
+                            Text("create_your_first_invoice_description")
                                 .font(.subheadline)
                                 .foregroundStyle(.gray)
                                 .multilineTextAlignment(.center)
@@ -89,7 +89,7 @@ struct HomeView: View {
                                                     Text(CurrencyEnum.symbol(from: invoice.currency))
                                                         .padding(.leading, -2)
                                                 }
-                                                Text("Erstellt: \(invoice.issuedOn.formatted())")
+                                                Text("invoice_created_at \(invoice.issuedOn.formatted())")
                                                     .font(.subheadline)
                                                     .foregroundColor(.gray)
                                                 HStack {
@@ -100,7 +100,9 @@ struct HomeView: View {
                                                             .fill(invoice.status == .Paid ? Color.green : Color.orange)
                                                             .scaledToFit()
                                                             .frame(width: 8)
-                                                        Text("\(invoice.status)")
+//                                                        Text("\(invoice.status)")
+//                                                            .tint(.secondary)
+                                                        Text("\(translateInvoiceEnumToString(invoiceFilter: invoice.status))")
                                                             .tint(.secondary)
                                                     }
                                                 }
@@ -129,7 +131,7 @@ struct HomeView: View {
                     HStack {
                         Image(systemName: "plus")
                             .bold()
-                        Text("Rechnung erstellen")
+                        Text("add_invoice")
                             .bold()
                     }
                     .padding()
@@ -141,7 +143,7 @@ struct HomeView: View {
                 .padding(.trailing, 20)
                 .padding(.bottom, 40)
             }
-            .navigationTitle("Rechnungen")
+            .navigationTitle("invoice_title")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 HStack {
@@ -244,4 +246,14 @@ struct HomeView: View {
     // 3. View mit Container zurückgeben
     return HomeView(viewModel: viewModel)
         .modelContainer(container)
+}
+
+// Übersetzt den Text(), wo erkennbar ist, ob die bestellung Bezahlt ist oder nicht.
+private func translateInvoiceEnumToString(invoiceFilter: InvoiceStatusEnum) -> String {
+    if invoiceFilter == .Open {
+        return NSLocalizedString("invoice_filter_open", comment: "")
+    } else if invoiceFilter == .Paid {
+        return NSLocalizedString("invoice_filter_paid", comment: "")
+    }
+    return ""
 }
