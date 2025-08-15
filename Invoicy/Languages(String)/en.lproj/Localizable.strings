@@ -83,17 +83,41 @@
 //ClientDetailView
 "contact_information" = "Create Invoice";
 "contact_person" = "Contact Person:";
-"website_" = "Website";
-"adress_" = "Adress";
-"street_" = "Street";
-"housenumber_" = "House number";
-"postal_code" = "Postal code";
-"city_" = "City";
+"website_" = "Website:";
+"adress_" = "Adress:";
+"street_" = "Street:";
+"housenumber_" = "House number:";
+"postal_code" = "Postal code:";
+"city_" = "City:";
 "country_" = "Country";
 "id_" = "ID";
 "Co_Reg_No_" = "Co. Reg. No.";
 "VAT_Reg_No_" = "VAT Reg. No.";
 "client_details" = "Client Details";
+
+//ClientFormView
+"client_name" = "Client Name:";
+"e_g_ACM_GmbH" = "e.g. ACM GmbH";
+"e_g_info@acme_de" = "e.g. info@acme.de";
+"e_g_acme_de" = "e.g. acme.de";
+"e_g_max_mustermann" = "e.g. Max Mustermann";
+"telefonnumber_" = "Telefon Number:";
+"telefonnumber_e_g_" = "e.g. +49 123 456789";
+"e_g_street" = "e.g. California Street";
+"e_g_house_number" = "e.g. 12a";
+"e_g_postal_code" = "e.g. 12345";
+"e_g_city" = "e.g. Berlin";
+"e_g_country" = "e.g. Deutschland";
+"tax_information" = "Tax information";
+"e_g_co_reg_no" = "e.g. HRB 123456";
+"e_g_iban" = "e.g. DE1234567891287904532121";
+"save_client_button" = "Save Client";
+
+
+
+
+
+
 
 
 

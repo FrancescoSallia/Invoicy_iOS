@@ -19,10 +19,10 @@ struct ClientFormView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section(header: Text("Allgemein")) {
+                Section(header: Text("generally_")) {
                     HStack {
-                        Text("Kundenname:")
-                        TextField("z. B. ACME GmbH", text: $viewModel.clientName, prompt: Text("z. B. ACM GmbH"))
+                        Text("client_name")
+                        TextField("z. B. ACME GmbH", text: $viewModel.clientName, prompt: Text("e_g_ACM_GmbH"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .clientName)
                             .submitLabel(.next)
@@ -35,7 +35,7 @@ struct ClientFormView: View {
                     }
                     HStack {
                         Text("E-Mail:")
-                        TextField("z. B. info@acme.de", text: $viewModel.email, prompt: Text("z. B. info@acme.de"))
+                        TextField("z. B. info@acme.de", text: $viewModel.email, prompt: Text("e_g_info@acme_de"))
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.emailAddress)
                             .textCase(.lowercase)
@@ -49,18 +49,18 @@ struct ClientFormView: View {
                         }
                     }
                     HStack {
-                        Text("Webseite:")
-                        TextField("z. B. acme.de", text: $viewModel.website, prompt: Text("z. B. acme.de"))
+                        Text("website_")
+                        TextField("z. B. acme.de", text: $viewModel.website, prompt: Text("e_g_acme_de"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .website)
                             .submitLabel(.next)
                             .onSubmit { focusedField = .contactName }
                     }
                 }
-                Section(header: Text("Kontaktperson")) {
+                Section(header: Text("contact_person")) {
                     HStack {
                         Text("Name:")
-                        TextField("z. B. Max Mustermann", text: $viewModel.contactName, prompt: Text("z. B. Max Mustermann"))
+                        TextField("z. B. Max Mustermann", text: $viewModel.contactName, prompt: Text("e_g_max_mustermann"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .contactName)
                             .submitLabel(.next)
@@ -72,8 +72,8 @@ struct ClientFormView: View {
                         }
                     }
                     HStack {
-                        Text("Telefonnummer:")
-                        TextField("z. B. +49 123 456789", text: $viewModel.phoneNumber, prompt: Text("z. B. +49 123 456789"))
+                        Text("telefonnumber_")
+                        TextField("z. B. +49 123 456789", text: $viewModel.phoneNumber, prompt: Text("telefonnumber_e_g_"))
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
                             .focused($focusedField, equals: .phoneNumber)
@@ -87,10 +87,10 @@ struct ClientFormView: View {
                     }
                 }
 
-                Section(header: Text("Adresse")) {
+                Section(header: Text("adress_")) {
                     HStack {
-                        Text("Straße:")
-                        TextField("z. B. Musterstraße", text: $viewModel.street, prompt: Text("z. B. Musterstraße"))
+                        Text("street_")
+                        TextField("z. B. Musterstraße", text: $viewModel.street, prompt: Text("e_g_street"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .street)
                             .submitLabel(.next)
@@ -103,8 +103,8 @@ struct ClientFormView: View {
                     }
                     
                     HStack {
-                        Text("Hausnummer:")
-                        TextField("z. B. 12a", text: $viewModel.houseNumber, prompt: Text("z. B. 12a"))
+                        Text("housenumber_")
+                        TextField("z. B. 12a", text: $viewModel.houseNumber, prompt: Text("e_g_house_number"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .houseNumber)
                             .submitLabel(.next)
@@ -116,8 +116,8 @@ struct ClientFormView: View {
                         }
                     }
                     HStack {
-                        Text("Postleitzahl:")
-                        TextField("z. B. 12345", text: $viewModel.postalCode, prompt: Text("z. B. 12345"))
+                        Text("postal_code")
+                        TextField("z. B. 12345", text: $viewModel.postalCode, prompt: Text("e_g_postal_code"))
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
                             .focused($focusedField, equals: .postalCode)
@@ -130,8 +130,8 @@ struct ClientFormView: View {
                         }
                     }
                     HStack {
-                        Text("Stadt:")
-                        TextField("z. B. Berlin", text: $viewModel.city, prompt: Text("z. B. Berlin"))
+                        Text("city_")
+                        TextField("z. B. Berlin", text: $viewModel.city, prompt: Text("e_g_city"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .city)
                             .submitLabel(.next)
@@ -143,8 +143,8 @@ struct ClientFormView: View {
                         }
                     }
                     HStack {
-                        Text("Land:")
-                        TextField("z. B. Deutschland", text: $viewModel.country, prompt: Text("z. B. Deutschland"))
+                        Text("country_")
+                        TextField("z. B. Deutschland", text: $viewModel.country, prompt: Text("e_g_country"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .country)
                             .submitLabel(.next)
@@ -157,18 +157,18 @@ struct ClientFormView: View {
                     }
                 }
 
-                Section(header: Text("Steuerinformationen")) {
+                Section(header: Text("tax_information")) {
                     HStack {
-                        Text("Handelsregisternummer:")
-                        TextField("z. B. HRB 123456", text: $viewModel.companyRegistrationNumber, prompt: Text("z. B. HRB 123456"))
+                        Text("Co_Reg_No_")
+                        TextField("z. B. HRB 123456", text: $viewModel.companyRegistrationNumber, prompt: Text("e_g_co_reg_no"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .companyRegistrationNumber)
                             .submitLabel(.next)
                             .onSubmit { focusedField = .ustIdNr }
                     }
                     HStack {
-                        Text("USt-IdNr.:")
-                        TextField("z. B. DE123456789", text: $viewModel.ustIdNr, prompt: Text("z. B. DE123456789"))
+                        Text("VAT_Reg_No_")
+                        TextField("z. B. DE123456789", text: $viewModel.ustIdNr, prompt: Text("e_g_iban"))
                             .multilineTextAlignment(.trailing)
                             .focused($focusedField, equals: .ustIdNr)
                             .submitLabel(.done)
@@ -176,7 +176,7 @@ struct ClientFormView: View {
                     }
                 }
                 Section {
-                        Button("Kunde speichern") {
+                        Button("save_client_button") {
                             if viewModel.newClient() != nil {
                                 context.insert(viewModel.newClient()!)
                                 try? context.save()
@@ -214,7 +214,7 @@ struct ClientFormView: View {
                 )
             }
         }
-        .navigationTitle("Kunde hinzufügen")
+        .navigationTitle("add_client")
         .navigationBarTitleDisplayMode(.inline)
         .background(Color(.systemGroupedBackground))
     }

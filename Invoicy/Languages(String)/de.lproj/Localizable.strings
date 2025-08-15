@@ -83,17 +83,41 @@
 //ClientDetailView
 "contact_information" = "Kontaktinformationen";
 "contact_person" = "Kontaktperson:";
-"website_" = "Webseite";
-"adress_" = "Adresse";
-"street_" = "Straße";
-"housenumber_" = "Hausnummer";
-"postal_code" = "Postleitzahl";
-"city_" = "Stadt";
-"country_" = "Land";
+"website_" = "Webseite:";
+"adress_" = "Adresse:";
+"street_" = "Straße:";
+"housenumber_" = "Hausnummer:";
+"postal_code" = "Postleitzahl:";
+"city_" = "Stadt:";
+"country_" = "Land:";
 "id_" = "Identifikation";
-"Co_Reg_No_" = "Handelsregisternummer";
-"VAT_Reg_No_" = "USt-IdNr.";
+"Co_Reg_No_" = "Handelsregisternummer:";
+"VAT_Reg_No_" = "USt-IdNr.:";
 "client_details" = "Detail Ansicht(Kunde)";
+
+
+//ClientFormView
+"client_name" = "Kundenname:";
+"e_g_ACM_GmbH" = "z.ß ACM GmbH";
+"e_g_info@acme_de" = "z.ß. info@acme.de";
+"e_g_acme_de" = "z.ß acme.de";
+"e_g_max_mustermann" = "z.ß. Max Mustermann";
+"telefonnumber_" = "Telefonnummer:";
+"telefonnumber_e_g_" = "z.ß. +49 123 456789";
+"e_g_street" = "z.ß. Musterstraße";
+"e_g_house_number" = "z.ß. 12a";
+"e_g_postal_code" = "z.ß. 12345";
+"e_g_city" = "z.ß. Berlin";
+"e_g_country" = "z.ß. Deutschland";
+"tax_information" = "Steuerinformationen";
+"e_g_co_reg_no" = "z.ß. HRB 123456";
+"e_g_iban" = "z.ß. DE1234567891287904532121";
+"save_client_button" = "Kunde speichern";
+
+
+
+
+
 
 
 
