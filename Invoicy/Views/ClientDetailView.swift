@@ -38,13 +38,13 @@ struct ClientDetailView: View {
 
                 // Kontaktinformationen
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Kontaktinformationen")
+                    Text("contact_information")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
 
                     VStack(spacing: 6) {
                         HStack {
-                            Text("Kontaktperson:")
+                            Text("contact_person")
                             Spacer()
                             Text(client.contactName)
                                 .foregroundColor(.primary)
@@ -63,7 +63,7 @@ struct ClientDetailView: View {
                         }
                         if let website = client.website {
                             HStack {
-                                Text("Website")
+                                Text("website_")
                                 Spacer()
                                 Text(website)
                                     .foregroundColor(.primary)
@@ -78,31 +78,31 @@ struct ClientDetailView: View {
 
                 // Adresse
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Adresse")
+                    Text("adress_")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
 
                     VStack(spacing: 6) {
                         HStack {
-                            Text("Straße")
+                            Text("street_")
                             Spacer()
                             Text(client.street)
                                 .foregroundColor(.primary)
                         }
                         HStack {
-                            Text("Hausnummer")
+                            Text("housenumber_")
                             Spacer()
                             Text(client.houseNumber)
                                 .foregroundColor(.primary)
                         }
                         HStack {
-                            Text("Postleitzahl")
+                            Text("postal_code")
                             Spacer()
                             Text(client.postalCode)
                                 .foregroundColor(.primary)
                         }
                         HStack {
-                            Text("Stadt")
+                            Text("city_")
                             Spacer()
                             Text(client.city)
                                 .foregroundColor(.primary)
@@ -122,19 +122,19 @@ struct ClientDetailView: View {
 
                 // Identifikation
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Identifikation")
+                    Text("id_")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
 
                     VStack(spacing: 6) {
                         HStack {
-                            Text("Co. Reg. No.")
+                            Text("Co_Reg_No_")
                             Spacer()
                             Text(client.companyRegistrationNumber ?? "–")
                                 .foregroundColor(.primary)
                         }
                         HStack {
-                            Text("VAT Reg. No.")
+                            Text("VAT_Reg_No_")
                             Spacer()
                             Text(client.ustIdNr ?? "–")
                                 .foregroundColor(.primary)
@@ -149,7 +149,7 @@ struct ClientDetailView: View {
                     NavigationLink {
                         EditClientView(viewModel: viewModel, clientDetail: client)
                     } label: {
-                        Label("Bearbeiten", systemImage: "pencil")
+                        Label("edit_", systemImage: "pencil")
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.blue)
@@ -173,7 +173,7 @@ struct ClientDetailView: View {
             }
             .padding(.top)
         }
-        .navigationTitle("Client details")
+        .navigationTitle("client_details")
         .navigationBarTitleDisplayMode(.inline)
     }
 }

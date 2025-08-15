@@ -80,6 +80,21 @@
 "save_invoice" = "Rechnung speichern";
 "create_invoice" = "Rechnung erstellen";
 
+//ClientDetailView
+"contact_information" = "Kontaktinformationen";
+"contact_person" = "Kontaktperson:";
+"website_" = "Webseite";
+"adress_" = "Adresse";
+"street_" = "Straße";
+"housenumber_" = "Hausnummer";
+"postal_code" = "Postleitzahl";
+"city_" = "Stadt";
+"country_" = "Land";
+"id_" = "Identifikation";
+"Co_Reg_No_" = "Handelsregisternummer";
+"VAT_Reg_No_" = "USt-IdNr.";
+"client_details" = "Detail Ansicht(Kunde)";
+
 
 
 

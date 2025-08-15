@@ -80,6 +80,24 @@
 "save_invoice" = "Create Invoice";
 "create_invoice" = "Create Invoice";
 
+//ClientDetailView
+"contact_information" = "Create Invoice";
+"contact_person" = "Contact Person:";
+"website_" = "Website";
+"adress_" = "Adress";
+"street_" = "Street";
+"housenumber_" = "House number";
+"postal_code" = "Postal code";
+"city_" = "City";
+"country_" = "Country";
+"id_" = "ID";
+"Co_Reg_No_" = "Co. Reg. No.";
+"VAT_Reg_No_" = "VAT Reg. No.";
+"client_details" = "Client Details";
+
+
+
+
 
 
 
