@@ -6,7 +6,6 @@
   
 */
 
-
 //HomeView
 "invoice_filter_all" = "All";
 "invoice_filter_open" = "Open";
@@ -17,6 +16,7 @@
 "create_your_first_invoice" = "Create your first Invoice";
 "create_your_first_invoice_description" = "Start tracking payments and managing your business income";
 
+
 //ClientView
 "add_your_first_client" = "Add your first customer";
 "add_your_first_client_description" = "Start building your customer base and create professional invoices in minutes.";
@@ -24,5 +24,27 @@
 "adress_ %@ %@, %@ %@, %@" = "Adress: %@ %@, %@ %@, %@";
 "add_client" = "Add Client";
 "clients_" = "Client's";
+
+
+//BusinessView
+"start_your_business_journey" = "Start your business journey";
+"start_your_business_journey_description" = "Add your first business to manage your finances and create invoices.";
+"add_business" = "Add Business";
+"business_" = "Business";
+
+
+//SettingsView
+"settings_title" = "Settings";
+"light_scheme" = "Light";
+"dark_scheme" = "Dark";
+"share_and_feedback" = "Share & Feedback";
+"rate_the_app" = "Rate the App";
+"share_the_app" = "Share App";
+"legal_information" = "legal information";
+"privacy_policy" = "Privacy Policy";
+"terms_of_use" = "Terms of Use";
+
+
+
 
 

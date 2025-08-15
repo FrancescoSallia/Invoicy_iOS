@@ -121,24 +121,3 @@ struct ClientsView: View {
     @Previewable @State var viewModel: BillViewModel = BillViewModel()
     ClientsView(viewModel: viewModel)
 }
-
-
-//                Button {
-//                    //TODO: Logic
-//                } label: {
-//                    HStack {
-//                        Image(systemName: "plus")
-//                            .bold()
-//                        Text("Add Client")
-//                            .bold()
-//                    }
-//                    .padding(4)
-//                }
-//                .buttonStyle(.borderedProminent)
-//                .clipShape(RoundedRectangle(cornerRadius: 40))
-//                .padding()
-//                .padding(.bottom)
-//                .shadow(radius: 8)
-
-
-//ClientFormView(viewModel: viewModel)

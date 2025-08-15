@@ -25,6 +25,33 @@
 "add_client" = "Kunde hinzufügen";
 "clients_" = "Kunden";
 
+//BusinessView
+"start_your_business_journey" = "Starten Sie Ihre Unternehmsreise";
+"start_your_business_journey_description" = "Fügen Sie Ihr erstes Unternehmen hinzu, um Ihre Finanzen zu verwalten und Rechnungen zu erstellen.";
+"add_business" = "Unternehmen hinzufügen";
+"business_" = "Unternehmen";
+
+
+//SettingsView
+"settings_title" = "Einstellungen";
+"light_scheme" = "Hell";
+"dark_scheme" = "Dunkel";
+"share_and_feedback" = "Teilen & Feedback";
+"rate_the_app" = "App bewerten";
+"share_the_app" = "App teilen";
+"legal_information" = "Rechtl. Informationen";
+"privacy_policy" = "Datenschutz";
+"terms_of_use" = "Nutzungsbedingungen";
+
+
+
+
+
+
+
+
+
+
 
 
 

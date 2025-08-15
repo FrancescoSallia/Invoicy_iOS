@@ -15,37 +15,37 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 // Darstellung section placeholder
-                Section(header: Text("Eisntellungen")) {
+                Section(header: Text("settings_title")) {
                     // Example setting
                     HStack {
                         Text("Theme")
                         Picker("Theme", selection: $viewModel.selectedTheme) {
                             Text("System").tag(ColorSchemeEnum.system)
-                            Text("Hell").tag(ColorSchemeEnum.light)
-                            Text("Dunkel").tag(ColorSchemeEnum.dark)
+                            Text("light_scheme").tag(ColorSchemeEnum.light)
+                            Text("dark_scheme").tag(ColorSchemeEnum.dark)
                         }
                         .pickerStyle(.segmented)
                     }
                 }
 
-                Section(header: Text("Teilen & Feedback")) {
+                Section(header: Text("share_and_feedback")) {
                     
-                    Button("App bewerten") {
+                    Button("rate_the_app") {
                         //TODO: App bewerten Logik
                     }
-                    Button("App teilen") {
+                    Button("share_the_app") {
 //                        viewModel.showShareSheet.toggle()
                     }
 
                 }
                 .foregroundStyle(.primary)
 
-                Section(header: Text("Rechtl. Informationen")) {
-                    NavigationLink("Datenschutz", destination: PrivacyPolicyView())
-                    NavigationLink("Nutzungsbedingungen", destination: TermsOfServiceView())
+                Section(header: Text("legal_information")) {
+                    NavigationLink("privacy_policy", destination: PrivacyPolicyView())
+                    NavigationLink("terms_of_use", destination: TermsOfServiceView())
                 }
             }
-            .navigationTitle("Einstellungen")
+            .navigationTitle("settings_title")
             .navigationBarTitleDisplayMode(.inline)
         }
         //TODO: App Store link statt pdf einfügen um die app zu teilen und nicht das ganze dokument!

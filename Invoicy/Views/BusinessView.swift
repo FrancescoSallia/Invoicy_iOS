@@ -27,12 +27,12 @@ struct BusinessView: View {
                                 .scaledToFit()
                                 .frame(height: 150)
 
-                            Text("Starten Sie Ihre Unternehmsreise")
+                            Text("start_your_business_journey")
                                 .font(.title2)
                                 .bold()
                                 .padding(.bottom, 4)
 
-                            Text("Fügen Sie Ihr erstes Unternehmen hinzu, um Ihre Finanzen zu verwalten und Rechnungen zu erstellen.")
+                            Text("start_your_business_journey_description")
                                 .font(.subheadline)
                                 .foregroundStyle(.gray)
                                 .multilineTextAlignment(.center)
@@ -59,8 +59,8 @@ struct BusinessView: View {
                                             VStack(alignment: .leading, spacing: 4) {
                                                 Text(business.businessName)
                                                     .font(.headline)
-                                                Text("Telefon: \(business.phoneNumber)")
-                                                Text("Adresse: \(business.street) \(business.houseNumber), \(business.postalCode) \(business.city), \(business.country)")
+                                                Text("telefon_ \(business.phoneNumber)")
+                                                Text("adress_ \(business.street) \(business.houseNumber), \(business.postalCode) \(business.city), \(business.country)")
                                                     .font(.subheadline)
                                                     .foregroundColor(.gray)
                                             }
@@ -85,7 +85,7 @@ struct BusinessView: View {
                     HStack {
                         Image(systemName: "plus")
                             .bold()
-                        Text("Unternehmen hinzufügen")
+                        Text("add_business")
                             .bold()
                     }
                     .padding()
@@ -109,7 +109,7 @@ struct BusinessView: View {
                 .background(Color.yellow)
                 .clipShape(.buttonBorder)
             }
-            .navigationTitle("Unternehmen")
+            .navigationTitle("business_")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
