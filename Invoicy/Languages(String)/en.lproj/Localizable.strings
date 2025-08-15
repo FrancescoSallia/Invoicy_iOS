@@ -44,6 +44,45 @@
 "privacy_policy" = "Privacy Policy";
 "terms_of_use" = "Terms of Use";
 
+//PreviewScreen
+"print_" = "Print";
+"edit_" = "Edit";
+"share_" = "Share";
+"delete_" = "Delete";
+"delete_question" = "Delete?";
+"cancel_" = "Cancel";
+"sure_delete_question" = "Are you sure you want to delete this Invoice?";
+"invoice_preview_title" = "Preview";
+
+
+//InvoiceFormView
+"generally_" = "Allgemein";
+"choose_" = "Choose";
+"client_" = "Client";
+"invoice_name" = "Invoice Name:";
+"invoice_number" = "Invoice Number:";
+"currency_" = "Currency";
+"object_" = "Object";
+"add_objects" = "Add Object's";
+"date_" = "Date";
+"issued_on" = "issued On";
+"due_on" = "Due On";
+"VAT_and_discount" = "VAT and discount";
+"VAT_" = "VAT (%)";
+"e.g_19" = "e.g. 19";
+"discount_" = "Discount (%)";
+"e.g_10" = "e.g. 10";
+"summery_" = "Summary";
+"sub_total" = "Sub total";
+"discount_percent" = "Discount (%@%%)";
+"VAT_percent" = "VAT (%@%%)";
+"total_inclusive_tax" = "Total (incl. VAT):";
+"save_invoice" = "Create Invoice";
+"create_invoice" = "Create Invoice";
+
+
+
+
 
 
 

@@ -21,14 +21,14 @@ struct InvoiceFormView: View {
     var body: some View {
         NavigationStack {
                     Form {
-                        Section(header: Text("Allgemein")) {
+                        Section(header: Text("generally_")) {
                             Button {
                                 viewModel.showBusinessSheet = true
                             } label: {
                                 HStack {
-                                    Text("Unternehmen")
+                                    Text("business_")
                                     Spacer()
-                                    Text(viewModel.businessItemSelected?.businessName ?? "Auswählen")
+                                    Text(viewModel.businessItemSelected?.businessName ??  NSLocalizedString("choose_", comment: ""))
                                         .foregroundColor(.gray)
                                 }
                             }
@@ -36,24 +36,24 @@ struct InvoiceFormView: View {
                                 viewModel.showClientSheet = true
                             } label: {
                                 HStack {
-                                    Text("Kunde")
+                                    Text("client_")
                                     Spacer()
-                                    Text(viewModel.clientItemSelected?.clientName ?? "Auswählen")
+                                    Text(viewModel.clientItemSelected?.clientName ?? NSLocalizedString("choose_", comment: ""))
                                         .foregroundColor(.gray)
                                 }
                             }
                             HStack {
-                                Text("Rechnungsname:")
-                                TextField("Rechnungsname", text: $viewModel.invoiceName)
+                                Text("invoice_name")
+                                TextField("invoice_name", text: $viewModel.invoiceName)
                                     .multilineTextAlignment(.trailing)
                             }
                             HStack {
-                                Text("Rechnungsnummer:")
-                                TextField("Rechnungsnummer", text: $viewModel.invoiceNumber)
+                                Text("invoice_number")
+                                TextField("invoice_number", text: $viewModel.invoiceNumber)
                                     .multilineTextAlignment(.trailing)
                             }
                             HStack {
-                                Picker("Währung", selection: $viewModel.currency) {
+                                Picker("currency_", selection: $viewModel.currency) {
                                     ForEach(CurrencyEnum.allCases.sorted(by: { $0.code < $1.code }), id: \.self) { currency in
                                             Text("\(currency.symbol) (\(currency.code))").tag(currency)
                                         }
@@ -61,7 +61,7 @@ struct InvoiceFormView: View {
                                 .pickerStyle(.menu)
                             }
                         }
-                        Section(header: Text("Artikeln")) {
+                        Section(header: Text("object_")) {
                             ForEach(viewModel.invoiceItems, id: \.self) { item in
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(item.itemName)
@@ -93,7 +93,7 @@ struct InvoiceFormView: View {
                                 HStack {
                                     Spacer()
                                     Image(systemName: "plus.circle.fill")
-                                    Text("Artikeln hinzufügen")
+                                    Text("add_objects")
                                     Spacer()
                                 }
                                 .padding()
@@ -102,51 +102,53 @@ struct InvoiceFormView: View {
                             .frame(maxWidth: .infinity)
                             .listRowInsets(EdgeInsets())
                         }
-                        Section(header: Text("Datum")) {
-                            DatePicker("Ausgestellt am", selection: $viewModel.selectedIssuedOn, displayedComponents: .date)
-                            DatePicker("Fällig am", selection: $viewModel.selectedDueDate, displayedComponents: .date)
+                        Section(header: Text("date_")) {
+                            DatePicker("issued_on", selection: $viewModel.selectedIssuedOn, displayedComponents: .date)
+                            DatePicker("due_on", selection: $viewModel.selectedDueDate, displayedComponents: .date)
                         }
                         
-                        Section(header: Text("MwSt. & Rabatt")) {
+                        Section(header: Text("VAT_and_discount")) {
                             HStack {
-                                Text("MwSt (%)")
-                                TextField("MwSt in %", value: $viewModel.tax, format: .number, prompt: Text("z. B. 19"))
+                                Text("VAT_")
+                                TextField("MwSt in %", value: $viewModel.tax, format: .number, prompt: Text("e.g_19"))
                                     .keyboardType(.decimalPad)
                                     .multilineTextAlignment(.trailing)
                             }
                             HStack {
-                                Text("Rabatt (%)")
-                                TextField("Rabatt in %", value: $viewModel.discount, format: .number, prompt: Text("z. B. 10"))
+                                Text("discount_")
+                                TextField("Rabatt in %", value: $viewModel.discount, format: .number, prompt: Text("e.g_10"))
                                     .keyboardType(.decimalPad)
                                     .multilineTextAlignment(.trailing)
                             }
                         }
 
-                        Section(header: Text("Zusammenfassung")) {
+                        Section(header: Text("summery_")) {
                             HStack {
-                                Text("Zwischensumme")
+                                Text("sub_total")
                                 Spacer()
                                 Text("\(viewModel.currency.symbol)")
                                 Text(viewModel.calculateSubtotal(viewModel.invoiceItems))
                             }
                             if viewModel.discount != nil && viewModel.discount! > 0 {
                                 HStack {
-                                    Text("Rabatt (\(String(format: "%.0f", viewModel.discount ?? 0.0))%)")
+                                    Text(String(format: NSLocalizedString("discount_percent", comment: ""), String(format: "%.0f", viewModel.discount ?? 0.0)))
                                     Spacer()
-                                    Text("€")
+                                    Text("\(viewModel.currency.symbol)")
                                     Text( "-\(viewModel.calculateDiscountAmount(viewModel.invoiceItems, discounT: viewModel.discount))")
                                 }
                             }
                             if viewModel.tax != nil && viewModel.tax! > 0 {
                                 HStack {
-                                    Text("MwSt (\(String(format: "%.0f", viewModel.tax ?? 0.0))%)")
+                                    Text( String(format: NSLocalizedString("VAT_percent", comment: ""), String(format: "%.0f", viewModel.tax ?? 0.0)
+                                        )
+                                    )
                                     Spacer()
                                     Text("\(viewModel.currency.symbol)")
                                     Text("\(viewModel.calculateTaxAmount(viewModel.invoiceItems, taX: viewModel.tax, discounT: viewModel.discount))")
                                 }
                             }
                             HStack {
-                                Text("Gesamt (inkl.MwSt):")
+                                Text("total_inclusive_tax")
                                 Spacer()
                                 Text("\(viewModel.currency.symbol)")
                                 Text("\(viewModel.calculateTotal(viewModel.invoiceItems,discount: viewModel.discount))")
@@ -154,7 +156,7 @@ struct InvoiceFormView: View {
                         }
 
                         Section {
-                            Button("Rechnung speichern") {
+                            Button("save_invoice") {
                                 if let invoice = viewModel.newInvoice() {
                                         // Füge jedes Item dem Kontext hinzu
                                         for item in invoice.items {
@@ -187,7 +189,7 @@ struct InvoiceFormView: View {
                         }
                         .disabled(viewModel.newInvoice() == nil)
                     }
-                    .navigationTitle("Rechnung erstellen")
+                    .navigationTitle("create_invoice")
                     .navigationBarTitleDisplayMode(.inline)
                     .onDisappear {
                         var invoiceNumberToInt = Int(viewModel.invoiceNumber)

@@ -44,6 +44,56 @@
 "terms_of_use" = "Nutzungsbedingungen";
 
 
+//PreviewScreen
+"print_" = "Drucken";
+"edit_" = "Bearbeiten";
+"share_" = "Teilen";
+"delete_" = "Löschen";
+"delete_question" = "Löschen?";
+"cancel_" = "Abbrechen";
+"sure_delete_question" = "Möchten Sie diese Rechnung wirklich löschen?";
+"invoice_preview_title" = "Rechnung-Vorschau";
+
+
+//InvoiceFormView
+"generally_" = "Allgemein";
+"choose_" = "Auswählen";
+"client_" = "Kunde";
+"invoice_name" = "Rechnungsname:";
+"invoice_number" = "Rechnungsnummer:";
+"currency_" = "Währung";
+"object_" = "Artikeln";
+"add_objects" = "Artikeln hinzufügen";
+"date_" = "Datum";
+"issued_on" = "Ausgestellt am";
+"due_on" = "Fällig am";
+"VAT_and_discount" = "MwSt. & Rabatt";
+"VAT_" = "MwSt (%)";
+"e.g_19" = "z.ß. 19";
+"discount_" = "Rabatt (%)";
+"e.g_10" = "z.ß. 10";
+"summery_" = "Zusammenfassung";
+"sub_total" = "Zwischensumme";
+"discount_percent" = "Rabatt (%@%%)";
+"VAT_percent" = "MwSt (%@%%)";
+"total_inclusive_tax" = "Gesamt (inkl.MwSt):";
+"save_invoice" = "Rechnung speichern";
+"create_invoice" = "Rechnung erstellen";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

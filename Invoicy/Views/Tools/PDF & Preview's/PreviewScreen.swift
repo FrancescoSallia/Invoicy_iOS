@@ -33,7 +33,7 @@ struct PreviewScreen: View {
                         } label: {
                             VStack {
                                 ButtonItemLabel(item: "printer.fill")
-                                Text("Drucken")
+                                Text("print_")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -43,7 +43,7 @@ struct PreviewScreen: View {
                         } label: {
                             VStack {
                                 ButtonItemLabel(item: "pencil.and.scribble")
-                                Text("Bearbeiten")
+                                Text("edit_")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -68,7 +68,7 @@ struct PreviewScreen: View {
                                         .frame(width: 24, height: 24)
                                         .tint(invoice.status == .Paid ? Color.orange : Color.green)
                                 }
-                                Text(invoice.status == .Paid ? "Offen" : "Bezahlt")
+                                Text(invoice.status == .Paid ? "invoice_filter_open" : "invoice_filter_paid")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -78,7 +78,7 @@ struct PreviewScreen: View {
                         } label: {
                             VStack{
                                 ButtonItemLabel(item: "square.and.arrow.up", color: .primary)
-                                Text("Teilen")
+                                Text("share_")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -88,7 +88,7 @@ struct PreviewScreen: View {
                         } label: {
                             VStack {
                                 ButtonItemLabel(item: "trash.fill", color: .red)
-                                Text("Löschen")
+                                Text("delete_")
                                     .font(.footnote)
                                     .tint(.primary)
                             }
@@ -105,21 +105,21 @@ struct PreviewScreen: View {
                     )
                 }
             }
-            .alert("Delete?", isPresented: $showDeleteAlert) {
-                Button("Löschen", role: .destructive) {
+            .alert("delete_question", isPresented: $showDeleteAlert) {
+                Button("delete_", role: .destructive) {
                     context.delete(invoice)
                     try? context.save()
                     dismiss()
                 }
-                Button("Cancel", role: .cancel) { }
+                Button("cancel_", role: .cancel) { }
             } message: {
-                Text("Are you sure you want to delete this Invoice?")
+                Text("sure_delete_question")
             }
             .sheet(isPresented: $viewModel.showShareSheet) {
                 ShareView(activityItems: [pdfData])
                     .presentationDetents([.medium, .large])
             }
-            .navigationTitle("Rechnung-Vorschau")
+            .navigationTitle("invoice_preview_title")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
