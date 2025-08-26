@@ -126,21 +126,10 @@
 "account_number" = "Kontonummer:";
 "create_business" = "Unternehmen erstellen";
 "new_business" = "Neues Unternehmen";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+"contact_information" = "Kontaktinformationen";
+"bank_data" = "Bank-Daten";
+"signature_" = "Unterschrift:";
+"business_details" = "Unternehmen Detail's";
 
 
 

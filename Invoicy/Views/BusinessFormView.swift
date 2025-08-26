@@ -260,7 +260,7 @@ struct BusinessFormView: View {
                         }
                     } else {
                         HStack {
-                            Text("Signatur:")
+                            Text("signature_")
                             Spacer()
                             Button {
                                 viewModel.showSignatureView = true

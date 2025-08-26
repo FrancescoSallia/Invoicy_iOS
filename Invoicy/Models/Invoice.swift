@@ -11,10 +11,10 @@ import SwiftData
 @Model
 class Invoice {
     
-    @Relationship(deleteRule: .nullify)
+    @Relationship(deleteRule: .cascade)
     var business: Business
     
-    @Relationship(deleteRule: .nullify)
+    @Relationship(deleteRule: .cascade) // Cascade sorgt dafür das alles was dazu gehört gelöscht werden, nullify hingegen nur die jeweiligen items oder wie in diesem fall Client's
     var client: Client
     
     //Invoice Details
@@ -48,7 +48,4 @@ class Invoice {
         self.totalSummery = totalSummery
         self.status = status
     }
-    
-    
-    
 }

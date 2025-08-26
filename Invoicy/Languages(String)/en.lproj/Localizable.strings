@@ -126,6 +126,11 @@
 "account_number" = "Account Number:";
 "create_business" = "Create Business";
 "new_business" = "New Business";
+"contact_information" = "Contact Information";
+"bank_data" = "Bank-Data";
+"signature_" = "Signature:";
+"business_details" = "Business Detail's";
+
 
 
 

@@ -30,7 +30,7 @@ struct BusinessDetailView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .shadow(radius: 4)
                 } else {
-                    Image("test_logo")
+                    Image("koffer_icon")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 120, height: 120)
@@ -45,13 +45,13 @@ struct BusinessDetailView: View {
 
                 // Kontaktinformationen
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Kontaktinformationen")
+                    Text("contact_information")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
 
                     VStack(spacing: 6) {
                         HStack {
-                            Text("Kontaktperson:")
+                            Text("contact_person")
                             Spacer()
                             Text(businessDetail.contactName ?? "")
                                 .foregroundColor(.primary)
@@ -75,7 +75,7 @@ struct BusinessDetailView: View {
 
                         if let website = businessDetail.website {
                             HStack {
-                                Text("Website")
+                                Text("website_")
                                 Spacer()
                                 Text(website)
                                     .foregroundColor(.primary)
@@ -91,41 +91,41 @@ struct BusinessDetailView: View {
 
                 // Adresse
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Adresse")
+                    Text("adress_")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
 
                     VStack(spacing: 6) {
                         HStack {
-                            Text("Straße")
+                            Text("street_")
                             Spacer()
                             Text(businessDetail.street)
                                 .foregroundColor(.primary)
                         }
 
                         HStack {
-                            Text("Wohnung, Suite")
+                            Text("housenumber_")
                             Spacer()
                             Text(businessDetail.houseNumber)
                                 .foregroundColor(.primary)
                         }
 
                         HStack {
-                            Text("PLZ")
+                            Text("postal_code")
                             Spacer()
                             Text(businessDetail.postalCode)
                                 .foregroundColor(.primary)
                         }
 
                         HStack {
-                            Text("Stadt")
+                            Text("city_")
                             Spacer()
                             Text(businessDetail.city)
                                 .foregroundColor(.primary)
                         }
 
                         HStack {
-                            Text("Land")
+                            Text("country")
                             Spacer()
                             Text(businessDetail.country)
                                 .foregroundColor(.primary)
@@ -139,20 +139,20 @@ struct BusinessDetailView: View {
 
                 // Identifikation
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Identifikation")
+                    Text("id_")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
 
                     VStack(spacing: 6) {
                         HStack {
-                            Text("Co. Reg. No.")
+                            Text("Co_Reg_No_")
                             Spacer()
                             Text(businessDetail.companyRegistrationNumber ?? "–")
                                 .foregroundColor(.primary)
                         }
 
                         HStack {
-                            Text("VAT Reg. No.")
+                            Text("VAT_Reg_No_")
                             Spacer()
                             Text(businessDetail.ustIdNr ?? "–")
                                 .foregroundColor(.primary)
@@ -167,13 +167,13 @@ struct BusinessDetailView: View {
                 // BankInformation
                 if businessDetail.bankPayment != nil {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Bank-Daten")
+                        Text("bank_data")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
 
                         VStack(spacing: 6) {
                             HStack {
-                                Text("Kontoinhaber")
+                                Text("account_holder")
                                 Spacer()
                                 Text(businessDetail.bankPayment?.accountHolder ?? "")
                                     .foregroundColor(.primary)
@@ -195,7 +195,7 @@ struct BusinessDetailView: View {
                                     .multilineTextAlignment(.trailing)
                             }
                             HStack {
-                                Text("Kontonummer")
+                                Text("account_number")
                                 Spacer()
                                 Text(businessDetail.bankPayment?.accountNumber ?? "")
                                     .foregroundColor(.primary)
@@ -221,7 +221,7 @@ struct BusinessDetailView: View {
                 // Unterschrift
                 if let sign = businessDetail.signatureImg {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Unterschrift")
+                        Text("signature_")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
 
@@ -240,7 +240,7 @@ struct BusinessDetailView: View {
                     NavigationLink {
                         EditBusinessView(viewModel: viewModel, businessDetail: businessDetail)
                     } label: {
-                        Label("Bearbeiten", systemImage: "pencil")
+                        Label("edit_", systemImage: "pencil")
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.blue)
@@ -264,7 +264,7 @@ struct BusinessDetailView: View {
             }
             .padding(.top)
         }
-        .navigationTitle("Business details")
+        .navigationTitle("business_details")
         .navigationBarTitleDisplayMode(.inline)
     }
 }

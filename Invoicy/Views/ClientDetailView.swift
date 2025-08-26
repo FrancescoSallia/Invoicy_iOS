@@ -158,9 +158,9 @@ struct ClientDetailView: View {
                     }
 
                     Button(role: .destructive) {
+                        dismiss()
                         context.delete(client)
                         try? context.save()
-                        dismiss()
                     } label: {
                         Image(systemName: "trash")
                             .frame(width: 44, height: 44)

@@ -89,8 +89,6 @@ class BillViewModel: ObservableObject {
 
 
     
-    
-    
     var selectedClient: Client? = Client(
         clientName: "ACME GmbH",
         email: "info@acme.de",
@@ -353,11 +351,7 @@ class BillViewModel: ObservableObject {
         invoice.currency = self.currency.rawValue
         invoice.issuedOn = self.selectedIssuedOn
         invoice.dueDate = self.selectedDueDate
-        
-        // InvoiceItems updaten – hier kommt’s darauf an, ob du die Liste komplett ersetzen
-        // oder die einzelnen Items bearbeiten willst:
         invoice.items = self.invoiceItems
-        
         invoice.discount = self.discount ?? 0
         invoice.tax = self.tax ?? 0
         invoice.totalSummery = self.totalSummery
@@ -528,8 +522,11 @@ class BillViewModel: ObservableObject {
     func loadInvoice(_ invoice: Invoice) {
         self.invoiceName = invoice.invoiceName
         self.invoiceNumber = invoice.invoiceNumber
+        
+        // Falls Business gelöscht → nil setzen
         self.businessItemSelected = invoice.business
         self.clientItemSelected = invoice.client
+        
         self.currency = CurrencyEnum(rawValue: invoice.currency) ?? .euro
         self.selectedIssuedOn = invoice.issuedOn
         self.selectedDueDate = invoice.dueDate
