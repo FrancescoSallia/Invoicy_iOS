@@ -727,10 +727,10 @@ class BillViewModel: ObservableObject {
             </div>
 
             <div class="section-title">Kunde</div>
-            <div>\(invoice.client?.clientName)</div>
-            <div>\(invoice.client?.contactName)</div>
-            <div>\(invoice.client?.street) \(invoice.client?.houseNumber)</div>
-            <div>\(invoice.client?.postalCode) \(invoice.client?.city)</div>
+            <div>\(invoice.client?.clientName ?? "")</div>
+            <div>\(invoice.client?.contactName ?? "")</div>
+            <div>\(invoice.client?.street ?? "") \(invoice.client?.houseNumber ?? "")</div>
+            <div>\(invoice.client?.postalCode ?? "") \(invoice.client?.city ?? "")</div>
 
             <div class="section-title">Leistungen</div>
             <div class="row row-header">

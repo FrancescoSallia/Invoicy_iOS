@@ -98,8 +98,8 @@ struct InvoicePrinter {
                     "Rechnungsempfänger:",
                     invoice.client?.clientName,
                     invoice.client?.contactName,
-                    "\(invoice.client?.street) \(invoice.client?.houseNumber)",
-                    "\(invoice.client?.postalCode) \(invoice.client?.city)"
+                    "\(invoice.client?.street ?? "") \(invoice.client?.houseNumber ?? "")",
+                    "\(invoice.client?.postalCode ?? "") \(invoice.client?.city ?? "")"
                 ]
                 for line in customerLines {
                     drawText(line ?? "", font: regularFont, x: customerX, y: &infoY)
@@ -234,7 +234,7 @@ struct InvoicePrinter {
 
                     var contactLines: [String?] = [invoice.business?.email]
                     if let website = invoice.business?.website { contactLines.append(website) }
-                    contactLines.append("Tel.: \(invoice.business?.phoneNumber)")
+                    contactLines.append("Tel.: \(invoice.business?.phoneNumber ?? "")")
 
                     var contactY = footerY
                     for line in contactLines {
@@ -347,10 +347,10 @@ struct InvoicePrinter {
             </div>
 
             <div class="section-title">Kunde</div>
-            <div>\(invoice.client?.clientName)</div>
-            <div>\(invoice.client?.contactName)</div>
-            <div>\(invoice.client?.street) \(invoice.client?.houseNumber)</div>
-            <div>\(invoice.client?.postalCode) \(invoice.client?.city)</div>
+            <div>\(invoice.client?.clientName ?? "")</div>
+            <div>\(invoice.client?.contactName ?? "")</div>
+            <div>\(invoice.client?.street ?? "") \(invoice.client?.houseNumber ?? "")</div>
+            <div>\(invoice.client?.postalCode ?? "") \(invoice.client?.city ?? "")</div>
 
             <div class="section-title">Leistungen</div>
             <div class="row row-header">

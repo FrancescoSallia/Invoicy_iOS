@@ -37,7 +37,7 @@ class Business {
     var logoImgData: Data? = nil
     var signatureImgData: Data? = nil
     
-    var isArchived: Bool = false
+    var isArchived: Bool = false //Business nicht wirklich löschen sondern nur archivieren damit bei den invoices keine leeren seiten entstehen.
     
     init(businessName: String, email: String, website: String? = nil, contactName: String? = nil, phoneNumber: String, street: String, houseNumber: String, postalCode: String, city: String, country: String, companyRegistrationNumber: String? = nil, ustIdNr: String? = nil, vatApplicable: String? = nil, bankPayment: BankPayment? = nil, logoImgData: Data? = nil, signatureImgData: Data? = nil, isArchived: Bool = false) {
         self.businessName = businessName

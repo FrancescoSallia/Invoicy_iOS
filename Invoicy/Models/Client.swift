@@ -30,7 +30,7 @@ class Client {
     var companyRegistrationNumber : String? = nil // Co. Reg. No. = Company Registration Number
     var ustIdNr: String? = nil //  VAT Reg. No. = Umsatzsteuer-Identifikationsnummer (USt-IdNr.)
     
-    var isArchived: Bool = false
+    var isArchived: Bool = false //Client nicht wirklich löschen sondern nur archivieren damit bei den invoices keine leeren seiten entstehen.
     
     init(clientName: String, email: String, website: String? = nil, contactName: String, phoneNumber: String, street: String, houseNumber: String, postalCode: String, city: String, country: String, companyRegistrationNumber: String? = nil, ustIdNr: String? = nil, isArchived: Bool = false) {
         self.clientName = clientName
