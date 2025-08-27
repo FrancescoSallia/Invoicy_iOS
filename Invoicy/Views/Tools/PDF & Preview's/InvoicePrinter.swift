@@ -18,7 +18,7 @@ struct InvoicePrinter {
     func generateInvoicePDF(_ invoice: Invoice) -> Data {
         let pdfMetaData = [
             kCGPDFContextCreator: "EasyBill",
-            kCGPDFContextAuthor: invoice.business.businessName,
+            kCGPDFContextAuthor: invoice.business?.businessName,
             kCGPDFContextTitle: "Rechnung \(invoice.invoiceNumber)"
         ]
         let format = UIGraphicsPDFRendererFormat()
@@ -96,25 +96,25 @@ struct InvoicePrinter {
                 var infoY = y
                 let customerLines = [
                     "Rechnungsempfänger:",
-                    invoice.client.clientName,
-                    invoice.client.contactName,
-                    "\(invoice.client.street) \(invoice.client.houseNumber)",
-                    "\(invoice.client.postalCode) \(invoice.client.city)"
+                    invoice.client?.clientName,
+                    invoice.client?.contactName,
+                    "\(invoice.client?.street) \(invoice.client?.houseNumber)",
+                    "\(invoice.client?.postalCode) \(invoice.client?.city)"
                 ]
                 for line in customerLines {
-                    drawText(line, font: regularFont, x: customerX, y: &infoY)
+                    drawText(line ?? "", font: regularFont, x: customerX, y: &infoY)
                 }
 
                 // Business Info
                 let businessLines = [
                     "Zahlen an:",
-                    invoice.business.businessName,
-                    invoice.business.email,
-                    invoice.business.phoneNumber
+                    invoice.business?.businessName,
+                    invoice.business?.email,
+                    invoice.business?.phoneNumber
                 ]
                 var rightY = y
                 for line in businessLines {
-                    drawRightText(line, font: regularFont, y: rightY)
+                    drawRightText(line ?? "", font: regularFont, y: rightY)
                     rightY += regularFont.lineHeight + 4
                 }
 
@@ -201,7 +201,7 @@ struct InvoicePrinter {
                     y += 10
                     drawText("Fällig am: \(formatDate(invoice.dueDate))", font: regularFont, x: padding, y: &y)
 
-                    if let signatureData = invoice.business.signatureImgData,
+                    if let signatureData = invoice.business?.signatureImgData,
                        let signatureImage = UIImage(data: signatureData) {
                         drawText("Unterschrift:", font: regularFont, x: padding, y: &y)
                         let maxHeight: CGFloat = 50
@@ -213,9 +213,9 @@ struct InvoicePrinter {
 
                     var footerY = pageHeight - 100
                     drawDivider(&footerY)
-                    invoice.business.businessName.draw(at: CGPoint(x: leftX, y: footerY), withAttributes: [.font: boldFont])
+                    invoice.business?.businessName.draw(at: CGPoint(x: leftX, y: footerY), withAttributes: [.font: boldFont])
 
-                    if let bank = invoice.business.bankPayment {
+                    if let bank = invoice.business?.bankPayment {
                         var bankLines: [String] = [bank.accountHolder]
                         if !bank.iban.isEmpty {
                             bankLines.append("IBAN: \(bank.iban)")
@@ -232,13 +232,13 @@ struct InvoicePrinter {
                         }
                     }
 
-                    var contactLines: [String] = [invoice.business.email]
-                    if let website = invoice.business.website { contactLines.append(website) }
-                    contactLines.append("Tel.: \(invoice.business.phoneNumber)")
+                    var contactLines: [String?] = [invoice.business?.email]
+                    if let website = invoice.business?.website { contactLines.append(website) }
+                    contactLines.append("Tel.: \(invoice.business?.phoneNumber)")
 
                     var contactY = footerY
                     for line in contactLines {
-                        drawRightText(line, font: footerFont, y: contactY, inset: padding)
+                        drawRightText(line ?? "", font: footerFont, y: contactY, inset: padding)
                         contactY += footerFont.lineHeight + 2
                     }
 
@@ -333,7 +333,7 @@ struct InvoicePrinter {
         """
 
         // Optional: Logo
-        if let logoData = invoice.business.logoImgData,
+        if let logoData = invoice.business?.logoImgData,
            let base64 = logoData.base64EncodedString(options: .lineLength64Characters) as String? {
             html += "<img class=\"logo\" src=\"data:image/png;base64,\(base64)\">"
         }
@@ -347,10 +347,10 @@ struct InvoicePrinter {
             </div>
 
             <div class="section-title">Kunde</div>
-            <div>\(invoice.client.clientName)</div>
-            <div>\(invoice.client.contactName)</div>
-            <div>\(invoice.client.street) \(invoice.client.houseNumber)</div>
-            <div>\(invoice.client.postalCode) \(invoice.client.city)</div>
+            <div>\(invoice.client?.clientName)</div>
+            <div>\(invoice.client?.contactName)</div>
+            <div>\(invoice.client?.street) \(invoice.client?.houseNumber)</div>
+            <div>\(invoice.client?.postalCode) \(invoice.client?.city)</div>
 
             <div class="section-title">Leistungen</div>
             <div class="row row-header">
@@ -385,7 +385,7 @@ struct InvoicePrinter {
         """
 
         // Unterschrift
-        if let signatureData = invoice.business.signatureImgData,
+        if let signatureData = invoice.business?.signatureImgData,
            let base64 = signatureData.base64EncodedString(options: .lineLength64Characters) as String? {
             html += """
                 <div class="signature">
@@ -396,7 +396,7 @@ struct InvoicePrinter {
         }
 
         html += "</body></html>"
-        print("Signature is \(invoice.business.signatureImgData != nil ? "available" : "nil")")
+        print("Signature is \(invoice.business?.signatureImgData != nil ? "available" : "nil")")
         
         return html
     }

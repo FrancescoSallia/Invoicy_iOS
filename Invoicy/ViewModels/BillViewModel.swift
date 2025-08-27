@@ -713,7 +713,7 @@ class BillViewModel: ObservableObject {
         """
 
         // Optional: Logo
-        if let logoData = invoice.business.logoImgData,
+        if let logoData = invoice.business?.logoImgData,
            let base64 = logoData.base64EncodedString(options: .lineLength64Characters) as String? {
             html += "<img class=\"logo\" src=\"data:image/png;base64,\(base64)\">"
         }
@@ -727,10 +727,10 @@ class BillViewModel: ObservableObject {
             </div>
 
             <div class="section-title">Kunde</div>
-            <div>\(invoice.client.clientName)</div>
-            <div>\(invoice.client.contactName)</div>
-            <div>\(invoice.client.street) \(invoice.client.houseNumber)</div>
-            <div>\(invoice.client.postalCode) \(invoice.client.city)</div>
+            <div>\(invoice.client?.clientName)</div>
+            <div>\(invoice.client?.contactName)</div>
+            <div>\(invoice.client?.street) \(invoice.client?.houseNumber)</div>
+            <div>\(invoice.client?.postalCode) \(invoice.client?.city)</div>
 
             <div class="section-title">Leistungen</div>
             <div class="row row-header">
@@ -765,7 +765,7 @@ class BillViewModel: ObservableObject {
         """
 
         // Unterschrift
-        if let signatureData = invoice.business.signatureImgData,
+        if let signatureData = invoice.business?.signatureImgData,
            let base64 = signatureData.base64EncodedString(options: .lineLength64Characters) as String? {
             html += """
                 <div class="signature">

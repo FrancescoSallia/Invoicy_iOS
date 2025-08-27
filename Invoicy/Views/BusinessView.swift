@@ -13,7 +13,9 @@ struct BusinessView: View {
     @ObservedObject var viewModel: BillViewModel
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @Query private var business: [Business]
+//    @Query private var business: [Business]
+    @Query(filter: #Predicate<Business> { !$0.isArchived })
+    private var business: [Business]
 
     var body: some View {
         NavigationStack {

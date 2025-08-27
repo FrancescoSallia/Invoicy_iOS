@@ -11,7 +11,9 @@ import SwiftData
 struct BusinessSelectionViewSheet: View {
     
     @ObservedObject var viewModel: BillViewModel
-    @Query private var businesses: [Business]
+//    @Query private var businesses: [Business]
+    @Query(filter: #Predicate<Business> { !$0.isArchived })
+    private var businesses: [Business]
     @Environment(\.dismiss) var dismiss
     
     var body: some View {

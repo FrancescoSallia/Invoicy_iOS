@@ -30,7 +30,9 @@ class Client {
     var companyRegistrationNumber : String? = nil // Co. Reg. No. = Company Registration Number
     var ustIdNr: String? = nil //  VAT Reg. No. = Umsatzsteuer-Identifikationsnummer (USt-IdNr.)
     
-    init(clientName: String, email: String, website: String? = nil, contactName: String, phoneNumber: String, street: String, houseNumber: String, postalCode: String, city: String, country: String, companyRegistrationNumber: String? = nil, ustIdNr: String? = nil) {
+    var isArchived: Bool = false
+    
+    init(clientName: String, email: String, website: String? = nil, contactName: String, phoneNumber: String, street: String, houseNumber: String, postalCode: String, city: String, country: String, companyRegistrationNumber: String? = nil, ustIdNr: String? = nil, isArchived: Bool = false) {
         self.clientName = clientName
         self.email = email
         self.website = website
@@ -43,6 +45,10 @@ class Client {
         self.country = country
         self.companyRegistrationNumber = companyRegistrationNumber
         self.ustIdNr = ustIdNr
+        self.isArchived = isArchived
     }
+    
+    @Relationship(deleteRule: .noAction, inverse: \Invoice.client)
+    var invoices: [Invoice] = []
     
 }

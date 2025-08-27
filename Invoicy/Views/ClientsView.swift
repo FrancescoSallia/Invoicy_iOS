@@ -11,7 +11,9 @@ import SwiftData
 struct ClientsView: View {
     
     @ObservedObject var viewModel: BillViewModel
-    @Query private var clients: [Client]
+//    @Query private var clients: [Client]
+    @Query(filter: #Predicate<Client> { !$0.isArchived })
+    private var clients: [Client]
 
     var body: some View {
         NavigationStack {

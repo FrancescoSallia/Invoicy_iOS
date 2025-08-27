@@ -37,7 +37,9 @@ class Business {
     var logoImgData: Data? = nil
     var signatureImgData: Data? = nil
     
-    init(businessName: String, email: String, website: String? = nil, contactName: String? = nil, phoneNumber: String, street: String, houseNumber: String, postalCode: String, city: String, country: String, companyRegistrationNumber: String? = nil, ustIdNr: String? = nil, vatApplicable: String? = nil, bankPayment: BankPayment? = nil, logoImgData: Data? = nil, signatureImgData: Data? = nil) {
+    var isArchived: Bool = false
+    
+    init(businessName: String, email: String, website: String? = nil, contactName: String? = nil, phoneNumber: String, street: String, houseNumber: String, postalCode: String, city: String, country: String, companyRegistrationNumber: String? = nil, ustIdNr: String? = nil, vatApplicable: String? = nil, bankPayment: BankPayment? = nil, logoImgData: Data? = nil, signatureImgData: Data? = nil, isArchived: Bool = false) {
         self.businessName = businessName
         self.email = email
         self.website = website
@@ -54,9 +56,10 @@ class Business {
         self.bankPayment = bankPayment
         self.logoImgData = logoImgData
         self.signatureImgData = signatureImgData
+        self.isArchived = isArchived
     }
     
     //FIXME: Diesen teil unten erstmal ausprobieren
-    @Relationship(deleteRule: .cascade, inverse: \Invoice.business)
-        var invoices: [Invoice] = []
+    @Relationship(deleteRule: .noAction, inverse: \Invoice.business)
+    var invoices: [Invoice] = []
 }

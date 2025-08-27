@@ -249,7 +249,8 @@ struct BusinessDetailView: View {
                     }
 
                     Button(role: .destructive) {
-                        context.delete(businessDetail)
+//                        context.delete(businessDetail)
+                        businessDetail.isArchived = true
                         try? context.save()
                         dismiss()
                     } label: {
