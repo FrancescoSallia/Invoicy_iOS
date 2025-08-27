@@ -19,7 +19,7 @@ struct InvoicyApp: App {
 //            CustomTabView()
 //                .preferredColorScheme(.light) // <- globaler Theme Switch
             TabView {
-                Tab("Invoicy", systemImage: "house.fill") {
+                Tab("Invoicy", systemImage: "doc.text.fill") {
                     HomeView(viewModel: viewModel)
                         .modelContainer(for: [Invoice.self, Business.self , Client.self])
                 }

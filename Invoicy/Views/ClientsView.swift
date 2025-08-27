@@ -100,18 +100,18 @@ struct ClientsView: View {
                 .padding(.trailing, 20)
                 .padding(.bottom, 40) // Abstand zur TabView / Home Indicator
             }
-            .toolbar {
-                HStack {
-                    Image(systemName: "gift.fill")
-                    Button("Upgrade") {
-                        //TODO: Logic
-                    }
-                }
-                .foregroundStyle(.white)
-                .padding(5)
-                .background(Color.yellow)
-                .clipShape(.buttonBorder)
-            }
+//            .toolbar {
+//                HStack {
+//                    Image(systemName: "gift.fill")
+//                    Button("Upgrade") {
+//                        //TODO: Logic
+//                    }
+//                }
+//                .foregroundStyle(.white)
+//                .padding(5)
+//                .background(Color.yellow)
+//                .clipShape(.buttonBorder)
+//            }
             .navigationTitle("clients_")
             .navigationBarTitleDisplayMode(.inline)
         }

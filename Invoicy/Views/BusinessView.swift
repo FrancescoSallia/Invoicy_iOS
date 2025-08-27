@@ -99,18 +99,18 @@ struct BusinessView: View {
                 .padding(.trailing, 20)
                 .padding(.bottom, 40) // Abstand zur TabView / SafeArea
             }
-            .toolbar {
-                HStack {
-                    Image(systemName: "gift.fill")
-                    Button("Upgrade") {
-                        // TODO: Logic
-                    }
-                }
-                .foregroundStyle(.white)
-                .padding(5)
-                .background(Color.yellow)
-                .clipShape(.buttonBorder)
-            }
+//            .toolbar {
+//                HStack {
+//                    Image(systemName: "gift.fill")
+//                    Button("Upgrade") {
+//                        // TODO: Logic
+//                    }
+//                }
+//                .foregroundStyle(.white)
+//                .padding(5)
+//                .background(Color.yellow)
+//                .clipShape(.buttonBorder)
+//            }
             .navigationTitle("business_")
             .navigationBarTitleDisplayMode(.inline)
         }

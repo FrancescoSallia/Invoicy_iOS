@@ -145,27 +145,21 @@ struct HomeView: View {
             }
             .navigationTitle("invoice_title")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                HStack {
-                    Image(systemName: "gift.fill")
-                    Button("Upgrade") {
-                        // TODO: Upgrade Logic
-                    }
-                }
-                .foregroundStyle(.white)
-                .padding(6)
-                .background(Color.yellow)
-                .clipShape(.capsule)
-            }
+//            .toolbar {
+//                HStack {
+//                    Image(systemName: "gift.fill")
+//                    Button("Upgrade") {
+//                        // TODO: Upgrade Logic
+//                    }
+//                }
+//                .foregroundStyle(.white)
+//                .padding(6)
+//                .background(Color.yellow)
+//                .clipShape(.capsule)
+//            }
         }
     }
 }
-
-//#Preview {
-//    @Previewable @State var viewModel: BillViewModel = BillViewModel()
-//    HomeView(viewModel: viewModel)
-//       
-//}
 
 #Preview {
     @Previewable @State var viewModel = BillViewModel()
