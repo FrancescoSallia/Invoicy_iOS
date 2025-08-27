@@ -24,7 +24,7 @@ struct PreviewScreen: View {
             VStack {
                 PDFPreviewView(pdfData: pdfData)
                     .edgesIgnoringSafeArea(.all)
-                    .padding(.top, 40)
+                    .padding(.top, 20)
                 
                 ScrollView(.horizontal) {
                     HStack {
