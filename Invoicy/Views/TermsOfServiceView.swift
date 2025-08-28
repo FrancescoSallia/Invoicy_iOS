@@ -79,7 +79,7 @@ Furthermore, we exclude liability for consequential damages resulting from the u
                         .font(.headline)
                     Text("""
 If you have any questions about these terms, please contact us at:  
-**francesco.developer@hotmail.com**
+**invoicy@outlook.com**
 
 
 """)

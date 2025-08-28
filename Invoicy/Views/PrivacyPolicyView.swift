@@ -63,7 +63,7 @@ Since the data is only stored locally, we do not have access to it.
                         .font(.headline)
                     Text("""
 If you have any questions about privacy, you can contact us at:  
-**francesco.developer@hotmail.com**
+**invoicy@outlook.com**
 
 
 """)
