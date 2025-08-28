@@ -7,14 +7,13 @@ Invoicy is the perfect solution for freelancers, small business owners, and self
 ---
 
 <p align="center">
-  <img src="./gifs/login.gif" width="200"> 
-  <img src="./gifs/home.gif" width="200">  
-  <img src="./gifs/searching.gif" width="200"> 
-  <img src="./gifs/search.gif" width="200"> 
-  <img src="./gifs/detail.gif" width="200">  
-  <img src="./gifs/favorite.gif" width="200"> 
-  <img src="./gifs/ordering.gif" width="200">  
-  <img src="./gifs/oldorders.gif" width="200"> 
+  <img src="./screenshots/create_business.png" width="250"> 
+  <img src="./screenshots/create_invoice.png" width="250"> 
+  <img src="./screenshots/invoice_preview.png" width="250">
+  <img src="./screenshots/client_view.png" width="250">
+  <img src="./screenshots/business_view.png" width="250">
+  <img src="./screenshots/invoice_view.png" width="250">
+  
 </p>
 
 ---
