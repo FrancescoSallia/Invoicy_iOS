@@ -34,7 +34,7 @@ struct SettingsView: View {
                         //TODO: App bewerten Logik
                     }
                     Button("share_the_app") {
-//                        viewModel.showShareSheet.toggle()
+                        viewModel.showShareSheet.toggle()
                     }
 
                 }
@@ -48,12 +48,10 @@ struct SettingsView: View {
             .navigationTitle("settings_title")
             .navigationBarTitleDisplayMode(.inline)
         }
-        //TODO: App Store link statt pdf einfügen um die app zu teilen und nicht das ganze dokument!
-        
-//        .sheet(isPresented: $viewModel.showShareSheet) {
-//            ShareView(activityItems: [pdfData])
-//                .presentationDetents([.medium, .large])
-//        }
+        .sheet(isPresented: $viewModel.showShareSheet) {
+            ShareView(activityItems: [URL(string: "https://apps.apple.com/de/app/invoicy/id6751598755")!])
+                .presentationDetents([.medium, .large])
+        }
     }
 }
 
