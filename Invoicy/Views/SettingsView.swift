@@ -31,7 +31,9 @@ struct SettingsView: View {
                 Section(header: Text("share_and_feedback")) {
                     
                     Button("rate_the_app") {
-                        //TODO: App bewerten Logik
+                        if let url = URL(string: "https://apps.apple.com/app/id6751598755?action=write-review") {
+                                UIApplication.shared.open(url)
+                            }
                     }
                     Button("share_the_app") {
                         viewModel.showShareSheet.toggle()

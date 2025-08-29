@@ -168,6 +168,7 @@ struct InvoiceFormView: View {
                                         try? context.save()
 
                                         viewModel.resetInputsInvoiceFrom()
+                                        viewModel.requestReview() // Aufruf der Spontane Bewertung von Apple
                                         dismiss()
                                     }
                             }
@@ -196,9 +197,6 @@ struct InvoiceFormView: View {
                         if invoiceNumberToInt != nil, invoiceNumberToInt ?? 0 > 0 {
                             invoiceNumberToInt! -= 1
                         }
-                        
-                        //TODO: teste die diappear funktion wenn man immer wieder neue invoices erstellt ob die generierte zahl sich so verhält wie es sich verhalten sollte!
-
                     }
                     .sheet(isPresented: $viewModel.showBusinessSheet) {
                         BusinessSelectionViewSheet(viewModel: viewModel)

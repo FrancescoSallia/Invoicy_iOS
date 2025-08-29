@@ -10,6 +10,8 @@ import UIKit
 import _PhotosUI_SwiftUI
 import SwiftUICore
 import WebKit
+import StoreKit
+
 
 @MainActor
 class BillViewModel: ObservableObject {
@@ -812,6 +814,19 @@ class BillViewModel: ObservableObject {
             }
         }
     }
-
+    
+    // Diese funktion ist für die Spontane bewertung der app verantwortlich, Apple entscheidet selbst wann dieser Dialog angezeigt werden soll, ich muss die funktion nur einmal aufrufen in dem Projekt
+    func requestReview() {
+        if #available(iOS 18.0, *) {
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                AppStore.requestReview(in: scene)
+            }
+        } else {
+            // Fallback für iOS <18
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: scene)
+            }
+        }
+    }
     
 }
