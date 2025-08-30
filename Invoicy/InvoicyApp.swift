@@ -14,29 +14,40 @@ struct InvoicyApp: App {
     @StateObject var viewModel: BillViewModel = BillViewModel()
     @StateObject var errorHandler = ErrorHandler.shared
     
+    // State, ob Onboarding angezeigt wird
+    @State private var showOnBoarding: Bool = !UserDefaults.standard.bool(forKey: "onBoardingCompleted")
+    
     var body: some Scene {
         WindowGroup {
-//            CustomTabView()
-//                .preferredColorScheme(.light) // <- globaler Theme Switch
-            TabView {
-                Tab("Invoicy", systemImage: "doc.text.fill") {
-                    HomeView(viewModel: viewModel)
-                        .modelContainer(for: [Invoice.self, Business.self , Client.self])
+            if showOnBoarding {
+                // Onboarding anzeigen
+                OnBoardingView {
+                    // Closure wird aufgerufen, wenn Onboarding fertig ist
+                    showOnBoarding = false
+                    UserDefaults.standard.set(true, forKey: "onBoardingCompleted")
                 }
-                Tab("Kunden", systemImage: "person.text.rectangle.fill") {
-                    ClientsView(viewModel: viewModel)
-                        .modelContainer(for: [Client.self])
+            } else {
+                
+                TabView {
+                    Tab("Invoicy", systemImage: "doc.text.fill") {
+                        HomeView(viewModel: viewModel)
+                            .modelContainer(for: [Invoice.self, Business.self , Client.self])
+                    }
+                    Tab("Kunden", systemImage: "person.text.rectangle.fill") {
+                        ClientsView(viewModel: viewModel)
+                            .modelContainer(for: [Client.self])
+                    }
+                    Tab("Unternehmen", systemImage: "suitcase") {
+                        BusinessView(viewModel: viewModel)
+                            .modelContainer(for: [Business.self])
+                    }
+                    Tab("Einstellungen", systemImage: "gearshape") {
+                        SettingsView(viewModel: viewModel)
+                    }
                 }
-                Tab("Unternehmen", systemImage: "suitcase") {
-                    BusinessView(viewModel: viewModel)
-                        .modelContainer(for: [Business.self])
-                }
-                Tab("Einstellungen", systemImage: "gearshape") {
-                    SettingsView(viewModel: viewModel)
-                }
+                .preferredColorScheme(viewModel.selectedTheme.colorScheme) // <- globaler Theme Switch
+                .tint(.primaryApp)
             }
-            .preferredColorScheme(viewModel.selectedTheme.colorScheme) // <- globaler Theme Switch
-            .tint(.primaryApp)
         }
     }
 }

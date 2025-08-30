@@ -131,6 +131,32 @@
 "signature_" = "Signature:";
 "business_details" = "Business Detail's";
 
+//OnBoardingView
+"onboarding_welcome_title" = "Welcome to Invoicy 👋";
+"onboarding_welcome_subtitle" = "Your simple solution for professional invoices:";
+"onboarding_welcome_point_1" = "Create invoices in seconds";
+"onboarding_welcome_point_2" = "100% free and no subscription";
+"onboarding_welcome_point_3" = "Manage your business efficiently in one place";
+"onboarding_welcome_point_4" = "Always stay up to date with payments";
+"onboarding_welcome_description" = "Start now and focus on what really matters – your business!";
+
+"onboarding_invoice_title" = "Optimize Your Invoicing";
+"onboarding_invoice_subtitle" = "Boost your productivity with our user-friendly tools:";
+"onboarding_invoice_point_1" = "Access all features via an intuitive dashboard";
+"onboarding_invoice_point_2" = "Quickly create and send professional invoices on the go";
+"onboarding_invoice_point_3" = "Manage multiple businesses from a single platform";
+"onboarding_invoice_description" = "Simplify your invoice management and focus on growing your business!";
+
+"onboarding_customer_title" = "Effortless Customer Management";
+"onboarding_customer_subtitle" = "Build stronger relationships with ease:";
+"onboarding_customer_point_1" = "Maintain a comprehensive customer database";
+"onboarding_customer_point_2" = "Quick access and update of customer data";
+"onboarding_customer_point_3" = "Customize invoices for each customer";
+"onboarding_customer_point_4" = "Track payment history and outstanding balances";
+"onboarding_customer_description" = "Never miss a beat in your customer communication!";
+
+"onboarding_start_button" = "Start";
+
 
 
 

@@ -131,6 +131,32 @@
 "signature_" = "Unterschrift:";
 "business_details" = "Unternehmen Detail's";
 
+//OnBoardingView
+"onboarding_welcome_title" = "Willkommen bei Invoicy 👋";
+"onboarding_welcome_subtitle" = "Ihre einfache Lösung für professionelle Rechnungen:";
+"onboarding_welcome_point_1" = "Erstellen Sie Rechnungen in Sekunden";
+"onboarding_welcome_point_2" = "100% kostenlos und ohne Abo";
+"onboarding_welcome_point_3" = "Verwalten Sie Ihr Business effizient an einem Ort";
+"onboarding_welcome_point_4" = "Bleiben Sie immer auf dem Laufenden über Zahlungen";
+"onboarding_welcome_description" = "Starten Sie jetzt und konzentrieren Sie sich auf das, was wirklich zählt – Ihr Business!";
+
+"onboarding_invoice_title" = "Optimieren Sie Ihre Rechnungsstellung";
+"onboarding_invoice_subtitle" = "Steigern Sie Ihre Produktivität mit unseren benutzerfreundlichen Tools:";
+"onboarding_invoice_point_1" = "Zugriff auf alle Funktionen über ein intuitives Dashboard";
+"onboarding_invoice_point_2" = "Erstellen und versenden Sie schnell professionelle Rechnungen unterwegs";
+"onboarding_invoice_point_3" = "Verwalten Sie mehrere Unternehmen von einer einzigen Plattform aus";
+"onboarding_invoice_description" = "Vereinfachen Sie Ihr Rechnungsmanagement und konzentrieren Sie sich auf das Wachstum Ihres Unternehmens!";
+
+"onboarding_customer_title" = "Mühelose Kundenverwaltung";
+"onboarding_customer_subtitle" = "Bauen Sie mühelos stärkere Beziehungen auf:";
+"onboarding_customer_point_1" = "Führen Sie eine umfassende Kundendatenbank";
+"onboarding_customer_point_2" = "Schneller Zugriff und Aktualisierung von Kundendaten";
+"onboarding_customer_point_3" = "Passen Sie Rechnungen für jeden Kunden an";
+"onboarding_customer_point_4" = "Zahlungsverlauf und ausstehende Salden verfolgen";
+"onboarding_customer_description" = "Verpassen Sie nie einen Takt in Ihrer Kundenkommunikation!";
+
+"onboarding_start_button" = "Los legen";
+
 
 
 
