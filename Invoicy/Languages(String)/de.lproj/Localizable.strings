@@ -158,9 +158,13 @@
 "onboarding_start_button" = "Los legen";
 
 
-//ClientSelectionViewSheet
+//ClientSelectionViewSheet & BusinessSelectionViewSheet
 "no_clients_create_first" = "Noch keine Kunden. Erstellen Sie zuerst einen.";
 "no_businesses_create_first" = "Noch keine Unternehmen. Erstellen Sie zuerst eins.";
+"create_new_company" = "Neues Unternehmen erstellen";
+"create_new_client" = "Neuer Kunde erstellen";
+
+
 
 
 //Alert & Errors

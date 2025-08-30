@@ -20,13 +20,18 @@ struct BusinessSelectionViewSheet: View {
         NavigationStack {
             
             if businesses.isEmpty {
-                Text("no_businesses_create_first")
-                    .bold()
-                
-                NavigationLink {
-                    BusinessFormView(viewModel: viewModel)
-                } label: {
-                    Text("Neuen Business erstellen")
+                VStack {
+                    Spacer()
+                    Text("no_businesses_create_first")
+                        .bold()
+                        .padding()
+                    NavigationLink {
+                        BusinessFormView(viewModel: viewModel)
+                    } label: {
+                        Text("create_new_company")
+                            .padding()
+                    }
+                    Spacer()
                 }
             } else {
                 ScrollView {

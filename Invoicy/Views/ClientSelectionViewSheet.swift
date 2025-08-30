@@ -20,15 +20,19 @@ struct ClientSelectionViewSheet: View {
         NavigationStack {
             
             if clients.isEmpty {
-                Text("no_clients_create_first")
-                    .bold()
-                
-                NavigationLink {
-                    ClientFormView(viewModel: viewModel)
-                } label: {
-                    Text("neuen Kunde erstellen")
+                VStack {
+                    Spacer()
+                    Text("no_clients_create_first")
+                        .bold()
+                        .padding()
+                    NavigationLink {
+                        ClientFormView(viewModel: viewModel)
+                    } label: {
+                        Text("create_new_client")
+                            .padding()
+                    }
+                    Spacer()
                 }
-
             } else {
                 ScrollView {
                     VStack {
