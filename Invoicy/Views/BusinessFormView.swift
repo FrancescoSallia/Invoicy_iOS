@@ -338,11 +338,6 @@ struct BusinessFormView: View {
                     }
                 }
             }
-//            .alert("Error", isPresented: $viewModel.showAlert) {
-//                Button("OK", role: .cancel) { }
-//            } message: {
-//                Text("Something went wrong. Probably you forgot to fill in some fields.")
-//            }
             .alert(item: $errorHandler.currentError) { appError in
                 Alert(
                     title: Text(appError.title),

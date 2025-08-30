@@ -158,8 +158,20 @@
 "onboarding_start_button" = "Start";
 
 
+//ClientSelectionViewSheet
+"no_clients_create_first" = "No Client's yet. Create one first.";
+"no_businesses_create_first" = "No businesses yet. Create one first.";
 
 
+//Alert & Errors
+"validation_check_inputs" = "Check your inputs!";
+"validation_customer_save_failed" = "Please check your inputs. The customer could not be saved.";
+"validation_business_contact_save_failed" = "Please check your inputs. The business contact could not be saved.";
+"validation_pdf_render_error" = "Error rendering PDF: %@";
+
+"error_title_validation" = "Input error";
+"error_title_network" = "Network error";
+"error_title_unknown" = "Error";
 
 
 

@@ -17,7 +17,7 @@ enum ErrorEnum: Error, Identifiable, LocalizedError {
     init(from error: Error) {
         let nsError = error as NSError
         if nsError.domain == NSURLErrorDomain {
-            self = .network("Netzwerkfehler: \(nsError.localizedDescription)")
+            self = .network("Network error: \(nsError.localizedDescription)")
         } else {
             self = .unknown(error.localizedDescription)
         }
@@ -37,11 +37,11 @@ enum ErrorEnum: Error, Identifiable, LocalizedError {
     var title: String {
         switch self {
         case .validation:
-            return "Eingabefehler"
+            return NSLocalizedString("error_title_validation", comment: "Title for validation errors")
         case .network:
-            return "Netzwerkfehler"
+            return NSLocalizedString("error_title_network", comment: "Title for network errors")
         case .unknown:
-            return "Fehler"
+            return NSLocalizedString("error_title_unknown", comment: "Title for unknown errors")
         }
     }
 }

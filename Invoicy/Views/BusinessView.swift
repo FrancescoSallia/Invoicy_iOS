@@ -35,10 +35,10 @@ struct BusinessView: View {
                                 .padding(.bottom, 4)
 
                             Text("start_your_business_journey_description")
-                                .font(.subheadline)
-                                .foregroundStyle(.gray)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal)
+                            .font(.subheadline)
+                            .foregroundStyle(.gray)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
                             Spacer()
                         }
                         .padding()
@@ -60,11 +60,11 @@ struct BusinessView: View {
 
                                             VStack(alignment: .leading, spacing: 4) {
                                                 Text(business.businessName)
-                                                    .font(.headline)
+                                                .font(.headline)
                                                 Text("telefon_ \(business.phoneNumber)")
                                                 Text("adress_ \(business.street) \(business.houseNumber), \(business.postalCode) \(business.city), \(business.country)")
-                                                    .font(.subheadline)
-                                                    .foregroundColor(.gray)
+                                                .font(.subheadline)
+                                                .foregroundColor(.gray)
                                             }
 
                                             Spacer()
@@ -72,7 +72,7 @@ struct BusinessView: View {
                                         .padding()
                                     }
                                     Divider()
-                                        .padding(.horizontal)
+                                    .padding(.horizontal)
                                 }
                             }
                             .padding(.top)
@@ -86,9 +86,9 @@ struct BusinessView: View {
                 } label: {
                     HStack {
                         Image(systemName: "plus")
-                            .bold()
+                        .bold()
                         Text("add_business")
-                            .bold()
+                        .bold()
                     }
                     .padding()
                     .background(Color.primaryApp)
@@ -122,30 +122,3 @@ struct BusinessView: View {
     BusinessView(viewModel: viewModel)
 }
 
-//#Preview {
-//    @Previewable @State var viewModel: BillViewModel = BillViewModel()
-//
-//    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-//    let container = try! ModelContainer(for: Business.self, configurations: config)
-//
-//   let business = Business(
-//        businessName: "BauTech Solutions",
-//        email: "service@bautech.com",
-//        website: nil,
-//        contactName: nil,
-//        phoneNumber: "+49 222 333444",
-//        street: "Industriestraße",
-//        houseNumber: "15",
-//        postalCode: "50667",
-//        city: "Köln",
-//        country: "Deutschland",
-//        companyRegistrationNumber: nil,
-//        ustIdNr: nil,
-//        vatApplicable: nil,
-//        bankPayment: nil,
-//        logoImgData: nil,
-//        signatureImgData: nil
-//    )
-//        BusinessView(viewModel: viewModel)
-//            .modelContainer(container)
-//}

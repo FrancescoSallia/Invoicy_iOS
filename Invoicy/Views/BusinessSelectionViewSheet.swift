@@ -20,7 +20,14 @@ struct BusinessSelectionViewSheet: View {
         NavigationStack {
             
             if businesses.isEmpty {
-                Text("No businesses yet. Create one first.")
+                Text("no_businesses_create_first")
+                    .bold()
+                
+                NavigationLink {
+                    BusinessFormView(viewModel: viewModel)
+                } label: {
+                    Text("Neuen Business erstellen")
+                }
             } else {
                 ScrollView {
                     VStack {
