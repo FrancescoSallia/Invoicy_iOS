@@ -33,16 +33,13 @@ struct InvoicyApp: App {
                         HomeView(viewModel: viewModel)
                             .modelContainer(for: [Invoice.self, Business.self , Client.self])
                     }
-                    Tab("Kunden", systemImage: "person.text.rectangle.fill") {
-                        ClientsView(viewModel: viewModel)
+                    Tab(NSLocalizedString("tab_clients", comment: ""), systemImage: "person.text.rectangle.fill") {                        ClientsView(viewModel: viewModel)
                             .modelContainer(for: [Client.self])
                     }
-                    Tab("Unternehmen", systemImage: "suitcase") {
-                        BusinessView(viewModel: viewModel)
+                    Tab(NSLocalizedString("tab_business", comment: ""), systemImage: "suitcase") {                        BusinessView(viewModel: viewModel)
                             .modelContainer(for: [Business.self])
                     }
-                    Tab("Einstellungen", systemImage: "gearshape") {
-                        SettingsView(viewModel: viewModel)
+                    Tab(NSLocalizedString("tab_settings", comment: ""), systemImage: "gearshape") {                        SettingsView(viewModel: viewModel)
                     }
                 }
                 .preferredColorScheme(viewModel.selectedTheme.colorScheme) // <- globaler Theme Switch

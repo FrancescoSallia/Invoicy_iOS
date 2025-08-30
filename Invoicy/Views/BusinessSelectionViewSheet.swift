@@ -64,10 +64,10 @@ struct BusinessSelectionViewSheet: View {
                         }
                     }
                     .padding(.top)
-                    .navigationTitle("Business auswählen")
+                    .navigationTitle("title_select_business")
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
-                            Button("Abbrechen") {
+                            Button("cancel_") {
                                 dismiss()
                             }
                         }

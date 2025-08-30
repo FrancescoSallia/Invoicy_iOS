@@ -64,10 +64,10 @@ struct ClientSelectionViewSheet: View {
                         }
                     }
                     .padding(.top)
-                    .navigationTitle("Client auswählen")
+                    .navigationTitle("title_select_client")
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
-                            Button("Abbrechen") {
+                            Button("cancel_") {
                                 dismiss()
                             }
                         }

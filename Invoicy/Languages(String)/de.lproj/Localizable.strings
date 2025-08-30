@@ -163,6 +163,8 @@
 "no_businesses_create_first" = "Noch keine Unternehmen. Erstellen Sie zuerst eins.";
 "create_new_company" = "Neues Unternehmen erstellen";
 "create_new_client" = "Neuer Kunde erstellen";
+"title_select_business" = "Unternehmen auswählen";
+"title_select_client" = "Kunde auswählen";
 
 
 
@@ -179,8 +181,10 @@
 
 
 
-
-
+//InvoicyApp
+"tab_clients" = "Kunden";
+"tab_business" = "Unternehmen";
+"tab_settings" = "Einstellungen";
 
 
 
