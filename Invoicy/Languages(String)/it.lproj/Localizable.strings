@@ -1,0 +1,211 @@
+/*
+  Italian.strings
+  Invoicy
+
+  Created by Francesco Sallia on 12.08.25.
+  
+*/
+
+//HomeView
+"invoice_filter_all" = "Tutte";
+"invoice_filter_open" = "Aperte";
+"invoice_filter_paid" = "Pagate";
+"invoice_created_at %@" = "Creato il: %@";
+"add_invoice" = "Aggiungi Fattura";
+"invoice_title" = "Fattura";
+"create_your_first_invoice" = "Crea la tua prima fattura";
+"create_your_first_invoice_description" = "Inizia a monitorare i pagamenti e gestire i tuoi ricavi aziendali";
+
+
+//ClientView
+"add_your_first_client" = "Aggiungi il tuo primo cliente";
+"add_your_first_client_description" = "Inizia a creare la tua base clienti e genera fatture professionali in pochi minuti.";
+"telefon_ %@" = "Telefono: %@";
+"adress_ %@ %@, %@ %@, %@" = "Indirizzo: %@ %@, %@ %@, %@";
+"add_client" = "Aggiungi Cliente";
+"clients_" = "Clienti";
+
+
+//BusinessView
+"start_your_business_journey" = "Inizia il tuo percorso aziendale";
+"start_your_business_journey_description" = "Aggiungi la tua prima azienda per gestire le finanze e creare fatture.";
+"add_business" = "Aggiungi Azienda";
+"business_" = "Azienda";
+
+
+//SettingsView
+"settings_title" = "Impostazioni";
+"light_scheme" = "Chiaro";
+"dark_scheme" = "Scuro";
+"share_and_feedback" = "Condividi & Feedback";
+"rate_the_app" = "Valuta l'app";
+"share_the_app" = "Condividi App";
+"legal_information" = "Informazioni legali";
+"privacy_policy" = "Informativa sulla Privacy";
+"terms_of_use" = "Termini di utilizzo";
+
+//PreviewScreen
+"print_" = "Stampa";
+"edit_" = "Modifica";
+"share_" = "Condividi";
+"delete_" = "Elimina";
+"delete_question" = "Eliminare?";
+"cancel_" = "Annulla";
+"sure_delete_question" = "Sei sicuro di voler eliminare questa fattura?";
+"invoice_preview_title" = "Anteprima";
+
+
+//InvoiceFormView
+"generally_" = "Generale";
+"choose_" = "Scegli";
+"client_" = "Cliente";
+"invoice_name" = "Nome Fattura:";
+"invoice_number" = "Numero Fattura:";
+"currency_" = "Valuta";
+"object_" = "Oggetto";
+"add_objects" = "Aggiungi Oggetti";
+"date_" = "Data";
+"issued_on" = "Emessa il";
+"due_on" = "Scadenza il";
+"VAT_and_discount" = "IVA e sconto";
+"VAT_" = "IVA (%)";
+"e.g_19" = "es. 19";
+"discount_" = "Sconto (%)";
+"e.g_10" = "es. 10";
+"summery_" = "Riepilogo";
+"sub_total" = "Totale parziale";
+"discount_percent" = "Sconto (%@%%)";
+"VAT_percent" = "IVA (%@%%)";
+"total_inclusive_tax" = "Totale (incl. IVA):";
+"save_invoice" = "Crea Fattura";
+"create_invoice" = "Crea Fattura";
+
+//ClientDetailView
+"contact_information" = "Informazioni di contatto";
+"contact_person" = "Referente:";
+"website_" = "Sito web:";
+"adress_" = "Indirizzo:";
+"street_" = "Via:";
+"housenumber_" = "Numero civico:";
+"postal_code" = "CAP:";
+"city_" = "Città:";
+"country_" = "Paese";
+"id_" = "ID";
+"Co_Reg_No_" = "Num. Reg. Impresa";
+"VAT_Reg_No_" = "P.IVA";
+"client_details" = "Dettagli Cliente";
+
+
+//ClientFormView
+"client_name" = "Nome Cliente:";
+"e_g_ACM_GmbH" = "es. ACM Srl";
+"e_g_info@acme_de" = "es. info@acme.it";
+"e_g_acme_de" = "es. acme.it";
+"e_g_max_mustermann" = "es. Mario Rossi";
+"telefonnumber_" = "Numero di telefono:";
+"telefonnumber_e_g_" = "es. +39 123 456789";
+"e_g_street" = "es. Via Roma";
+"e_g_house_number" = "es. 12a";
+"e_g_postal_code" = "es. 00100";
+"e_g_city" = "es. Roma";
+"e_g_country" = "es. Italia";
+"tax_information" = "Informazioni fiscali";
+"e_g_co_reg_no" = "es. REA 123456";
+"e_g_iban" = "es. IT60X0542811101000000123456";
+"save_client_button" = "Salva Cliente";
+
+
+//BusinessFormView
+"business_name_" = "Nome Azienda:";
+"contact_" = "Contatto";
+"e_g_vat_reg_no" = "es. 900011616";
+"subject_to_VAT" = "Soggetto a IVA:";
+"e_g_subject_to_VAT" = "es. 0";
+"bank_connection" = "Coordinate Bancarie";
+"account_holder" = "Intestatario:";
+"account_number" = "Numero di conto:";
+"create_business" = "Crea Azienda";
+"new_business" = "Nuova Azienda";
+"contact_information" = "Informazioni di contatto";
+"bank_data" = "Dati Bancari";
+"signature_" = "Firma:";
+"business_details" = "Dettagli Azienda";
+
+//OnBoardingView
+"onboarding_welcome_title" = "Benvenuto su Invoicy 👋";
+"onboarding_welcome_subtitle" = "La tua soluzione semplice per fatture professionali:";
+"onboarding_welcome_point_1" = "Crea fatture in pochi secondi";
+"onboarding_welcome_point_2" = "100% gratis e senza abbonamento";
+"onboarding_welcome_point_3" = "Gestisci la tua azienda in modo efficiente in un unico posto";
+"onboarding_welcome_point_4" = "Tieniti sempre aggiornato sui pagamenti";
+"onboarding_welcome_description" = "Inizia ora e concentrati su ciò che conta davvero – il tuo business!";
+
+"onboarding_invoice_title" = "Ottimizza la tua Fatturazione";
+"onboarding_invoice_subtitle" = "Aumenta la tua produttività con i nostri strumenti intuitivi:";
+"onboarding_invoice_point_1" = "Accedi a tutte le funzioni tramite una dashboard intuitiva";
+"onboarding_invoice_point_2" = "Crea e invia rapidamente fatture professionali ovunque tu sia";
+"onboarding_invoice_point_3" = "Gestisci più aziende da un'unica piattaforma";
+"onboarding_invoice_description" = "Semplifica la gestione delle fatture e concentrati sulla crescita della tua attività!";
+
+"onboarding_customer_title" = "Gestione Clienti Semplificata";
+"onboarding_customer_subtitle" = "Costruisci relazioni più solide con facilità:";
+"onboarding_customer_point_1" = "Mantieni un database clienti completo";
+"onboarding_customer_point_2" = "Accedi e aggiorna rapidamente i dati dei clienti";
+"onboarding_customer_point_3" = "Personalizza le fatture per ogni cliente";
+"onboarding_customer_point_4" = "Traccia lo storico dei pagamenti e i saldi aperti";
+"onboarding_customer_description" = "Non perdere mai un dettaglio nella comunicazione con i tuoi clienti!";
+
+"onboarding_start_button" = "Inizia";
+
+
+//ClientSelectionViewSheet
+"no_clients_create_first" = "Nessun cliente ancora. Creane uno prima.";
+"no_businesses_create_first" = "Nessuna azienda ancora. Creane una prima.";
+"create_new_company" = "Crea una nuova Azienda";
+"create_new_client" = "Crea un nuovo Cliente";
+"title_select_business" = "Seleziona Azienda";
+"title_select_client" = "Seleziona Cliente";
+
+
+
+
+//Alert & Errors
+"validation_check_inputs" = "Controlla i tuoi dati!";
+"validation_customer_save_failed" = "Verifica i tuoi dati. Il cliente non può essere salvato.";
+"validation_business_contact_save_failed" = "Verifica i tuoi dati. I dati aziendali non possono essere salvati.";
+"validation_pdf_render_error" = "Errore nella generazione del PDF: %@";
+
+"error_title_validation" = "Errore di input";
+"error_title_network" = "Errore di rete";
+"error_title_unknown" = "Errore";
+
+
+//InvoicyApp
+"tab_clients" = "Clienti";
+"tab_business" = "Azienda";
+"tab_settings" = "Impostazioni";
+
+
+//Invoice-Preview
+"invoice_title" = "FATTURA";
+"invoice_number" = "Numero Fattura";
+"invoice_number_short" = "N. Fattura";
+"date" = "Data";
+"issued_on" = "Emessa il";
+"due_on" = "Scadenza il";
+"invoice_recipient" = "Destinatario:";
+"pay_to" = "Pagare a:";
+"description" = "Descrizione";
+"quantity" = "Quantità";
+"price" = "Prezzo";
+"total" = "Totale";
+"subtotal" = "Totale parziale";
+"discount" = "Sconto";
+"tax" = "IVA";
+"grand_total" = "Importo totale";
+"signature" = "Firma:";
+"customer" = "Cliente";
+"services" = "Servizi";
+"phone" = "Telefono";
+"account" = "Conto";
+"bic" = "BIC";

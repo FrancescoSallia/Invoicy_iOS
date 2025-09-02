@@ -186,6 +186,30 @@
 "tab_settings" = "Settings";
 
 
+//Invoice-Preview
+"invoice_title" = "INVOICE";
+"invoice_number" = "Invoice Number";
+"invoice_number_short" = "Invoice No.";
+"date" = "Date";
+"issued_on" = "Issued on";
+"due_on" = "Due on";
+"invoice_recipient" = "Recipient:";
+"pay_to" = "Pay to:";
+"description" = "Description";
+"quantity" = "Quantity";
+"price" = "Price";
+"total" = "Total";
+"subtotal" = "Subtotal";
+"discount" = "Discount";
+"tax" = "Tax";
+"grand_total" = "Total Amount";
+"signature" = "Signature:";
+"customer" = "Customer";
+"services" = "Services";
+"phone" = "Phone";
+"account" = "Account";
+"bic" = "BIC";
+
 
 
 

@@ -85,9 +85,9 @@ struct InvoicePrinter {
             func drawHeader() {
                 let headerY = y
                 var tempY = y
-                drawText("RECHNUNG", font: titleFont, x: padding, y: &tempY)
-                drawRightText("Rechnungsnummer: \(invoice.invoiceNumber)", font: regularFont, y: headerY)
-                drawRightText("Datum: \(formatDate(invoice.issuedOn))", font: regularFont, y: headerY + 18)
+                drawText(NSLocalizedString("invoice_title", comment: ""), font: titleFont, x: padding, y: &tempY)
+                drawRightText("\(NSLocalizedString("invoice_number", comment: "")): \(invoice.invoiceNumber)", font: regularFont, y: headerY)
+                drawRightText("\(NSLocalizedString("date", comment: "")): \(formatDate(invoice.issuedOn))", font: regularFont, y: headerY + 18)
                 y = tempY + 8
                 drawDivider(&y)
 
@@ -95,7 +95,7 @@ struct InvoicePrinter {
                 let customerX = padding
                 var infoY = y
                 let customerLines = [
-                    "Rechnungsempfänger:",
+                    NSLocalizedString("invoice_recipient", comment: ""),
                     invoice.client?.clientName,
                     invoice.client?.contactName,
                     "\(invoice.client?.street ?? "") \(invoice.client?.houseNumber ?? "")",
@@ -107,7 +107,7 @@ struct InvoicePrinter {
 
                 // Business Info
                 let businessLines = [
-                    "Zahlen an:",
+                    NSLocalizedString("pay_to", comment: ""),
                     invoice.business?.businessName,
                     invoice.business?.email,
                     invoice.business?.phoneNumber
@@ -129,10 +129,10 @@ struct InvoicePrinter {
             let totalX = pageWidth * 0.85
 
             func drawTableHeader() {
-                "Beschreibung".draw(at: CGPoint(x: leftX, y: y), withAttributes: [.font: boldFont])
-                "Menge".draw(at: CGPoint(x: qtyX, y: y), withAttributes: [.font: boldFont])
-                "Preis".draw(at: CGPoint(x: priceX, y: y), withAttributes: [.font: boldFont])
-                "Gesamt".draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: boldFont])
+                NSLocalizedString("description", comment: "").draw(at: CGPoint(x: leftX, y: y), withAttributes: [.font: boldFont])
+                NSLocalizedString("quantity", comment: "").draw(at: CGPoint(x: qtyX, y: y), withAttributes: [.font: boldFont])
+                NSLocalizedString("price", comment: "").draw(at: CGPoint(x: priceX, y: y), withAttributes: [.font: boldFont])
+                NSLocalizedString("total", comment: "").draw(at: CGPoint(x: totalX, y: y), withAttributes: [.font: boldFont])
                 y += boldFont.lineHeight + 6
                 drawDivider(&y)
             }
@@ -186,24 +186,24 @@ struct InvoicePrinter {
                         y += font.lineHeight + 4
                     }
 
-                    drawSummary(label: "Zwischensumme:", value: formatPrice(subtotal, currency: CurrencyEnum.symbol(from: invoice.currency)))
+                    drawSummary(label: "\(NSLocalizedString("subtotal", comment: "")):", value: formatPrice(subtotal, currency: CurrencyEnum.symbol(from: invoice.currency)))
                     if invoice.discount > 0 {
-                        drawSummary(label: "Rabatt(%):", value: "-\(viewModel.calculateDiscountAmount(invoice.items, discounT: invoice.discount))")
+                        drawSummary(label: "\(NSLocalizedString("discount", comment: ""))(%):", value: "-\(viewModel.calculateDiscountAmount(invoice.items, discounT: invoice.discount))")
                     }
-                    drawSummary(label: "MwSt.(\(invoice.tax)%):", value: viewModel.calculateTaxAmount(invoice.items, taX: invoice.tax, discounT: invoice.discount))
+                    drawSummary(label: "\(NSLocalizedString("tax", comment: ""))(\(invoice.tax)%):", value: viewModel.calculateTaxAmount(invoice.items, taX: invoice.tax, discounT: invoice.discount))
 
                     let startX = pageWidth * 0.59
                     let endX = pageWidth - padding
                     drawDividerPartial(y: y, startX: startX, endX: endX)
                     y += 8
 
-                    drawSummary(label: "Gesamtbetrag (\(CurrencyEnum.code(from: invoice.currency))):", value: viewModel.calculateTotal(invoice.items, discount: invoice.discount))
+                    drawSummary(label: "\(NSLocalizedString("grand_total", comment: "")) (\(CurrencyEnum.code(from: invoice.currency))):", value: viewModel.calculateTotal(invoice.items, discount: invoice.discount))
                     y += 10
-                    drawText("Fällig am: \(formatDate(invoice.dueDate))", font: regularFont, x: padding, y: &y)
+                    drawText("\(NSLocalizedString("due_on", comment: "")): \(formatDate(invoice.dueDate))", font: regularFont, x: padding, y: &y)
 
                     if let signatureData = invoice.business?.signatureImgData,
                        let signatureImage = UIImage(data: signatureData) {
-                        drawText("Unterschrift:", font: regularFont, x: padding, y: &y)
+                        drawText(NSLocalizedString("signature", comment: ""), font: regularFont, x: padding, y: &y)
                         let maxHeight: CGFloat = 50
                         let scale = maxHeight / signatureImage.size.height
                         let size = CGSize(width: signatureImage.size.width * scale, height: maxHeight)
@@ -220,8 +220,8 @@ struct InvoicePrinter {
                         if !bank.iban.isEmpty {
                             bankLines.append("IBAN: \(bank.iban)")
                         } else {
-                            if !bank.accountNumber.isEmpty { bankLines.append("Konto: \(bank.accountNumber)") }
-                            if !bank.bic.isEmpty { bankLines.append("BIC: \(bank.bic)") }
+                            if !bank.accountNumber.isEmpty { bankLines.append("\(NSLocalizedString("account", comment: "")): \(bank.accountNumber)") }
+                            if !bank.bic.isEmpty { bankLines.append("\(NSLocalizedString("bic", comment: "")): \(bank.bic)") }
                         }
                         bankLines.append(bank.bankName)
 
@@ -234,7 +234,7 @@ struct InvoicePrinter {
 
                     var contactLines: [String?] = [invoice.business?.email]
                     if let website = invoice.business?.website { contactLines.append(website) }
-                    contactLines.append("Tel.: \(invoice.business?.phoneNumber ?? "")")
+                    contactLines.append("\(NSLocalizedString("phone", comment: "")): \(invoice.business?.phoneNumber ?? "")")
 
                     var contactY = footerY
                     for line in contactLines {
@@ -339,25 +339,25 @@ struct InvoicePrinter {
         }
 
         html += """
-            <h1>RECHNUNG</h1>
+            <h1>\(NSLocalizedString("invoice_title", comment: ""))</h1>
             <div class="info">
-                <div>Rechnungsnr.: \(invoice.invoiceNumber)</div>
-                <div>Ausgestellt am: \(formatDate(invoice.issuedOn))</div>
-                <div>Fällig am: \(formatDate(invoice.dueDate))</div>
+                <div>\(NSLocalizedString("invoice_number_short", comment: "")): \(invoice.invoiceNumber)</div>
+                <div>\(NSLocalizedString("issued_on", comment: "")) \(formatDate(invoice.issuedOn))</div>
+                <div>\(NSLocalizedString("due_on", comment: "")) \(formatDate(invoice.dueDate))</div>
             </div>
 
-            <div class="section-title">Kunde</div>
+            <div class="section-title">\(NSLocalizedString("customer", comment: ""))</div>
             <div>\(invoice.client?.clientName ?? "")</div>
             <div>\(invoice.client?.contactName ?? "")</div>
             <div>\(invoice.client?.street ?? "") \(invoice.client?.houseNumber ?? "")</div>
             <div>\(invoice.client?.postalCode ?? "") \(invoice.client?.city ?? "")</div>
 
-            <div class="section-title">Leistungen</div>
+            <div class="section-title">\(NSLocalizedString("services", comment: ""))</div>
             <div class="row row-header">
-                <div style="flex: 1;">Beschreibung</div>
-                <div class="right" style="width: 60px;">Menge</div>
-                <div class="right" style="width: 80px;">Preis</div>
-                <div class="right" style="width: 80px;">Gesamt</div>
+                <div style="flex: 1;">\(NSLocalizedString("description", comment: ""))</div>
+                <div class="right" style="width: 60px;">\(NSLocalizedString("quantity", comment: ""))</div>
+                <div class="right" style="width: 80px;">\(NSLocalizedString("price", comment: ""))</div>
+                <div class="right" style="width: 80px;">\(NSLocalizedString("total", comment: ""))</div>
             </div>
         """
 
@@ -377,10 +377,10 @@ struct InvoicePrinter {
 
         html += """
             <div class="summary">
-                <div class="row"><div>Zwischensumme</div><div>\(formatPrice(subtotal, currency: invoice.currency))</div></div>
-                <div class="row"><div>Rabatt</div><div>-\(formatPrice(invoice.discount, currency: invoice.currency))</div></div>
-                <div class="row"><div>Steuer</div><div>\(formatPrice(invoice.tax, currency: invoice.currency))</div></div>
-                <div class="row total"><div>Gesamt</div><div>\(formatPrice(invoice.totalSummery, currency: invoice.currency))</div></div>
+                <div class="row"><div>\(NSLocalizedString("subtotal", comment: ""))</div><div>\(formatPrice(subtotal, currency: invoice.currency))</div></div>
+                <div class="row"><div>\(NSLocalizedString("discount", comment: ""))</div><div>-\(formatPrice(invoice.discount, currency: invoice.currency))</div></div>
+                <div class="row"><div>\(NSLocalizedString("tax", comment: ""))</div><div>\(formatPrice(invoice.tax, currency: invoice.currency))</div></div>
+                <div class="row total"><div>\(NSLocalizedString("total", comment: ""))</div><div>\(formatPrice(invoice.totalSummery, currency: invoice.currency))</div></div>
             </div>
         """
 
@@ -389,7 +389,7 @@ struct InvoicePrinter {
            let base64 = signatureData.base64EncodedString(options: .lineLength64Characters) as String? {
             html += """
                 <div class="signature">
-                    <div>Unterschrift:</div>
+                    <div>\(NSLocalizedString("signature", comment: ""))</div>
                     <img src="data:image/png;base64,\(base64)" style="height: 60px; width: auto; display: block; margin-top: 10px;">
                 </div>
             """

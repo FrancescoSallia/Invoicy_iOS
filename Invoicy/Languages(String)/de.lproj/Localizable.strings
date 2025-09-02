@@ -186,8 +186,29 @@
 "tab_business" = "Unternehmen";
 "tab_settings" = "Einstellungen";
 
-
-
+//Invoice-Preview
+"invoice_title" = "RECHNUNG";
+"invoice_number" = "Rechnungsnummer";
+"invoice_number_short" = "Rechnungsnr.";
+"date" = "Datum";
+"issued_on" = "Ausgestellt am";
+"due_on" = "Fällig am";
+"invoice_recipient" = "Rechnungsempfänger:";
+"pay_to" = "Zahlen an:";
+"description" = "Beschreibung";
+"quantity" = "Menge";
+"price" = "Preis";
+"total" = "Gesamt";
+"subtotal" = "Zwischensumme";
+"discount" = "Rabatt";
+"tax" = "MwSt.";
+"grand_total" = "Gesamtbetrag";
+"signature" = "Unterschrift:";
+"customer" = "Kunde";
+"services" = "Leistungen";
+"phone" = "Tel.";
+"account" = "Konto";
+"bic" = "BIC";
 
 
 
