@@ -43,6 +43,16 @@ Invoicy is the perfect solution for freelancers, small business owners, and self
 
 ---
 
+<img src="./screenshots/appstore_icon.png" width="100">
+
+##  Download on the App Store   
+
+Check out **Invoicy** on the App Store and download it here for free:
+
+[Invoicy on the App Store](https://apps.apple.com/de/app/invoicy/id6751598755)
+
+---
+
 ## Technical Architecture
 
 The app is built with **Swift** and follows the **MVVM (Model-View-ViewModel)** architecture.
@@ -93,9 +103,3 @@ The app uses **SwiftData** for local data persistence.
 - [ ] Extend testing coverage with more unit and integration tests
 
 ---
-
-## Download on the App Store
-
-Check out **Invoicy** on the App Store and download it here:
-
-[Invoicy on the App Store](https://apps.apple.com/de/app/invoicy/id6751598755)
