@@ -90,4 +90,12 @@ The app uses **SwiftData** for local data persistence.
 - [ ] Multiple invoice preview templates for users to choose from  
 - [ ] Customize invoice template colors individually  
 - [ ] Camera access to generate invoices from photos or images  
-- [ ] Extend testing coverage with more unit and integration tests  
+- [ ] Extend testing coverage with more unit and integration tests
+
+---
+
+## Download on the App Store
+
+Check out **Invoicy** on the App Store and download it here:
+
+[Invoicy on the App Store](https://apps.apple.com/de/app/invoicy/id6751598755)
