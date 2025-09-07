@@ -59,8 +59,8 @@
 "generally_" = "Allgemein";
 "choose_" = "Auswählen";
 "client_" = "Kunde";
-"invoice_name" = "Rechnungsname:";
-"invoice_number" = "Rechnungsnummer:";
+"invoice_name" = "Rechnungsname";
+"invoice_number" = "Rechnungsnummer";
 "currency_" = "Währung";
 "object_" = "Artikeln";
 "add_objects" = "Artikeln hinzufügen";

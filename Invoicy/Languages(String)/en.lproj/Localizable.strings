@@ -59,8 +59,8 @@
 "generally_" = "Allgemein";
 "choose_" = "Choose";
 "client_" = "Client";
-"invoice_name" = "Invoice Name:";
-"invoice_number" = "Invoice Number:";
+"invoice_name" = "Invoice Name";
+"invoice_number" = "Invoice Number";
 "currency_" = "Currency";
 "object_" = "Object";
 "add_objects" = "Add Object's";
