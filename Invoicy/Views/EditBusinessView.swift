@@ -7,7 +7,7 @@
 
 
 import SwiftUI
-import SwiftUICore
+import SwiftUI
 import PhotosUI
 import SwiftData
 

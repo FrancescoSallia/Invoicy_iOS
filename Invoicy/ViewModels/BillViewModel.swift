@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import _PhotosUI_SwiftUI
-import SwiftUICore
+import SwiftUI
 import WebKit
 import StoreKit
 

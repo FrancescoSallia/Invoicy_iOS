@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftUICore
+import SwiftUI
 
 enum ColorSchemeEnum: String, CaseIterable, Identifiable {
     case system, light, dark
